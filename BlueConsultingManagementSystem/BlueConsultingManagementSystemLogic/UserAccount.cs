@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlueConsultingManagementSystemLogic
 {
-    class UserAccount
+    class UserAccount : AccountsProfile
     {
     }
 }
