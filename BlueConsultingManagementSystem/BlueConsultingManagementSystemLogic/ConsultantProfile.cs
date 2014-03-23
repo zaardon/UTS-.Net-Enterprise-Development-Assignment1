@@ -8,5 +8,9 @@ namespace BlueConsultingManagementSystemLogic
 {
     class ConsultantProfile : AccountsProfile
     {
+        public void enterExpenses() { }
+        public void attachReceipt() { }
+        public void submitExpenses() { }
+        public void viewUnapprovedReports () { }
     }
 }
