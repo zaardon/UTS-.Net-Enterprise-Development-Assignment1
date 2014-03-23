@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueConsultingManagementSystemUI", "BlueConsultingManagementSystemUI\BlueConsultingManagementSystemUI.csproj", "{3249C700-F835-45E3-A477-5091B0239EE6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueConsultingManagementSystemLogic", "BlueConsultingManagementSystemLogic\BlueConsultingManagementSystemLogic.csproj", "{11ACDA5D-514B-4493-AA88-2F41539EF834}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlueConsultingManagementSystemTests", "BlueConsultingManagementSystemTests\BlueConsultingManagementSystemTests.csproj", "{C8A78593-C074-4607-9082-78003B5A95A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +17,14 @@ Global
 		{3249C700-F835-45E3-A477-5091B0239EE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3249C700-F835-45E3-A477-5091B0239EE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3249C700-F835-45E3-A477-5091B0239EE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11ACDA5D-514B-4493-AA88-2F41539EF834}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11ACDA5D-514B-4493-AA88-2F41539EF834}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11ACDA5D-514B-4493-AA88-2F41539EF834}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11ACDA5D-514B-4493-AA88-2F41539EF834}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8A78593-C074-4607-9082-78003B5A95A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8A78593-C074-4607-9082-78003B5A95A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8A78593-C074-4607-9082-78003B5A95A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8A78593-C074-4607-9082-78003B5A95A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
