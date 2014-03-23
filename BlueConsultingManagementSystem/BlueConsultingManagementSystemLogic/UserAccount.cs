@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace BlueConsultingManagementSystemLogic
 {
-    class UserAccount : AccountsProfile
+    class UserAccount : SupervisorProfile
     {
+        public void viewRemainingCompanyBudget() { }
     }
 }

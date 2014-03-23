@@ -8,5 +8,12 @@ namespace BlueConsultingManagementSystemLogic
 {
     class SupervisorProfile : AccountsProfile
     {
+        protected void approveReport(){}
+        protected void rejectReport() { }
+        protected void confirmApproval() { }
+        protected void seeExpenses() { }
+        public void displayRemainingBudget() { }
+        public void displayRejectedReports() { }
+
     }
 }

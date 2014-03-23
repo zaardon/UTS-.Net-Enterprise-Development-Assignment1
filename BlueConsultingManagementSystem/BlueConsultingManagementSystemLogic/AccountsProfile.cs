@@ -13,9 +13,15 @@ namespace BlueConsultingManagementSystemLogic
         string password;
 
         public void login() { }
-        public void createAccount() { }
 
-        public void viewExpenseReports() { }
+
+        //public void createAccount() { }
+        protected void viewExpenseReports() { }
+        protected bool canSubmitExpenses() { return false;}
+        protected bool canAttachReceipts() { return false; }
+        protected bool submitExpenses() { return false; }
+        protected bool canViewPDFFile() { return false; }
+
 
 
 
