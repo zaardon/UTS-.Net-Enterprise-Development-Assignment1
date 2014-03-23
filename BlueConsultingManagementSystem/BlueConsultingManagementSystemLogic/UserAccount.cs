@@ -8,5 +8,6 @@ namespace BlueConsultingManagementSystemLogic
 {
     class UserAccount : AccountsProfile
     {
+        
     }
 }

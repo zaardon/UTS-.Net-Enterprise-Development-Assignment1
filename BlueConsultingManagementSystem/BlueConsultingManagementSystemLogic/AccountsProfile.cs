@@ -6,13 +6,26 @@ using System.Threading.Tasks;
 
 namespace BlueConsultingManagementSystemLogic
 {
-    class AccountsProfile
+    public class AccountsProfile
     {
 
-        string username;
-        string password;
+        public string username { get; set; }
+        public string password { get; set; }
 
-        public void login() { }
+        public AccountsProfile(string name, string pass)
+        {
+            this.username = name;
+            this.password = pass;
+        }
+        public AccountsProfile() { }
+
+        public bool login(string name, string pass) 
+        {
+            if (name == username && pass == password)
+                return true;
+            else
+                return false;
+        }
         public void createAccount() { }
 
         public void viewExpenseReports() { }
