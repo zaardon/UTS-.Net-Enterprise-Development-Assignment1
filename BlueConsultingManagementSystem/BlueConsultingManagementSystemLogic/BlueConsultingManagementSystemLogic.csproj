@@ -42,10 +42,7 @@
     <Compile Include="AccountsProfile.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="ConsultantProfile.cs" />
-<<<<<<< HEAD
-=======
-    <Compile Include="login.cs" />
->>>>>>> a40521f042ce3f1ad3a556d060b5d0ddd418704d
+
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SupervisorProfile.cs" />
     <Compile Include="UserAccount.cs" />
