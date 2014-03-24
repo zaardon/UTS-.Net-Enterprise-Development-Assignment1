@@ -22,14 +22,26 @@ namespace BlueConsultingManagementSystemUI
 
         protected void LoginButton_Click(object sender, EventArgs e)
         {
-            LoginLogic checkLogin = (LoginLogic)Session["login"];
+            // alex this redirects put i wanted to see something.
+            //LoginLogic checkLogin = (LoginLogic)Session["login"];
 
-            ErrorLabel.Visible = true;
-            if (!checkLogin.correctDetails(UserBox.Text,PassBox.Text))
-                ErrorLabel.Text = "Please reconsider your details";
-            else         
-                ErrorLabel.Text = "Success!";
-                //Continue to next page...
+            //ErrorLabel.Visible = true;
+            //if (!checkLogin.correctDetails(UserBox.Text, PassBox.Text))
+            //    ErrorLabel.Text = "Please reconsider your details";
+            //else
+            //{
+            //    ErrorLabel.Text = "Success!";
+            //    Server.Transfer("userpage.aspx");
+            //}
+           AccountsProfile derp= new AccountsProfile("James", "pass");
+            if(!derp.login(UserBox.Text, PassBox.Text))
+                    ErrorLabel.Text = "Please reconsider your details";
+                else
+                {
+                    ErrorLabel.Text = "Success!";
+                    Server.Transfer("userpage.aspx");
+                }
+                
             
      
         }

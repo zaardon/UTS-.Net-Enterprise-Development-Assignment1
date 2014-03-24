@@ -11,6 +11,7 @@ namespace BlueConsultingManagementSystemUI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            LBName.Text ="I don't know how to send stuff in sessions yet";
 
         }
     }
