@@ -40,9 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountsProfile.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="ConsultantProfile.cs" />
-
+    <Compile Include="LoginLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SupervisorProfile.cs" />
     <Compile Include="UserAccount.cs" />

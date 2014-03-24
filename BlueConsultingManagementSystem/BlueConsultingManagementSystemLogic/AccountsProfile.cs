@@ -9,7 +9,7 @@ namespace BlueConsultingManagementSystemLogic
     public class AccountsProfile
     {
 
-<<<<<<< HEAD
+
         public string username { get; set; }
         public string password { get; set; }
 
@@ -28,12 +28,9 @@ namespace BlueConsultingManagementSystemLogic
                 return false;
         }
         public void createAccount() { }
-=======
-        string username;
-        string password;
 
         public void login() { }
->>>>>>> a40521f042ce3f1ad3a556d060b5d0ddd418704d
+
 
 
         //public void createAccount() { }

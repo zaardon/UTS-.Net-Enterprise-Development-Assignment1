@@ -13,8 +13,10 @@
         <br />
         Please login
         <br />
-        <asp:TextBox ID="TextBox1" runat="server" Text ="Username"></asp:TextBox> <br />
-        <asp:TextBox ID="TextBox2" runat="server" Text ="Password"></asp:TextBox><asp:Button ID="Button2" runat="server" Text="Login" />
+        <asp:TextBox ID="UserBox" runat="server" Text ="Username"></asp:TextBox> <br />
+        <asp:TextBox ID="PassBox" runat="server" Text ="Password" ></asp:TextBox> <br />
+        <asp:Button ID="LoginButton" runat="server" Text="Login" OnClick="LoginButton_Click" /> <br />
+        <asp:Label ID="ErrorLabel" runat="server" Text="" Visble="false"></asp:Label>
     </div>
     </form>
 </body>
