@@ -10,14 +10,17 @@ namespace BlueConsultingManagementSystemUI
 {
     public partial class index : System.Web.UI.Page
     {
+        public AccountsProfile sesDerp;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(Session["login"] == null)
+            if(Session["loginu"] == null)
             {
-               LoginLogic checkLogin = new LoginLogic();
-               Session["login"] = checkLogin;
-                
+                sesDerp = new AccountsProfile("James", "pass");               
             }
+            else
+                sesDerp = (AccountsProfile)Session["loginu"];
+           
+
         }
 
         protected void LoginButton_Click(object sender, EventArgs e)
@@ -33,15 +36,20 @@ namespace BlueConsultingManagementSystemUI
             //    ErrorLabel.Text = "Success!";
             //    Server.Transfer("userpage.aspx");
             //}
-           AccountsProfile derp= new AccountsProfile("James", "pass");
-            if(!derp.login(UserBox.Text, PassBox.Text))
+            if (sesDerp == null)
+                ErrorLabel.Text = " you done fucked up the session";
+            else
+            {
+                if (!sesDerp.login(UserBox.Text, PassBox.Text))
                     ErrorLabel.Text = "Please reconsider your details";
                 else
                 {
                     ErrorLabel.Text = "Success!";
+                    Session["loginu"] = sesDerp;
                     Server.Transfer("userpage.aspx");
+                    
                 }
-                
+            }
             
      
         }

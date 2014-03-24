@@ -4,14 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BlueConsultingManagementSystemLogic;
 
 namespace BlueConsultingManagementSystemUI
 {
     public partial class userpage : System.Web.UI.Page
     {
+         AccountsProfile sesDerp;
         protected void Page_Load(object sender, EventArgs e)
         {
-            LBName.Text ="I don't know how to send stuff in sessions yet";
+            sesDerp = (AccountsProfile)Session["loginu"];
+            LBName.Text ="the account name is : " + sesDerp.username;
 
         }
     }
