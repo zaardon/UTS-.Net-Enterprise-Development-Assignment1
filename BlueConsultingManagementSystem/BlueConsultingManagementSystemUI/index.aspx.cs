@@ -37,7 +37,7 @@ namespace BlueConsultingManagementSystemUI
             //    Server.Transfer("userpage.aspx");
             //}
             if (sesDerp == null)
-                ErrorLabel.Text = " you done fucked up the session";
+                ErrorLabel.Text = " you done messed up the session";
             else
             {
                 if (!sesDerp.login(UserBox.Text, PassBox.Text))
