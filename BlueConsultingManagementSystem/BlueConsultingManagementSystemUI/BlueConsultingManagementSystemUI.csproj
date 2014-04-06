@@ -57,6 +57,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\BlueConsultingDB.mdf" />
+    <Content Include="App_Data\BlueConsultingDB_log.ldf">
+      <DependentUpon>BlueConsultingDB.mdf</DependentUpon>
+    </Content>
     <Content Include="ConsultantOnlyPages\ConsultantMain.aspx" />
     <Content Include="index.aspx" />
     <Content Include="Login.aspx" />
