@@ -22,7 +22,7 @@
         
              <br />
              <asp:Button ID="Approve" runat="server" Text="Submit" OnClick="Approve_Click" />
-             <asp:Button ID="Deny" runat="server" Text="Deny" />
+             <asp:Button ID="Deny" runat="server" Text="Deny" OnClick="Deny_Click" />
              <br />
              <br />
         
