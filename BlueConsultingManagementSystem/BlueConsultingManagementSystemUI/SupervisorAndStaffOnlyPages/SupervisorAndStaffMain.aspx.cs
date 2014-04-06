@@ -21,7 +21,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                 //SQL Command goes here to show datas
                 var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
                 var connection = new SqlConnection(connectionString);
-                var selectCommand = new SqlCommand("SELECT * FROM ExpenseDB WHERE Dept_Type = 'HigherEducation'", connection);
+                var selectCommand = new SqlCommand("SELECT * FROM ExpenseDB WHERE Dept_Type = 'HigherEducation' AND StatusReport <> 'Approved' AND StatusReport <> 'Declined'", connection);
                 var adapter = new SqlDataAdapter(selectCommand);
 
                 var resultSet = new DataSet();
@@ -42,7 +42,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
                 var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
                 var connection = new SqlConnection(connectionString);
-                var selectCommand = new SqlCommand("SELECT * FROM ExpenseDB WHERE Dept_Type = 'LogisticServices'", connection);
+                var selectCommand = new SqlCommand("SELECT * FROM ExpenseDB WHERE Dept_Type = 'LogisticServices' AND StatusReport <> 'Approved' AND StatusReport <> 'Declined'", connection);
                 var adapter = new SqlDataAdapter(selectCommand);
 
                 var resultSet = new DataSet();
@@ -61,7 +61,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
                 var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
                 var connection = new SqlConnection(connectionString);
-                var selectCommand = new SqlCommand("SELECT * FROM ExpenseDB WHERE Dept_Type = 'StateServices'", connection);
+                var selectCommand = new SqlCommand("SELECT * FROM ExpenseDB WHERE Dept_Type = 'StateServices' AND StatusReport <> 'Approved' AND StatusReport <> 'Declined'", connection);
                 var adapter = new SqlDataAdapter(selectCommand);
 
                 var resultSet = new DataSet();
