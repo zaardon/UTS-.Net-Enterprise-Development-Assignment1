@@ -9,7 +9,14 @@
 <body>
     <form id="form1" runat="server">
     <div>
-    Welcome guys!
+        Your department level is:<br />
+        <br />
+        Please select the type of report you wish to view:<br />
+        <br />
+        <asp:Button ID="Button1" runat="server" Text="Unapproved" />
+        <asp:Button ID="Button2" runat="server" Text="Expense Results" />
+        <asp:Button ID="Button3" runat="server" Text="Rejected Submits" />
+
     </div>
     </form>
 </body>
