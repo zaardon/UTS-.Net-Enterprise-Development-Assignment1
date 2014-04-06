@@ -39,12 +39,38 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             {
                 LogisticServicesGridViewSQLConnection.Visible = true;
                 Label2.Visible = true;
+
+                var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
+                var connection = new SqlConnection(connectionString);
+                var selectCommand = new SqlCommand("SELECT * FROM ExpenseDB WHERE Dept_Type = 'LogisticServices'", connection);
+                var adapter = new SqlDataAdapter(selectCommand);
+
+                var resultSet = new DataSet();
+                adapter.Fill(resultSet);
+
+                LogisticServicesGridViewSQLConnection.DataSource = resultSet;
+                LogisticServicesGridViewSQLConnection.DataBind();
+
+                connection.Close();
             }
 
             if (User.IsInRole("State Services"))
             {
                 StateServicesGridViewSQLConnection.Visible = true;
                 Label3.Visible = true;
+
+                var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
+                var connection = new SqlConnection(connectionString);
+                var selectCommand = new SqlCommand("SELECT * FROM ExpenseDB WHERE Dept_Type = 'StateServices'", connection);
+                var adapter = new SqlDataAdapter(selectCommand);
+
+                var resultSet = new DataSet();
+                adapter.Fill(resultSet);
+
+                StateServicesGridViewSQLConnection.DataSource = resultSet;
+                StateServicesGridViewSQLConnection.DataBind();
+
+                connection.Close();
             }
         }
 
