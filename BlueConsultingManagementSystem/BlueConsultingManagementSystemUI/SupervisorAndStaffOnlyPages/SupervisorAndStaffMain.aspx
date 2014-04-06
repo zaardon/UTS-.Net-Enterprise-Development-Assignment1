@@ -13,9 +13,26 @@
         <br />
         Please select the type of report you wish to view:<br />
         <br />
-        <asp:Button ID="Button1" runat="server" Text="Unapproved" />
+        <asp:Button ID="Button1" runat="server" Text="Unapproved" OnClick="Button1_Click" />
         <asp:Button ID="Button2" runat="server" Text="Expense Results" />
         <asp:Button ID="Button3" runat="server" Text="Rejected Submits" />
+
+        <br />
+        <br />
+        <asp:Label ID="Label1" runat="server" Text="Higher Education" Visible="False"></asp:Label>
+        <br />
+        <asp:GridView ID="HigherEducationGridViewSQLConnection" Visible="false" runat="server">
+        </asp:GridView>
+        <br />
+        <asp:Label ID="Label2" runat="server" Text="Logistic Services" Visible="False"></asp:Label>
+        <br />
+        <asp:GridView ID="LogisticServicesGridViewSQLConnection" Visible="false"  runat="server">
+        </asp:GridView>
+        <br />
+        <asp:Label ID="Label3" runat="server" Text="State Services" Visible="False"></asp:Label>
+        <br />
+        <asp:GridView ID="StateServicesGridViewSQLConnection" Visible="false"  runat="server">
+        </asp:GridView>
 
     </div>
     </form>

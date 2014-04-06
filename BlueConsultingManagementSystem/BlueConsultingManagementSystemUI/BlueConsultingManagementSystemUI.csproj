@@ -61,6 +61,10 @@
     <Content Include="App_Data\BlueConsultingDB_log.ldf">
       <DependentUpon>BlueConsultingDB.mdf</DependentUpon>
     </Content>
+    <Content Include="App_Data\BlueConsultingServicesDB.mdf" />
+    <Content Include="App_Data\BlueConsultingServicesDB_log.ldf">
+      <DependentUpon>BlueConsultingServicesDB.mdf</DependentUpon>
+    </Content>
     <Content Include="ConsultantOnlyPages\ConsultantMain.aspx" />
     <Content Include="index.aspx" />
     <Content Include="Login.aspx" />
@@ -112,7 +116,11 @@
       <Name>BlueConsultingManagementSystemLogic</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="SupervisorAndStaffOnlyPages\SuperVisorOnlyPages\HigherEducationServicesOnlyPages\" />
+    <Folder Include="SupervisorAndStaffOnlyPages\SuperVisorOnlyPages\LogisticServicesOnlyPages\" />
+    <Folder Include="SupervisorAndStaffOnlyPages\SuperVisorOnlyPages\StateServicesOnlyPages\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
