@@ -9,19 +9,21 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        Your department level is:<br />
+         Please select the type of report you wish to view:<br />
         <br />
-        Please select the type of report you wish to view:<br />
-        <br />
-        <asp:Button ID="Button1" runat="server" Text="Unapproved" OnClick="Button1_Click" />
-        <asp:Button ID="Button2" runat="server" Text="Expense Results" />
-        <asp:Button ID="Button3" runat="server" Text="Rejected Submits" />
+        <asp:Button ID="UnapprovedResultsButton" runat="server" Text="Unapproved" OnClick="UnapprovedResultsButton_Click" />
+        <asp:Button ID="ExpenseResultsButton" runat="server" Text="Expense Results" OnClick="ExpenseResultsButton_Click" />
+        <asp:Button ID="RejectedResultsButton" runat="server" Text="Rejected Submits" OnClick="RejectedResultsButton_Click" />
+        
 
         <br />
         <br />
         <asp:Label ID="Label1" runat="server" Text="Higher Education" Visible="False"></asp:Label>
         <br />
-        <asp:GridView ID="HigherEducationGridViewSQLConnection" Visible="false" runat="server">
+        <asp:GridView ID="HigherEducationGridViewSQLConnection" Visible="False" runat="server" onrowcommand="HigherEducationGridViewSQLConnection_RowCommand" >
+            <Columns>
+                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="View Report" ShowHeader="True" Text="View Report" />
+            </Columns>
         </asp:GridView>
         <br />
         <asp:Label ID="Label2" runat="server" Text="Logistic Services" Visible="False"></asp:Label>
@@ -33,6 +35,7 @@
         <br />
         <asp:GridView ID="StateServicesGridViewSQLConnection" Visible="false"  runat="server">
         </asp:GridView>
+
 
     </div>
     </form>

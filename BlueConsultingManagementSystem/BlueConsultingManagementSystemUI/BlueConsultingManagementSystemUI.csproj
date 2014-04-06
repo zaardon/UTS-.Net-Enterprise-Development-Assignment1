@@ -65,6 +65,8 @@
     <Content Include="index.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorAndStaffMain.aspx" />
+    <Content Include="SupervisorAndStaffOnlyPages\SupervisorExpenseResultsPage.aspx" />
+    <Content Include="SupervisorAndStaffOnlyPages\SupervisorRejectedReportsPage.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -98,6 +100,20 @@
     </Compile>
     <Compile Include="SupervisorAndStaffOnlyPages\SupervisorAndStaffMain.aspx.designer.cs">
       <DependentUpon>SupervisorAndStaffMain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorExpenseResultsPage.aspx.cs">
+      <DependentUpon>SupervisorExpenseResultsPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorExpenseResultsPage.aspx.designer.cs">
+      <DependentUpon>SupervisorExpenseResultsPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorRejectedReportsPage.aspx.cs">
+      <DependentUpon>SupervisorRejectedReportsPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorRejectedReportsPage.aspx.designer.cs">
+      <DependentUpon>SupervisorRejectedReportsPage.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
