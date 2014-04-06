@@ -46,6 +46,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                 var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
                 var connection = new SqlConnection(connectionString);
                 var selectCommand = new SqlCommand("SELECT ReportName, ConsultantName, StatusReport, Location, Description, Amount, Currency, DateExpense FROM ExpenseDB WHERE Dept_Type = 'HigherEducation' AND StatusReport <> 'Approved' AND StatusReport <> 'Declined'", connection);
+                //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
                 var adapter = new SqlDataAdapter(selectCommand);
 
                 var resultSet = new DataSet();
