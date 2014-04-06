@@ -133,7 +133,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             int index = Convert.ToInt32(e.CommandArgument);   
             GridViewRow selectedRow = HigherEducationGridViewSQLConnection.Rows[index];
             Label1.Text = selectedRow.Cells[1].Text;
- 
+            //fix that hardcode
         }
         
     }
