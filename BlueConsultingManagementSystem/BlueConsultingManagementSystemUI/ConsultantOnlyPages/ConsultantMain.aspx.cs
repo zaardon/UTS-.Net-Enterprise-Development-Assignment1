@@ -33,7 +33,7 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             sqlcmd.Parameters.AddWithValue("@status", "submitted");
             sqlcmd.Parameters.AddWithValue("@location", TextBox1.Text);
             sqlcmd.Parameters.AddWithValue("@description", TextBox2.Text);
-            sqlcmd.Parameters.AddWithValue("@amount", Convert.ToDecimal(TextBox3.Text));
+            sqlcmd.Parameters.AddWithValue("@amount", TextBox3.Text);
             sqlcmd.Parameters.AddWithValue("@currency", DropDownList1.Text);
             sqlcmd.Parameters.AddWithValue("@dept_type", DropDownList2.Text);
             sqlcmd.Parameters.AddWithValue("DateExp", Calendar1.SelectedDate.Date);
