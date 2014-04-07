@@ -12,9 +12,14 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 {
     public partial class SupervisorAndStaffMain : System.Web.UI.Page
     {
+        public string reportName;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["reportName"] == null)
+            {
 
+                Session["reportName"] = reportName;
+            }
         }
 
         protected void UnapprovedResultsButton_Click(object sender, EventArgs e)
@@ -25,14 +30,14 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         protected void clearPage()
         {
-         HigherEducationGridViewSQLConnection.Visible = false;
-                Label1.Visible = false;
+            HigherEducationGridViewSQLConnection.Visible = false;
+            Label1.Visible = false;
 
-                LogisticServicesGridViewSQLConnection.Visible = false;
+            LogisticServicesGridViewSQLConnection.Visible = false;
             Label2.Visible = false;
 
             StateServicesGridViewSQLConnection.Visible = false;
-                Label3.Visible = false;
+            Label3.Visible = false;
         }
 
         protected void loadData()
@@ -102,11 +107,27 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         protected void ExpenseResultsButton_Click(object sender, EventArgs e)
         {
             clearPage();
+
         }
 
         protected void RejectedResultsButton_Click(object sender, EventArgs e)
         {
-            clearPage();
+            //clearPage();
+            HigherEducationGridViewSQLConnection.Visible = true;
+
+            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
+            var connection = new SqlConnection(connectionString);
+            var selectCommand = new SqlCommand("SELECT ReportName, ConsultantName, StatusReport, Location, Description, Amount, Currency, DateExpense FROM ExpenseDB WHERE StatusReport = 'Declined'", connection);
+            var adapter = new SqlDataAdapter(selectCommand);
+
+            var resultSet = new DataSet();
+            adapter.Fill(resultSet);
+
+            HigherEducationGridViewSQLConnection.DataSource = resultSet;
+            HigherEducationGridViewSQLConnection.DataBind();
+
+            connection.Close();
+
         }
 
         protected void loadRejectItems()
@@ -131,11 +152,14 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         {
 
             string currentCommand = e.CommandName;
-            int index = Convert.ToInt32(e.CommandArgument);   
+            int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow selectedRow = HigherEducationGridViewSQLConnection.Rows[index];
             Label1.Text = selectedRow.Cells[1].Text;
+            reportName = selectedRow.Cells[1].Text;
+            Session["reportName"] = reportName;
+            Response.Redirect("SupervisorReportsDisplayPage.aspx");
             //fix that hardcode
         }
-        
+
     }
 }
