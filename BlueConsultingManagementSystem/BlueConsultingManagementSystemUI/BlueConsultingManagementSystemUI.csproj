@@ -62,6 +62,7 @@
       <DependentUpon>BlueConsultingDB.mdf</DependentUpon>
     </Content>
     <Content Include="ConsultantOnlyPages\ConsultantMain.aspx" />
+    <Content Include="ConsultantOnlyPages\ConsultanExpensetReports.aspx" />
     <Content Include="index.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorAndStaffMain.aspx" />
@@ -78,6 +79,18 @@
     </Compile>
     <Compile Include="ConsultantOnlyPages\ConsultantMain.aspx.designer.cs">
       <DependentUpon>ConsultantMain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ConsultantOnlyPages\ConsultanExpensetReports.aspx.cs">
+      <DependentUpon>ConsultanExpensetReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConsultantOnlyPages\ConsultanExpensetReports.aspx.designer.cs">
+      <DependentUpon>ConsultanExpensetReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Expenses.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Expenses.xsd</DependentUpon>
     </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
@@ -117,6 +130,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Expenses.xsc">
+      <DependentUpon>Expenses.xsd</DependentUpon>
+    </Content>
+    <None Include="Expenses.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>Expenses.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="Expenses.xss">
+      <DependentUpon>Expenses.xsd</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
