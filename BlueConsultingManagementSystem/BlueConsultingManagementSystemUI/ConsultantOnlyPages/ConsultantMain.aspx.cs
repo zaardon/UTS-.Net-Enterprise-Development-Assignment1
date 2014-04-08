@@ -27,8 +27,9 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             //var resultSet = new DataSet();
             //adapter.Fill(resultSet);
 
-            string cmd = "INSERT INTO [dbo].[ExpenseDB] ( [ConsultantName], [StatusReport], [Location], [Description], [Amount], [Currency], [Dept_type], [DateExpense]) VALUES( @user, @status, @location, @description, @amount, @currency, @dept_type, @dateExp)";
+            string cmd = "INSERT INTO [dbo].[ExpenseDB] ( [ReportName], [ConsultantName], [StatusReport], [Location], [Description], [Amount], [Currency], [Dept_type], [DateExpense]) VALUES(@repName, @user, @status, @location, @description, @amount, @currency, @dept_type, @dateExp)";
             SqlCommand sqlcmd = new SqlCommand(cmd, connection);
+            sqlcmd.Parameters.AddWithValue("@repName", reportBox.Text);
             sqlcmd.Parameters.AddWithValue("@user", "james");
             sqlcmd.Parameters.AddWithValue("@status", "submitted");
             sqlcmd.Parameters.AddWithValue("@location", TextBox1.Text);
@@ -41,7 +42,7 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             sqlcmd.ExecuteNonQuery();
 
             connection.Close();
-
+            Response.Redirect("../index.aspx");
         }
 
 

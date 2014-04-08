@@ -18,6 +18,11 @@
       <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
       </td> 
 </tr>
+            <tr>
+                <td>Report name</td>
+                <td>
+                    <asp:TextBox ID="reportBox" runat="server"></asp:TextBox></td>
+            </tr>
 <tr>
   <td>location</td>
   <td>
