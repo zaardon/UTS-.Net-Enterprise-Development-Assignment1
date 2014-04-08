@@ -40,6 +40,24 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages {
         protected global::System.Web.UI.WebControls.GridView DisplayResultsGridSQLConnection;
         
         /// <summary>
+        /// CurrentAmount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label CurrentAmount;
+        
+        /// <summary>
+        /// DisplayNumber control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label DisplayNumber;
+        
+        /// <summary>
         /// ApproveButton control.
         /// </summary>
         /// <remarks>
@@ -56,5 +74,23 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button DenyButton;
+        
+        /// <summary>
+        /// ConfirmLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ConfirmLabel;
+        
+        /// <summary>
+        /// ConfirmButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ConfirmButton;
     }
 }

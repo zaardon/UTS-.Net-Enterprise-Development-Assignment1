@@ -24,6 +24,9 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             //update command for statusreport (with ReportNameValue)
         }
 
+
+
+
         protected void Deny_Click(object sender, EventArgs e)
         {
             //update command for statusreport

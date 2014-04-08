@@ -50,7 +50,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                 //SQL Command goes here to show datas
                 var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
                 var connection = new SqlConnection(connectionString);
-                var selectCommand = new SqlCommand("SELECT ReportName, ConsultantName, StatusReport, Location, Description, Amount, Currency, DateExpense FROM ExpenseDB WHERE Dept_Type = 'HigherEducation' AND StatusReport <> 'Approved' AND StatusReport <> 'Declined'", connection);
+                var selectCommand = new SqlCommand("SELECT distinct ReportName FROM ExpenseDB WHERE Dept_Type = 'HigherEducation' AND StatusReport <> 'Approved' AND StatusReport <> 'Declined'", connection);
                 //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
                 var adapter = new SqlDataAdapter(selectCommand);
 
@@ -72,7 +72,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
                 var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
                 var connection = new SqlConnection(connectionString);
-                var selectCommand = new SqlCommand("SELECT ReportName, ConsultantName, StatusReport, Location, Description, Amount, Currency, DateExpense FROM ExpenseDB WHERE Dept_Type = 'LogisticServices' AND StatusReport <> 'Approved' AND StatusReport <> 'Declined'", connection);
+                var selectCommand = new SqlCommand("SELECT ReportName FROM ExpenseDB WHERE Dept_Type = 'LogisticServices' AND StatusReport <> 'Approved' AND StatusReport <> 'Declined'", connection);
                 var adapter = new SqlDataAdapter(selectCommand);
 
                 var resultSet = new DataSet();
@@ -91,7 +91,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
                 var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
                 var connection = new SqlConnection(connectionString);
-                var selectCommand = new SqlCommand("SELECT ReportName, ConsultantName, StatusReport, Location, Description, Amount, Currency, DateExpense FROM ExpenseDB WHERE Dept_Type = 'StateServices' AND StatusReport <> 'Approved' AND StatusReport <> 'Declined'", connection);
+                var selectCommand = new SqlCommand("SELECT ReportName FROM ExpenseDB WHERE Dept_Type = 'StateServices' AND StatusReport <> 'Approved' AND StatusReport <> 'Declined'", connection);
                 var adapter = new SqlDataAdapter(selectCommand);
 
                 var resultSet = new DataSet();
@@ -106,7 +106,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         protected void ExpenseResultsButton_Click(object sender, EventArgs e)
         {
-            clearPage();
+            Response.Redirect("SupervisorExpenseTotalPage.aspx");
 
         }
 

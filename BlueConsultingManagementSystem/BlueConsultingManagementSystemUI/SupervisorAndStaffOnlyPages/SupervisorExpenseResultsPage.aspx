@@ -17,14 +17,13 @@
         
              <br />
              <br />
-             <asp:GridView ID="GridView1" runat="server">
+             <asp:GridView ID="ExpenseResultsSQLConnection" runat="server">
              </asp:GridView>
         
              <br />
-             <asp:Button ID="Approve" runat="server" Text="Submit" OnClick="Approve_Click" />
+             <asp:Button ID="Approve" runat="server" Text="Approve" OnClick="Approve_Click" />
              <asp:Button ID="Deny" runat="server" Text="Deny" OnClick="Deny_Click" />
-             <br />
-             <br />
+
         
     </div>
     </form>
