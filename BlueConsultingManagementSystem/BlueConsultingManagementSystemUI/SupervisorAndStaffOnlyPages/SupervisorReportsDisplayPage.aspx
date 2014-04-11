@@ -21,8 +21,7 @@
         </asp:GridView>
     </div>
 
-        <asp:Label ID="CurrentAmount" runat="server" Text="The current amount is: "></asp:Label>
-        <asp:Label ID="DisplayNumber" runat="server" Text=""></asp:Label>
+        <asp:Label ID="CurrentAmount" runat="server" Text=""></asp:Label>
         <br />
         <br />
         <asp:Button ID="ApproveButton" runat="server" Text="Approve" OnClick="ApproveButton_Click" />

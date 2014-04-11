@@ -33,9 +33,9 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                 if (User.IsInRole("Higher Education Services"))
                     userGroupMember = "HigherEducation";
                 else if (User.IsInRole("Logistic Services"))
-                    userGroupMember = "Logistic";
+                    userGroupMember = "LogisticServices";
                 else
-                    userGroupMember = "State";
+                    userGroupMember = "StateServices";
 
                 loadDepartmentSupervisorData();
             }
@@ -67,10 +67,10 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         public void loadStaffData()
         {
-            //SQL Command goes here to show datas
+
             var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
             var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT distinct ReportName, ConsultantName, StatusReport, Dept_type FROM ExpenseDB WHERE StatusReport = 'Approved'", connection);
+            var selectCommand = new SqlCommand("SELECT distinct ReportName, ConsultantName, Dept_type FROM ExpenseDB WHERE StatusReport  <> 'Approved' AND StatusReport <> 'Declined'", connection);
             //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
             var adapter = new SqlDataAdapter(selectCommand);
 
@@ -84,18 +84,17 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             int temp = 0;
             string dept = "";
             string report = "";
-                foreach (GridViewRow row in UnapprovedReportsGridViewSQLConnection.Rows)
+            foreach (GridViewRow row in UnapprovedReportsGridViewSQLConnection.Rows)
+            {
+                dept = resultSet.Tables[0].Rows[temp].ItemArray[2].ToString();
+                report = (resultSet.Tables[0].Rows[temp].ItemArray[0].ToString());
+                //if (Convert.ToDouble(resultSet.Tables[0].Rows[temp].ItemArray[3]) > departmentBudgetRemaining(dept))
+                if (getReportTotal(report) > departmentBudgetRemaining(dept))
                 {
-                    dept = resultSet.Tables[0].Rows[temp].ItemArray[3].ToString();
-                    report = (resultSet.Tables[0].Rows[temp].ItemArray[0].ToString());
-                    //if (Convert.ToDouble(resultSet.Tables[0].Rows[temp].ItemArray[3]) > departmentBudgetRemaining(dept))
-                    if (getReportTotal(report) > departmentBudgetRemaining(dept))
-                    {
-                        row.BackColor = ColorTranslator.FromHtml("#A1DCF2");
-                    }
-                    temp++;
+                    row.BackColor = ColorTranslator.FromHtml("#A1DCF2");
                 }
-            
+                temp++;
+            }
 
         }
 
@@ -105,7 +104,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
             var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
             var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT SUM(Amount) FROM ExpenseDB WHERE ReportName = '"+ name +"'", connection);
+            var selectCommand = new SqlCommand("SELECT SUM(Amount) FROM ExpenseDB WHERE ReportName = '" + name + "'", connection);
             //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
             var adapter = new SqlDataAdapter(selectCommand);
 
@@ -116,7 +115,6 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             numb = Convert.ToDouble(resultSet.Tables[0].Rows[0].ItemArray[0]);
             return numb;
         }
-
 
         public double departmentBudgetRemaining(string dept)
         {
@@ -139,7 +137,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             catch
             {
 
-                    numb = 0;
+                numb = 0;
             }
 
             return numb;

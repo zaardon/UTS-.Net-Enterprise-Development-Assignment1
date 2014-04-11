@@ -14,7 +14,10 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (User.IsInRole("Staff"))
+            {
+                ApprovedReportsButton.Visible = true;
+            }
         }
 
         protected void ReportsButton_Click(object sender, EventArgs e)
@@ -32,6 +35,11 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         protected void RejectedResultsButton_Click(object sender, EventArgs e)
         {
             Response.Redirect("SupervisorRejectedReportsPage.aspx");
+        }
+
+        protected void ApprovedReportsButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("StaffOnlyPages/StaffViewAllReports.aspx");
         }
 
 

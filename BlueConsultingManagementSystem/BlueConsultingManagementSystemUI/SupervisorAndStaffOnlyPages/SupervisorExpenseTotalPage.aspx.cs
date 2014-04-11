@@ -19,9 +19,9 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             if (User.IsInRole("Higher Education Services"))
                 userGroupMember = "HigherEducation";
             else if (User.IsInRole("Logistic Services"))
-                userGroupMember = "Logistic";
+                userGroupMember = "LogisticServices";
             else
-                userGroupMember = "State";
+                userGroupMember = "StateServices";
             loadData();
         }
 

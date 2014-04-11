@@ -64,6 +64,7 @@
     <Content Include="ConsultantOnlyPages\ConsultantMain.aspx" />
     <Content Include="index.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="SupervisorAndStaffOnlyPages\StaffOnlyPages\StaffViewAllReports.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorAndStaffMain.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorExpenseTotalPage.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorRejectedReportsPage.aspx" />
@@ -96,6 +97,13 @@
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SupervisorAndStaffOnlyPages\StaffOnlyPages\StaffViewAllReports.aspx.cs">
+      <DependentUpon>StaffViewAllReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SupervisorAndStaffOnlyPages\StaffOnlyPages\StaffViewAllReports.aspx.designer.cs">
+      <DependentUpon>StaffViewAllReports.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SupervisorAndStaffOnlyPages\SupervisorAndStaffMain.aspx.cs">
       <DependentUpon>SupervisorAndStaffMain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -147,7 +155,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="SupervisorAndStaffOnlyPages\StaffOnlyPages\" />
     <Folder Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\" />
   </ItemGroup>
   <PropertyGroup>

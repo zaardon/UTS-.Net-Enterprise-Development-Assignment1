@@ -13,7 +13,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
     public partial class SupervisorReportsDisplayPage : System.Web.UI.Page
     {
         public string reportName;
-        
+        public string userGroupMember = "";
         protected void Page_Load(object sender, EventArgs e)
         {
             Label2.Text = User.Identity.AuthenticationType.ToString();
@@ -21,6 +21,14 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             reportName = (string)Session["reportName"];
             Label1.Text = reportName;
             fillExpenseTable();
+            CurrentAmount.Text = "The total is: " + getTotalNumber().ToString();
+
+            if (User.IsInRole("Higher Education Services"))
+                userGroupMember = "HigherEducation";
+            else if (User.IsInRole("Logistic Services"))
+                userGroupMember = "LogisticServices";
+            else
+                userGroupMember = "StateServices";
 
         }
 
@@ -36,6 +44,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             }
             else
             {
+                ConfirmLabel.Text = "Are you sure you want to proceed? The current department budget is: " + returnCurrentDeptMoney();
                 ConfirmLabel.Visible = true;
                 ConfirmButton.Visible = true;
             }
@@ -49,17 +58,13 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         protected bool isUnder()
         {
-
-            double totalNumber = getTotalNumber();
-
-            if (totalNumber < returnCurrentDeptMoney())
+            if (getTotalNumber() < returnCurrentDeptMoney())
             {                              
                 return true;
             }
             else
             {
 
-                DisplayNumber.Text = totalNumber.ToString();
                 return false;
             }
         }

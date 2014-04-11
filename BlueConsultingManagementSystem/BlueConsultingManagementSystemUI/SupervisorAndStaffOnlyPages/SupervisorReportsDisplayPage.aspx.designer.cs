@@ -58,15 +58,6 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages {
         protected global::System.Web.UI.WebControls.Label CurrentAmount;
         
         /// <summary>
-        /// DisplayNumber control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label DisplayNumber;
-        
-        /// <summary>
         /// ApproveButton control.
         /// </summary>
         /// <remarks>
