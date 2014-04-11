@@ -11,7 +11,14 @@
     <div>
         <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
 
-        <asp:GridView ID="DisplayResultsGridSQLConnection" runat="server"></asp:GridView>
+        <br />
+        <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
+
+        <asp:GridView ID="DisplayResultsGridSQLConnection" runat="server">
+            <Columns>
+                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="PDFFile" ShowHeader="True" Text="Receipt" />
+            </Columns>
+        </asp:GridView>
     </div>
 
         <asp:Label ID="CurrentAmount" runat="server" Text="The current amount is: "></asp:Label>
@@ -25,7 +32,7 @@
              <br />
              <asp:Label ID="ConfirmLabel" runat="server" Text="Are you sure you want to confirm?" Visible="false"></asp:Label>
              <br />
-             <asp:Button ID="ConfirmButton" runat="server" Text="Confirm" Visible=" false" />
+             <asp:Button ID="ConfirmButton" runat="server" Text="Confirm" Visible=" false" OnClick="ConfirmButton_Click" />
              <br />
     </form>
 </body>
