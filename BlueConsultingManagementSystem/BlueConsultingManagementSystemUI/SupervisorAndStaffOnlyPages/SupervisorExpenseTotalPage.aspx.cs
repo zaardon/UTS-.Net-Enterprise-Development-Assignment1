@@ -19,7 +19,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             if (User.IsInRole("Higher Education Services"))
                 userGroupMember = "HigherEducation";
             else if (User.IsInRole("Logistic Services"))
-                userGroupMember = "State Services";
+                userGroupMember = "Logistic";
             else
                 userGroupMember = "State";
             loadData();
@@ -45,7 +45,6 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             }
             catch
             {
-                if (numb == null)
                     numb = 0;
             }
             
@@ -66,7 +65,14 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
 
-            numb = Convert.ToDouble(resultSet.Tables[0].Rows[0].ItemArray[0]);
+            try
+            {
+                numb = Convert.ToDouble(resultSet.Tables[0].Rows[0].ItemArray[0]);
+            }
+            catch
+            {
+                    numb = 0;
+            }
             return numb;
         }
 

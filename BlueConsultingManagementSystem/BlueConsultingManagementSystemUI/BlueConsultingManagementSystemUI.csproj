@@ -68,6 +68,7 @@
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorExpenseTotalPage.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorRejectedReportsPage.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorReportsDisplayPage.aspx" />
+    <Content Include="SupervisorAndStaffOnlyPages\SupervisorUnapprovedResults.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -123,6 +124,13 @@
     <Compile Include="SupervisorAndStaffOnlyPages\SupervisorReportsDisplayPage.aspx.designer.cs">
       <DependentUpon>SupervisorReportsDisplayPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorUnapprovedResults.aspx.cs">
+      <DependentUpon>SupervisorUnapprovedResults.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorUnapprovedResults.aspx.designer.cs">
+      <DependentUpon>SupervisorUnapprovedResults.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Web.Debug.config">
@@ -139,9 +147,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="SupervisorAndStaffOnlyPages\SuperVisorOnlyPages\HigherEducationServicesOnlyPages\" />
-    <Folder Include="SupervisorAndStaffOnlyPages\SuperVisorOnlyPages\LogisticServicesOnlyPages\" />
-    <Folder Include="SupervisorAndStaffOnlyPages\SuperVisorOnlyPages\StateServicesOnlyPages\" />
+    <Folder Include="SupervisorAndStaffOnlyPages\StaffOnlyPages\" />
+    <Folder Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

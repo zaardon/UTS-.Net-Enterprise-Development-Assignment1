@@ -90,7 +90,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             foreach (GridViewRow row in DisplayResultsGridSQLConnection.Rows)
             {
                 //totalNumber += Convert.ToDouble(row.Cells[4].Text.ToString());
-                colNumb = row.Cells[3].Text.ToString();
+                colNumb = row.Cells[4].Text.ToString();
                 totalNumber += Convert.ToDouble(colNumb);
             }
 

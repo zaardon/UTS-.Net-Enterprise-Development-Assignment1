@@ -22,30 +22,12 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SuperViso
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// UnapprovedResultsButton control.
+        /// RejectedResultsGridViewSQLConnection control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button UnapprovedResultsButton;
-        
-        /// <summary>
-        /// ExpenseResultsButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ExpenseResultsButton;
-        
-        /// <summary>
-        /// RejectedResultsButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button RejectedResultsButton;
+        protected global::System.Web.UI.WebControls.GridView RejectedResultsGridViewSQLConnection;
     }
 }
