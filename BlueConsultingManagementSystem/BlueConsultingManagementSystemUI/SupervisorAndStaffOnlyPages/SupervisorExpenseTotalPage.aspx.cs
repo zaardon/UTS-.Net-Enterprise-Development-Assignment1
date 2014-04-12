@@ -58,7 +58,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
             var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
             var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT SUM(Amount) FROM ExpenseDB WHERE Dept_type = '" + userGroupMember + "' AND StatusReport = 'Approved'", connection);
+            var selectCommand = new SqlCommand("SELECT SUM(Amount) FROM ExpenseDB WHERE Dept_type = '" + userGroupMember + "' AND StatusReport = 'Approved' AND (StaffApproved = 'YES' OR StaffApproved IS NULL)", connection);
             //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
             var adapter = new SqlDataAdapter(selectCommand);
 
