@@ -14,6 +14,9 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
     {
         public string reportName;
         public string userGroupMember = "";
+        public string department = "";
+        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Label2.Text = User.Identity.AuthenticationType.ToString();
@@ -29,6 +32,15 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                 userGroupMember = "LogisticServices";
             else
                 userGroupMember = "StateServices";
+
+            if(User.IsInRole("Staff"))
+            {
+                department = "Staff";
+            }
+            else if(User.IsInRole("Department Supervisor"))
+            {
+                department = "DepartmentSupervisor";
+            }
 
         }
 
@@ -110,7 +122,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
             var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
             var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("UPDATE [dbo].[DepartmentDB] SET Budget = " + result + " WHERE Dept_Name = 'HigherEducation'", connection);
+            var selectCommand = new SqlCommand("UPDATE [dbo].[DepartmentDB] SET Budget = " + result + " WHERE Dept_Name = '"+userGroupMember+"'", connection);
             var adapter = new SqlDataAdapter(selectCommand);
 
             var resultSet = new DataSet();
@@ -123,7 +135,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         {
             var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
             var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StatusReport = 'Approved' WHERE ReportName = '" + reportName + "'", connection);
+            var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StatusReport = 'Approved', ProcessedBy ='" + User.Identity.Name + "' , ProcessedByDept = '" + department + "' WHERE ReportName = '" + reportName + "'", connection);
             var adapter = new SqlDataAdapter(selectCommand);
 
             var resultSet = new DataSet();
@@ -136,7 +148,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         {
             var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
             var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StatusReport = 'Declined' WHERE ReportName = '" + reportName + "'", connection);
+            var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StatusReport = 'Declined', ProcessedBy ='" + User.Identity.Name + "' , ProcessedByDept = '" + department + "' WHERE ReportName = '" + reportName + "'", connection);
             var adapter = new SqlDataAdapter(selectCommand);
 
             var resultSet = new DataSet();
