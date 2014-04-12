@@ -43,7 +43,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SuperViso
 
             var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
             var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT distinct ReportName, ConsultantName, StatusReport as 'Status', Location, Description, Amount, Currency, DateExpense FROM ExpenseDB WHERE StatusReport = 'Declined' AND ProcessedByDept = 'Staff'", connection);
+            var selectCommand = new SqlCommand("SELECT distinct ReportName, ConsultantName FROM ExpenseDB WHERE StaffApproved = 'NO'", connection);
             var adapter = new SqlDataAdapter(selectCommand);
 
             var resultSet = new DataSet();

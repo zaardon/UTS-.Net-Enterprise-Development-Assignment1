@@ -133,9 +133,27 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         public void approveReport()
         {
+            if (department == "DepartmentSupervisor")
+                approveSupervisor();
+            else if (department == "Staff")
+                approveReportStaff();
+        }
+
+
+
+        public void denyReport()
+        {
+            if(department == "DepartmentSupervisor")
+                denySupervisor();
+            else if (department == "Staff")
+                denyReportStaff();
+        }
+
+        public void denyReportStaff()
+        {
             var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
             var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StatusReport = 'Approved', ProcessedBy ='" + User.Identity.Name + "' , ProcessedByDept = '" + department + "' WHERE ReportName = '" + reportName + "'", connection);
+            var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StaffApproved = 'NO' WHERE ReportName = '" + reportName + "'", connection);
             var adapter = new SqlDataAdapter(selectCommand);
 
             var resultSet = new DataSet();
@@ -144,11 +162,37 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             connection.Close();
         }
 
-        public void denyReport()
+        public void approveReportStaff()
         {
             var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
             var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StatusReport = 'Declined', ProcessedBy ='" + User.Identity.Name + "' , ProcessedByDept = '" + department + "' WHERE ReportName = '" + reportName + "'", connection);
+            var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StaffApproved = 'YES' WHERE ReportName = '" + reportName + "'", connection);
+            var adapter = new SqlDataAdapter(selectCommand);
+
+            var resultSet = new DataSet();
+            adapter.Fill(resultSet);
+
+            connection.Close();
+        }
+
+        public void denySupervisor()
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
+            var connection = new SqlConnection(connectionString);
+            var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StatusReport = 'Declined', ProcessedBy ='" + User.Identity.Name + "' WHERE ReportName = '" + reportName + "'", connection);
+            var adapter = new SqlDataAdapter(selectCommand);
+
+            var resultSet = new DataSet();
+            adapter.Fill(resultSet);
+
+            connection.Close();
+        }
+
+        public void approveSupervisor()
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
+            var connection = new SqlConnection(connectionString);
+            var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StatusReport = 'Approved', ProcessedBy ='" + User.Identity.Name + "' WHERE ReportName = '" + reportName + "'", connection);
             var adapter = new SqlDataAdapter(selectCommand);
 
             var resultSet = new DataSet();

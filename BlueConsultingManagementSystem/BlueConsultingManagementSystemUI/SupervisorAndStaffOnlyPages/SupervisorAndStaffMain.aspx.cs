@@ -18,6 +18,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             {
                 ApprovedReportsButton.Visible = true;
                 RejectedResultsButton.Visible = false;
+                ReportsButton.Visible = false;
             }
         }
 
