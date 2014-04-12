@@ -78,14 +78,89 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         public void loadData()
         {
-            DepartmentLabel.Text = userGroupMember;
-            TotalExpenses.Text = departmentExpensesMade().ToString();
-            RemainingBudget.Text = departmentBudgetRemaining().ToString();
+            if (User.IsInRole("Department Supervisor"))
+            {
+                TotalExpenses.Text = "Total expenses for your department, " + userGroupMember + ", are: " + departmentExpensesMade().ToString();
+                RemainingBudget.Text = "Remaining budget for your department is: " + departmentBudgetRemaining().ToString();
+            }
+            else if(User.IsInRole("Staff"))
+            {
+                loadStaffData();
+                AllDepartmentExpensesGridViewSQLConnection.Visible = true;
+                TotalExpenses.Text = "The total expenses currently approved is: " + totalExpensesApproved();
+                RemainingBudget.Text = "The remaining company budget is: " + remainingTotalBudget();
+            }
         }
 
         protected void Back_Click(object sender, EventArgs e)
         {
             Response.Redirect("SupervisorAndStaffMain.aspx");
+        }
+
+
+        public void loadStaffData()
+        {
+            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
+            var connection = new SqlConnection(connectionString);
+            var selectCommand = new SqlCommand("SELECT distinct ProcessedBy, SUM(Amount) FROM ExpenseDB WHERE StatusReport ='Approved' GROUP BY ProcessedBy", connection);
+            //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
+            var adapter = new SqlDataAdapter(selectCommand);
+
+            var resultSet = new DataSet();
+            adapter.Fill(resultSet);
+
+            AllDepartmentExpensesGridViewSQLConnection.DataSource = resultSet;
+            AllDepartmentExpensesGridViewSQLConnection.DataBind();
+        }
+
+        public double remainingTotalBudget()
+        {
+            double numb = 0.0;
+
+
+            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
+            var connection = new SqlConnection(connectionString);
+            var selectCommand = new SqlCommand("SELECT SUM(Budget) FROM DepartmentDB", connection);
+            //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
+            var adapter = new SqlDataAdapter(selectCommand);
+
+            var resultSet = new DataSet();
+            adapter.Fill(resultSet);
+
+            try
+            {
+                numb = Convert.ToDouble(resultSet.Tables[0].Rows[0].ItemArray[0]);
+            }
+            catch
+            {
+                numb = 0;
+            }
+            return numb;
+        }
+
+        public double totalExpensesApproved()
+        {
+            double numb = 0.0;
+
+
+            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
+            var connection = new SqlConnection(connectionString);
+            var selectCommand = new SqlCommand("SELECT distinct SUM(Amount) FROM ExpenseDB WHERE StatusReport = 'Approved'", connection);
+            //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
+            var adapter = new SqlDataAdapter(selectCommand);
+
+            var resultSet = new DataSet();
+            adapter.Fill(resultSet);
+
+            try
+            {
+                numb = Convert.ToDouble(resultSet.Tables[0].Rows[0].ItemArray[0]);
+            }
+            catch
+            {
+                numb = 0;
+            }
+            return numb;
         }
     }
 }

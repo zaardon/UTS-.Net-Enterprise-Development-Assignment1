@@ -35,7 +35,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         protected void RejectedResultsButton_Click(object sender, EventArgs e)
         {
-            Response.Redirect("SupervisorRejectedReportsPage.aspx");
+            Response.Redirect("SupervisorOnlyPages/SupervisorRejectedReportsPage.aspx");
         }
 
         protected void ApprovedReportsButton_Click(object sender, EventArgs e)

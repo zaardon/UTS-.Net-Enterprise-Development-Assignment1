@@ -10,7 +10,7 @@
     <form id="form1" runat="server">
     <div>
     
-        <asp:GridView ID="AllApprovedReportsGridViewSQLConnection" runat="server" >
+        <asp:GridView ID="AllApprovedReportsGridViewSQLConnection" runat="server" OnRowCommand="AllApprovedReportsGridViewSQLConnection_RowCommand">
             <Columns>
                 <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="ViewReport" ShowHeader="True" Text="View Report" />
             </Columns>

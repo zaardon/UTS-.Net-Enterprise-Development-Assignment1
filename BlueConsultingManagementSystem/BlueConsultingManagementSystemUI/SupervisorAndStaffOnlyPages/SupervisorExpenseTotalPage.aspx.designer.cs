@@ -22,15 +22,6 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// DepartmentLabel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label DepartmentLabel;
-        
-        /// <summary>
         /// TotalExpenses control.
         /// </summary>
         /// <remarks>
@@ -47,6 +38,15 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label RemainingBudget;
+        
+        /// <summary>
+        /// AllDepartmentExpensesGridViewSQLConnection control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView AllDepartmentExpensesGridViewSQLConnection;
         
         /// <summary>
         /// Back control.

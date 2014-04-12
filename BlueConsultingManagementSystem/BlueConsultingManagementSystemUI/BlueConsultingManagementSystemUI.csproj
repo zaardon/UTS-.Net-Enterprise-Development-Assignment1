@@ -65,9 +65,11 @@
     <Content Include="index.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\StaffOnlyPages\StaffViewAllReports.aspx" />
+    <Content Include="SupervisorAndStaffOnlyPages\StaffOnlyPages\StaffViewReportDetails.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorAndStaffMain.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorExpenseTotalPage.aspx" />
-    <Content Include="SupervisorAndStaffOnlyPages\SupervisorRejectedReportsPage.aspx" />
+    <Content Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorRejectedReportsPage.aspx" />
+    <Content Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorViewRejectedReportInfo.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorReportsDisplayPage.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorUnapprovedResults.aspx" />
     <Content Include="Web.config">
@@ -104,6 +106,13 @@
     <Compile Include="SupervisorAndStaffOnlyPages\StaffOnlyPages\StaffViewAllReports.aspx.designer.cs">
       <DependentUpon>StaffViewAllReports.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SupervisorAndStaffOnlyPages\StaffOnlyPages\StaffViewReportDetails.aspx.cs">
+      <DependentUpon>StaffViewReportDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SupervisorAndStaffOnlyPages\StaffOnlyPages\StaffViewReportDetails.aspx.designer.cs">
+      <DependentUpon>StaffViewReportDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SupervisorAndStaffOnlyPages\SupervisorAndStaffMain.aspx.cs">
       <DependentUpon>SupervisorAndStaffMain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -118,12 +127,19 @@
     <Compile Include="SupervisorAndStaffOnlyPages\SupervisorExpenseTotalPage.aspx.designer.cs">
       <DependentUpon>SupervisorExpenseTotalPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorRejectedReportsPage.aspx.cs">
+    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorRejectedReportsPage.aspx.cs">
       <DependentUpon>SupervisorRejectedReportsPage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorRejectedReportsPage.aspx.designer.cs">
+    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorRejectedReportsPage.aspx.designer.cs">
       <DependentUpon>SupervisorRejectedReportsPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorViewRejectedReportInfo.aspx.cs">
+      <DependentUpon>SupervisorViewRejectedReportInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorViewRejectedReportInfo.aspx.designer.cs">
+      <DependentUpon>SupervisorViewRejectedReportInfo.aspx</DependentUpon>
     </Compile>
     <Compile Include="SupervisorAndStaffOnlyPages\SupervisorReportsDisplayPage.aspx.cs">
       <DependentUpon>SupervisorReportsDisplayPage.aspx</DependentUpon>
@@ -154,9 +170,7 @@
       <Name>BlueConsultingManagementSystemLogic</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
