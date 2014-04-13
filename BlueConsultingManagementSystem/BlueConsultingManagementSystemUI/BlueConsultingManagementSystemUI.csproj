@@ -72,6 +72,7 @@
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorViewRejectedReportInfo.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorReportsDisplayPage.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorUnapprovedResults.aspx" />
+    <Content Include="testpage.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -159,6 +160,13 @@
     </Compile>
     <Compile Include="SupervisorAndStaffOnlyPages\SupervisorUnapprovedResults.aspx.designer.cs">
       <DependentUpon>SupervisorUnapprovedResults.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="testpage.aspx.cs">
+      <DependentUpon>testpage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="testpage.aspx.designer.cs">
+      <DependentUpon>testpage.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

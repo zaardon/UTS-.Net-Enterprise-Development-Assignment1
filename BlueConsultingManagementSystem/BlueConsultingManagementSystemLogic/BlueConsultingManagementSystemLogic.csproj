@@ -43,6 +43,12 @@
     <Compile Include="DatabaseHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccessSystemLogic\DataAccessSystemLogic.csproj">
+      <Project>{f118d84c-67bc-42b1-9bee-ebd28278a92d}</Project>
+      <Name>DataAccessSystemLogic</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
