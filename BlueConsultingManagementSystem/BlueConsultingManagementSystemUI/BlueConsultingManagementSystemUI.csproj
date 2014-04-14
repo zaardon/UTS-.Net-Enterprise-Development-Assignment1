@@ -57,8 +57,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\BlueConsultingDB.mdf" />
+    <Content Include="App_Data\BlueConsultingDB_log.ldf">
+      <DependentUpon>BlueConsultingDB.mdf</DependentUpon>
+    </Content>
     <Content Include="ConsultantOnlyPages\ConsultantMain.aspx" />
-    <Content Include="Global.asax" />
     <Content Include="index.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\StaffOnlyPages\StaffViewAllReports.aspx" />
@@ -69,7 +72,6 @@
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorViewRejectedReportInfo.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorReportsDisplayPage.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorUnapprovedResults.aspx" />
-    <Content Include="Test.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -82,8 +84,10 @@
     <Compile Include="ConsultantOnlyPages\ConsultantMain.aspx.designer.cs">
       <DependentUpon>ConsultantMain.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
+    <Compile Include="ExpenseSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExpenseSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
@@ -156,15 +160,19 @@
     <Compile Include="SupervisorAndStaffOnlyPages\SupervisorUnapprovedResults.aspx.designer.cs">
       <DependentUpon>SupervisorUnapprovedResults.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Test.aspx.cs">
-      <DependentUpon>Test.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Test.aspx.designer.cs">
-      <DependentUpon>Test.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ExpenseSet.xsc">
+      <DependentUpon>ExpenseSet.xsd</DependentUpon>
+    </Content>
+    <None Include="ExpenseSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ExpenseSet.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="ExpenseSet.xss">
+      <DependentUpon>ExpenseSet.xsd</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
