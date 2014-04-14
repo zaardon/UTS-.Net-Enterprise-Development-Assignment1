@@ -10,18 +10,9 @@
     <form id="form1" runat="server">
     <div>
     
+        <asp:Login ID="Login1" DestinationPageUrl="~/index.aspx" runat="server"></asp:Login>
 
-
-         <asp:Login ID="Login2" runat="server" DestinationPageUrl="~/index.aspx"></asp:Login>
-
-        <asp:CreateUserWizard ID="CreateUserWizard1" runat="server">
-            <WizardSteps>
-                <asp:CreateUserWizardStep ID="CreateUserWizardStep1" runat="server">
-                </asp:CreateUserWizardStep>
-                <asp:CompleteWizardStep ID="CompleteWizardStep1" runat="server">
-                </asp:CompleteWizardStep>
-            </WizardSteps>
-        </asp:CreateUserWizard>
+        
 
       
 
