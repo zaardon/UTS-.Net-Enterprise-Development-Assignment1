@@ -13,7 +13,5 @@ namespace BlueConsultingManagementSystemUI
         {
 
         }
-
-
     }
 }

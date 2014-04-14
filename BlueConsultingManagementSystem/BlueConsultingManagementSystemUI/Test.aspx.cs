@@ -12,7 +12,7 @@ namespace BlueConsultingManagementSystemUI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            GridView1.DataSource = new DatabaseHandler().AllApprovedReports();
+            GridView1.DataSource = new DatabaseHandler().doThis();
             GridView1.DataBind();
         }
     }
