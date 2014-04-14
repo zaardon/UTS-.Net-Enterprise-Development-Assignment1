@@ -14,26 +14,28 @@ namespace BlueConsultingManagementSystemLogic
 {
     public class DatabaseHandler
     {
-
+        private SqlConnection SQLConnection;
         public DatabaseHandler()
         {
+            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
+            var con = new SqlConnection(connectionString);
             //string pathToData = ConfigurationManager.AppSettings["DataDirectoryLocation"];
             //string dataDirectory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pathToData));
             //AppDomain.CurrentDomain.SetData("DataDirectory", dataDirectory);
+            this.SQLConnection = con;
         }
 
         public DataSet doThis()
         {
 
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT DISTINCT ReportName, ConsultantName, StatusReport, Dept_type FROM ExpenseDB WHERE StatusReport = 'Approved'", connection);
+           
+            var selectCommand = new SqlCommand("SELECT DISTINCT ReportName, ConsultantName, StatusReport, Dept_type FROM ExpenseDB WHERE StatusReport = 'Approved'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
 
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
 
-            connection.Close();
+            SQLConnection.Close();
 
             return resultSet;
 
