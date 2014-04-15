@@ -255,17 +255,56 @@ namespace BlueConsultingManagementSystemLogic
 
         public DataSet LoadStaffUnapprovedReportNames()
         {
-            //SQL Command goes here to show datas
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT distinct ReportName, ConsultantName, StatusReport, Dept_type FROM ExpenseDB WHERE StatusReport = 'Approved' AND StaffApproved is NULL", SQLConnection);
-            //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
-            var adapter = new SqlDataAdapter(selectCommand);
+           var selectCommand = new SqlCommand("SELECT distinct ReportName, ConsultantName, StatusReport, Dept_type FROM ExpenseDB WHERE StatusReport = 'Approved' AND StaffApproved is NULL", SQLConnection);
+           var adapter = new SqlDataAdapter(selectCommand);
 
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
             SQLConnection.Close();
             return resultSet;
+        }
+
+        public double ReturnStaffReportTotalAmountForSupervisorName(string name)
+        {
+            double numb = 0.0;
+
+            var selectCommand = new SqlCommand("SELECT SUM(Amount) FROM ExpenseDB WHERE ReportName = '" + name + "'", SQLConnection);
+            //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
+            var adapter = new SqlDataAdapter(selectCommand);
+
+            var resultSet = new DataSet();
+            adapter.Fill(resultSet);
+
+            SQLConnection.Close();
+            numb = Convert.ToDouble(resultSet.Tables[0].Rows[0].ItemArray[0]);
+            return numb;
+        }
+
+        public double ReturnSingleDepartmentBudgetRemaining(string dept)
+        {
+            double numb = 0.0;
+
+
+            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
+            var connection = new SqlConnection(connectionString);
+            var selectCommand = new SqlCommand("SELECT Budget FROM DepartmentDB WHERE Dept_name = '" + dept + "'", connection);
+            //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
+            var adapter = new SqlDataAdapter(selectCommand);
+
+            var resultSet = new DataSet();
+            adapter.Fill(resultSet);
+
+            try
+            {
+                numb = Convert.ToDouble(resultSet.Tables[0].Rows[0].ItemArray[0]);
+            }
+            catch
+            {
+
+                numb = 0;
+            }
+
+            return numb;
         }
     }
 }

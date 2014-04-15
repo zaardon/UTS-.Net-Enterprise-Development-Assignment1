@@ -52,47 +52,12 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         public double getReportTotal(string name)
         {
-            double numb = 0.0;
-
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT SUM(Amount) FROM ExpenseDB WHERE ReportName = '" + name + "'", connection);
-            //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
-            var adapter = new SqlDataAdapter(selectCommand);
-
-            var resultSet = new DataSet();
-            adapter.Fill(resultSet);
-
-            connection.Close();
-            numb = Convert.ToDouble(resultSet.Tables[0].Rows[0].ItemArray[0]);
-            return numb;
+            return new DatabaseHandler().ReturnStaffReportTotalAmountForSupervisorName(name);
         }
 
         public double departmentBudgetRemaining(string dept)
         {
-            double numb = 0.0;
-
-
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT Budget FROM DepartmentDB WHERE Dept_name = '" + dept + "'", connection);
-            //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
-            var adapter = new SqlDataAdapter(selectCommand);
-
-            var resultSet = new DataSet();
-            adapter.Fill(resultSet);
-
-            try
-            {
-                numb = Convert.ToDouble(resultSet.Tables[0].Rows[0].ItemArray[0]);
-            }
-            catch
-            {
-
-                numb = 0;
-            }
-
-            return numb;
+            return new DatabaseHandler().ReturnStaffReportTotalAmountForSupervisorName(dept);
         }
 
 

@@ -22,12 +22,10 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.StaffOnly
 
         public void loadData()
         {
-
-
             ApprovedReportDetailsSQLConnection.DataSource = new DatabaseHandler().LoadStaffUnapprovedReportInfo(reportName);
             ApprovedReportDetailsSQLConnection.DataBind();
 
-            connection.Close();
+
         }
     }
 }
