@@ -322,13 +322,5 @@ namespace BlueConsultingManagementSystemLogic
 
             return numb;
         }
-        public void testify2000()
-        {
-            var selectCommand = new SqlCommand("select TOP 1 ReportName from ExpenseDB order by ReportName DESC;", SQLConnection);
-            var adapter = new SqlDataAdapter(selectCommand);
-            var resultSet = new DataSet();
-            adapter.Fill(resultSet);
-            string testify = resultSet.Tables[0].Rows[0]["ReportName"].ToString();
-        }
     }
 }

@@ -12,8 +12,10 @@ namespace BlueConsultingManagementSystemUI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            DatabaseHandler dh = new DatabaseHandler();
-            dh.testify2000();
+            double output;
+            CurrencyConverter CC = new CurrencyConverter();
+           output =CC.ConvertDollars("CND",1);
+            
         }
 
 
