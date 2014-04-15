@@ -19,7 +19,7 @@ namespace BlueConsultingManagementSystemLogic
          * 
          * ALLWAYS FOLLOW
          */
-        private SqlConnection SQLConnection;
+        public SqlConnection SQLConnection;
         public DatabaseHandler()
         {
             var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
@@ -36,11 +36,27 @@ namespace BlueConsultingManagementSystemLogic
             SQLConnection.Close();
             return resultSet;
         }
-        public void ConsultantsInsertExpenseQuery(string RepName, string User, string Location, string Description, string Amount, string Currency, string Dept_Type, DateTime DateExp)
+        public void ConsultantsInsertExpenseQuery(string RepName, string User, string Location, string Description, double Amount, string Currency, string Dept_Type, DateTime DateExp)
         {
             SQLConnection.Open();
-            SqlCommand sqlcmd = new SqlCommand("INSERT INTO [dbo].[ExpenseDB] ( [ReportName], [ConsultantName], [StatusReport], [Location], [Description], [Amount], [Currency], [Dept_type], [DateExpense]) VALUES('" + RepName + "', '" + User + "', " + "'Submitted'" + ", '" + Location + "', '" + Description + "', '" + Amount + "', '" + Currency + "', '" + Dept_Type + "', '" + DateExp + "')", SQLConnection);
-            sqlcmd.ExecuteScalar();
+            //SqlCommand sqlcmd = new SqlCommand("INSERT INTO [dbo].[ExpenseDB] ( [ReportName], [ConsultantName], [StatusReport], [Location], [Description], [Amount], [Currency], [Dept_type], [DateExpense]) VALUES('" + RepName + "', '" + User + "', " + "'Submitted'" + ", '" + Location + "', '" + Description + "', '" + Amount + "', '" + Currency + "', '" + Dept_Type + "', '" + DateExp + "')", SQLConnection);
+            //var adapter = new SqlDataAdapter(sqlcmd);
+            //SQLConnection.Close();
+
+            string cmd = "INSERT INTO [dbo].[ExpenseDB] ( [ReportName], [ConsultantName], [StatusReport], [Location], [Description], [Amount], [Currency], [Dept_type], [DateExpense]) VALUES(@repName, @user, @status, @location, @description, @amount, @currency, @dept_type, @dateExp)";
+            SqlCommand sqlcmd = new SqlCommand(cmd, SQLConnection);
+            sqlcmd.Parameters.AddWithValue("@repName", RepName);
+            sqlcmd.Parameters.AddWithValue("@user", User);
+            sqlcmd.Parameters.AddWithValue("@status", "Submitted");
+            sqlcmd.Parameters.AddWithValue("@location", Location);
+            sqlcmd.Parameters.AddWithValue("@description", Description);
+            sqlcmd.Parameters.AddWithValue("@amount", Amount);
+            sqlcmd.Parameters.AddWithValue("@currency", Currency);
+            sqlcmd.Parameters.AddWithValue("@dept_type", Dept_Type);
+            sqlcmd.Parameters.AddWithValue("@DateExp", DateExp);
+
+            sqlcmd.ExecuteNonQuery();
+
             SQLConnection.Close();
         }
 
@@ -266,6 +282,14 @@ namespace BlueConsultingManagementSystemLogic
             adapter.Fill(resultSet);
             SQLConnection.Close();
             return resultSet;
+        }
+        public void testify2000()
+        {
+            var selectCommand = new SqlCommand("select TOP 1 ReportName from ExpenseDB order by ReportName DESC;", SQLConnection);
+            var adapter = new SqlDataAdapter(selectCommand);
+            var resultSet = new DataSet();
+            adapter.Fill(resultSet);
+            string testify = resultSet.Tables[0].Rows[0]["ReportName"].ToString();
         }
     }
 }

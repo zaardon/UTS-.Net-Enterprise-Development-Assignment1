@@ -27,7 +27,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.StaffOnly
             ApprovedReportDetailsSQLConnection.DataSource = new DatabaseHandler().LoadStaffUnapprovedReportInfo(reportName);
             ApprovedReportDetailsSQLConnection.DataBind();
 
-            connection.Close();
+            //connection.Close();
         }
     }
 }

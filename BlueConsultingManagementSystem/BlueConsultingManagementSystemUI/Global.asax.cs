@@ -13,10 +13,9 @@ namespace BlueConsultingManagementSystemUI
 
         protected void Application_Start(object sender, EventArgs e)
         {
-            string pathToData = "../BlueConsultingManagementSystemLogic/App_Data";
+            string pathToData = "../";
             string dataDirectory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, pathToData));
             AppDomain.CurrentDomain.SetData("DataDirectory", dataDirectory);
         }
-
     }
 }

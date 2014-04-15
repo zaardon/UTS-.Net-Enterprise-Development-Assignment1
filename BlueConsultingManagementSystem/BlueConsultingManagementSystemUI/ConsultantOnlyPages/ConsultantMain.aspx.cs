@@ -45,7 +45,7 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 
             //connection.Close();
             DatabaseHandler dh = new DatabaseHandler();
-            dh.ConsultantsInsertExpenseQuery(reportBox.Text, User.Identity.Name, TextBox1.Text, TextBox2.Text, TextBox3.Text, DropDownList1.Text, DropDownList2.Text, Calendar1.SelectedDate.Date);
+            dh.ConsultantsInsertExpenseQuery(reportBox.Text, User.Identity.Name, TextBox1.Text, TextBox2.Text, Convert.ToDouble( TextBox3.Text), DropDownList1.Text, DropDownList2.Text, Calendar1.SelectedDate.Date);
             Response.Redirect("../index.aspx");
         }
 
