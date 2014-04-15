@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BlueConsultingManagementSystemLogic;
 
 namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 {
@@ -82,21 +83,8 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         }
 
         public double returnCurrentDeptMoney()
-        { 
-            double numb = 0.0;
-
-
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT Budget FROM DepartmentDB WHERE Dept_Name = 'HigherEducation'", connection);
-            //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
-            var adapter = new SqlDataAdapter(selectCommand);
-
-            var resultSet = new DataSet();
-            adapter.Fill(resultSet);
-
-            numb = Convert.ToDouble(resultSet.Tables[0].Rows[0].ItemArray[0]);
-            return numb;
+        {
+            return new DatabaseHandler().ReturnCurrentDepartmentMoney(userGroupMember);
         }
 
         public double getTotalNumber()
@@ -116,19 +104,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         public void deductBudget()
         {
-
-            double result = (returnCurrentDeptMoney() - getTotalNumber());
-
-
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("UPDATE [dbo].[DepartmentDB] SET Budget = " + result + " WHERE Dept_Name = '"+userGroupMember+"'", connection);
-            var adapter = new SqlDataAdapter(selectCommand);
-
-            var resultSet = new DataSet();
-            adapter.Fill(resultSet);
-
-            connection.Close();
+            new DatabaseHandler().UpdateDepartmentBudget(userGroupMember, getTotalNumber());
         }
 
         public void approveReport()
@@ -151,54 +127,24 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         public void denyReportStaff()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StaffApproved = 'NO' WHERE ReportName = '" + reportName + "'", connection);
-            var adapter = new SqlDataAdapter(selectCommand);
 
-            var resultSet = new DataSet();
-            adapter.Fill(resultSet);
+            new DatabaseHandler().DenyReportStaff(reportName);
 
-            connection.Close();
         }
 
         public void approveReportStaff()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StaffApproved = 'YES' WHERE ReportName = '" + reportName + "'", connection);
-            var adapter = new SqlDataAdapter(selectCommand);
-
-            var resultSet = new DataSet();
-            adapter.Fill(resultSet);
-
-            connection.Close();
+            new DatabaseHandler().ApproveReportStaff(reportName);
         }
 
         public void denySupervisor()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StatusReport = 'Declined', ProcessedBy ='" + User.Identity.Name + "' WHERE ReportName = '" + reportName + "'", connection);
-            var adapter = new SqlDataAdapter(selectCommand);
-
-            var resultSet = new DataSet();
-            adapter.Fill(resultSet);
-
-            connection.Close();
+            new DatabaseHandler().DenyReportSupervisor(User.Identity.Name, reportName);
         }
 
         public void approveSupervisor()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StatusReport = 'Approved', ProcessedBy ='" + User.Identity.Name + "' WHERE ReportName = '" + reportName + "'", connection);
-            var adapter = new SqlDataAdapter(selectCommand);
-
-            var resultSet = new DataSet();
-            adapter.Fill(resultSet);
-
-            connection.Close();
+            new DatabaseHandler().ApproveReportSupervisor(User.Identity.Name, reportName);
         }
 
         protected void ConfirmButton_Click(object sender, EventArgs e)
@@ -211,18 +157,10 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         public void fillExpenseTable()
         {
 
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "'", connection);
-            var adapter = new SqlDataAdapter(selectCommand);
 
-            var resultSet = new DataSet();
-            adapter.Fill(resultSet);
-
-            DisplayResultsGridSQLConnection.DataSource = resultSet;
+            DisplayResultsGridSQLConnection.DataSource = new DatabaseHandler().LoadExpenseTable(reportName);
             DisplayResultsGridSQLConnection.DataBind();
 
-            connection.Close();
         }
 
     }

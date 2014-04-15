@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BlueConsultingManagementSystemLogic;
 
 namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 {
@@ -26,27 +27,19 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         public void loadStaffData()
         {
-            //SQL Command goes here to show datas
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT distinct ReportName, ConsultantName, StatusReport, Dept_type FROM ExpenseDB WHERE StatusReport = 'Approved' AND StaffApproved is NULL", connection);
-            //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
-            var adapter = new SqlDataAdapter(selectCommand);
 
-            var resultSet = new DataSet();
-            adapter.Fill(resultSet);
-
-            AllApprovedReportsGridViewSQLConnection.DataSource = resultSet;
+            DataSet results = new DatabaseHandler().LoadStaffUnapprovedReportNames();
+            AllApprovedReportsGridViewSQLConnection.DataSource = results;
             AllApprovedReportsGridViewSQLConnection.DataBind();
 
-            connection.Close();
+            
             int temp = 0;
             string dept = "";
             string report = "";
             foreach (GridViewRow row in AllApprovedReportsGridViewSQLConnection.Rows)
             {
-                dept = resultSet.Tables[0].Rows[temp].ItemArray[2].ToString();
-                report = (resultSet.Tables[0].Rows[temp].ItemArray[0].ToString());
+                dept = results.Tables[0].Rows[temp].ItemArray[2].ToString();
+                report = (results.Tables[0].Rows[temp].ItemArray[0].ToString());
                 //if (Convert.ToDouble(resultSet.Tables[0].Rows[temp].ItemArray[3]) > departmentBudgetRemaining(dept))
                 if (getReportTotal(report) > departmentBudgetRemaining(dept))
                 {

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BlueConsultingManagementSystemLogic;
 
 namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SuperVisorOnlyPages
 {
@@ -40,19 +41,9 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SuperViso
         public void loadResults()
         {
             RejectedResultsGridViewSQLConnection.Visible = true;
-
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT distinct ReportName, ConsultantName FROM ExpenseDB WHERE StaffApproved = 'NO'", connection);
-            var adapter = new SqlDataAdapter(selectCommand);
-
-            var resultSet = new DataSet();
-            adapter.Fill(resultSet);
-
-            RejectedResultsGridViewSQLConnection.DataSource = resultSet;
+            RejectedResultsGridViewSQLConnection.DataSource = new DatabaseHandler().LoadRejectedReportNames();
             RejectedResultsGridViewSQLConnection.DataBind();
 
-            connection.Close();
         }
 
         protected void RejectedResultsGridViewSQLConnection_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)

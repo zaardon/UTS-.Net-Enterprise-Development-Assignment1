@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BlueConsultingManagementSystemLogic;
 
 namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SupervisorOnlyPages
 {
@@ -22,18 +23,10 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.Superviso
 
             public void loadData()
             {
-                var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-                var connection = new SqlConnection(connectionString);
-                var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "'", connection);
-                var adapter = new SqlDataAdapter(selectCommand);
 
-                var resultSet = new DataSet();
-                adapter.Fill(resultSet);
-
-                RejectedReportInfoSQLConnection.DataSource = resultSet;
+                RejectedReportInfoSQLConnection.DataSource = new DatabaseHandler().LoadRejectedReportInfo(reportName);
                 RejectedReportInfoSQLConnection.DataBind();
 
-                connection.Close();
             } 
     }
 }
