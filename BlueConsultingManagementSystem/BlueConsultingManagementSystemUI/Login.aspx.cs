@@ -14,7 +14,7 @@ namespace BlueConsultingManagementSystemUI
         {
             double output;
             CurrencyConverter CC = new CurrencyConverter();
-           output =CC.ConvertDollars("CND",1);
+            output = CC.ConvertCurrencyToAUD("CND", 1);
             
         }
 

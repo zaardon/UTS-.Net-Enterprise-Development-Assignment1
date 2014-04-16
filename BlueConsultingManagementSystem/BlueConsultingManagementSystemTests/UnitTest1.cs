@@ -196,7 +196,7 @@ namespace BlueConsultingManagementSystemTests
         {
             double expected;
             CurrencyConverter cc = new CurrencyConverter();
-            expected = cc.ConvertDollars("EUR", 1);
+            expected = cc.ConvertCurrencyToAUD("EUR", 1);
             Assert.AreEqual(0.680265,expected);
         }
          [TestCategory("Currency")]
@@ -205,7 +205,7 @@ namespace BlueConsultingManagementSystemTests
         {
             double expected;
             CurrencyConverter cc = new CurrencyConverter();
-            expected = cc.ConvertDollars("CND", 1);
+            expected = cc.ConvertCurrencyToAUD("CNY", 1);
             Assert.AreEqual(1.03215, expected);
 
         }
@@ -215,7 +215,7 @@ namespace BlueConsultingManagementSystemTests
         {
             double expected;
             CurrencyConverter cc = new CurrencyConverter();
-            expected = cc.ConvertDollars("fsd", 1);
+            expected = cc.ConvertCurrencyToAUD("fsd", 1);
             Assert.AreEqual(-1.0, expected);
 
         }
