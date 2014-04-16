@@ -39,9 +39,6 @@ namespace BlueConsultingManagementSystemLogic
         public void ConsultantsInsertExpenseQuery(string RepName, string User, string Location, string Description, double Amount, string Currency, string Dept_Type, DateTime DateExp)
         {
             SQLConnection.Open();
-            //SqlCommand sqlcmd = new SqlCommand("INSERT INTO [dbo].[ExpenseDB] ( [ReportName], [ConsultantName], [StatusReport], [Location], [Description], [Amount], [Currency], [Dept_type], [DateExpense]) VALUES('" + RepName + "', '" + User + "', " + "'Submitted'" + ", '" + Location + "', '" + Description + "', '" + Amount + "', '" + Currency + "', '" + Dept_Type + "', '" + DateExp + "')", SQLConnection);
-            //var adapter = new SqlDataAdapter(sqlcmd);
-            //SQLConnection.Close();
 
             string cmd = "INSERT INTO [dbo].[ExpenseDB] ( [ReportName], [ConsultantName], [StatusReport], [Location], [Description], [Amount], [Currency], [Dept_type], [DateExpense]) VALUES(@repName, @user, @status, @location, @description, @amount, @currency, @dept_type, @dateExp)";
             SqlCommand sqlcmd = new SqlCommand(cmd, SQLConnection);
@@ -166,16 +163,17 @@ namespace BlueConsultingManagementSystemLogic
 
         public DataSet LoadExpenseTable(string reportName)
         {
-            
+
             var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
 
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
             SQLConnection.Close();
-            return resultSet;
-            
+            return resultSet;          
+         
         }
+
 
         public DataSet LoadStaffDataExpenses()
         {
