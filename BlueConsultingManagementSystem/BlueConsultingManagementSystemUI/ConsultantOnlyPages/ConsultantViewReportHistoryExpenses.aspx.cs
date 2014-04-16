@@ -16,8 +16,11 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
         string reportName;
         protected void Page_Load(object sender, EventArgs e)
         {
-            reportName = (string)Session["reportName"];
+           // reportName = (string) HttpUtility.HtmlDecode(Session["reportName"].ToString());
+            reportName = (string)(Session["reportName"].ToString());
+            Response.Write(Session["reportName"].ToString());
             loadData();
+
         }
 
         public void loadData()

@@ -16,7 +16,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.StaffOnly
         string reportName;
         protected void Page_Load(object sender, EventArgs e)
         {
-            reportName = (string)Session["reportName"];
+            reportName = Session["reportName"].ToString();
             loadData();
         }
 

@@ -166,6 +166,7 @@ namespace BlueConsultingManagementSystemLogic
 
         public DataSet LoadExpenseTable(string reportName)
         {
+            
             var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
 

@@ -22,7 +22,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         {
             Label2.Text = User.Identity.AuthenticationType.ToString();
             Label1.Text = "null";
-            reportName = (string)Session["reportName"];
+            reportName = Session["reportName"].ToString();
             Label1.Text = reportName;
             fillExpenseTable();
             CurrentAmount.Text = "The total is: " + getTotalNumber().ToString();
