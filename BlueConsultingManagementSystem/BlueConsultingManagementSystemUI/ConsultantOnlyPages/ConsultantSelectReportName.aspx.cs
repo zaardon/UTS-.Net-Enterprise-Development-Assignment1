@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BlueConsultingManagementSystemLogic;
 
 namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 {
@@ -22,23 +23,15 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
                 Session["reportName"] = reportName;
             }
 
-            WelcomeMessage.Text = "Welcome: " + Membership.GetUser().UserName + ", you may continue the following reports";
+            WelcomeMessage.Text = "Welcome: " + User.Identity.Name + ", you may continue the following reports";
 
             loadCurrentReports();
         }
 
         public void loadCurrentReports()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var con = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT distinct ReportName FROM ExpenseDB WHERE ConsultantName = '" + User.Identity.Name + "' AND StatusReport = 'Submitted'", con);
-            var adapter = new SqlDataAdapter(selectCommand);
-            var resultSet = new DataSet();
-            adapter.Fill(resultSet);
-            con.Close();
-            CurrentReportNamesSQLConnection.DataSource = resultSet;
+            CurrentReportNamesSQLConnection.DataSource = new DatabaseHandler().ConsultantLoadInProgressReports(User.Identity.Name);
             CurrentReportNamesSQLConnection.DataBind();
-
         }
     
 

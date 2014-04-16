@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BlueConsultingManagementSystemLogic;
 
 namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 {
@@ -18,68 +19,36 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             string reportType = (string)Session["reportType"];
 
             if (Session["reportName"] == null)
-            {
-
                 Session["reportName"] = reportName;
-            }
-
-            if (reportType == "AllSubmitted")
-            {
-                loadSubmittedReports();
-            }
-            else if (reportType == "AllApproved")
-            {
-                loadApprovedReports();
-            }
-            else if (reportType == "InProgress")
-            {
-                loadInProgressReports();
-            }
             
+            if (reportType == "AllSubmitted")
+                loadSubmittedReports();
+            else if (reportType == "AllApproved")
+                loadApprovedReports();
+            else if (reportType == "InProgress")
+                loadInProgressReports();            
         }
 
         public void loadSubmittedReports()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var con = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT distinct ReportName, StatusReport as 'Supvervisor Approval', StaffApproved as 'Account Staff Approval' FROM ExpenseDB WHERE ConsultantName = '" + User.Identity.Name +"'", con);
-            var adapter = new SqlDataAdapter(selectCommand);
-            var resultSet = new DataSet();
-            adapter.Fill(resultSet);
-            con.Close();
-            ConsultantHistorySQLConnection.DataSource = resultSet;
+            ConsultantHistorySQLConnection.DataSource = new DatabaseHandler().ConsultantLoadSubmittedReports(User.Identity.Name);
             ConsultantHistorySQLConnection.DataBind();
         }
 
         public void loadApprovedReports()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var con = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT distinct ReportName, StatusReport as 'Supvervisor Approval', StaffApproved as 'Account Staff Approval' FROM ExpenseDB WHERE ConsultantName = '" + User.Identity.Name + "' AND StatusReport = 'Approved'", con);
-            var adapter = new SqlDataAdapter(selectCommand);
-            var resultSet = new DataSet();
-            adapter.Fill(resultSet);
-            con.Close();
-            ConsultantHistorySQLConnection.DataSource = resultSet;
+            ConsultantHistorySQLConnection.DataSource = new DatabaseHandler().ConsultantLoadApprovedReports(User.Identity.Name);
             ConsultantHistorySQLConnection.DataBind();
         }
 
         public void loadInProgressReports()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var con = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT distinct ReportName FROM ExpenseDB WHERE ConsultantName = '" + User.Identity.Name + "' AND StatusReport = 'Submitted'", con);
-            var adapter = new SqlDataAdapter(selectCommand);
-            var resultSet = new DataSet();
-            adapter.Fill(resultSet);
-            con.Close();
-            ConsultantHistorySQLConnection.DataSource = resultSet;
+            ConsultantHistorySQLConnection.DataSource = new DatabaseHandler().ConsultantLoadInProgressReports(User.Identity.Name);
             ConsultantHistorySQLConnection.DataBind();
         }
 
         protected void ConsultantHistorySQLConnection_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
-
             string currentCommand = e.CommandName;
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow selectedRow = ConsultantHistorySQLConnection.Rows[index];
@@ -88,5 +57,6 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             Response.Redirect("ConsultantViewReportHistoryExpenses.aspx");
             //fix that hardcode
         }
+
     }
 }

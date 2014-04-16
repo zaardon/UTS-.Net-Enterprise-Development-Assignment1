@@ -7,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BlueConsultingManagementSystemLogic;
 
 namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 {
@@ -21,16 +22,7 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 
         public void loadData()
         {
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var con = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "'", con);
-            var adapter = new SqlDataAdapter(selectCommand);
-
-            var resultSet = new DataSet();
-            adapter.Fill(resultSet);
-            con.Close();
-
-            ReportExpenseHistoryDetailsSQLConnection.DataSource = resultSet;
+            ReportExpenseHistoryDetailsSQLConnection.DataSource = new DatabaseHandler().LoadExpenseTable(reportName);
             ReportExpenseHistoryDetailsSQLConnection.DataBind();
         }
     }
