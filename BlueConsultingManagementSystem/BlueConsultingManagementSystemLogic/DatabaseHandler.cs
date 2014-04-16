@@ -292,7 +292,14 @@ namespace BlueConsultingManagementSystemLogic
             adapter.Fill(resultSet);
 
             SQLConnection.Close();
-            numb = Convert.ToDouble(resultSet.Tables[0].Rows[0].ItemArray[0]);
+            try
+            {
+                numb = Convert.ToDouble(resultSet.Tables[0].Rows[0].ItemArray[0]);
+            }
+            catch
+            {
+                numb = 0;
+            }
             return numb;
         }
 
