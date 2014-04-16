@@ -156,24 +156,38 @@ namespace BlueConsultingManagementSystemTests
         //INSERTION TEST METHOD.
         [TestCategory("Consultant")]
         [TestMethod]
-        public void AddExpenseTest()
+        public void ConsultantTest()
         {
             DatabaseHandler dh = new DatabaseHandler();
             using (TransactionScope TestTransaction = new TransactionScope())
             {
-                
-                dh.ConsultantsInsertExpenseQuery("test", "test", "test", "test", 12.04 , "AUD","TestDept" ,DateTime.Today );
-                var selectCommand = new SqlCommand("select ReportName from [dbo].[ExpenseDB] where ReportName='test';", dh.SQLConnection);
-                var adapter = new SqlDataAdapter(selectCommand);
-                var resultSet = new DataSet();
-                adapter.Fill(resultSet);
-                string testify = resultSet.Tables[0].Rows[0]["ReportName"].ToString();
-                
-                Assert.AreEqual("test", testify);
+
+                dh.ConsultantsInsertExpenseQuery("CONSULTANTSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
+                DataSet dsInprogress = dh.ConsultantLoadInProgressReports("Hugh");
+                Assert.AreEqual(1, dsInprogress.Tables[0].Rows.Count);
+                dh.ConsultantsInsertExpenseQuery("CONSULTANTSUPERTEST", "Hugh", "work", "ICac Champagne, 1959 was a good year", 3000, "AUD", "LogisticServices", DateTime.Today);
+                DataSet dsSubmitted = dh.ConsultantLoadSubmittedReports("hugh");
+                Assert.AreEqual(1, dsSubmitted.Tables[0].Rows.Count);
+                DataSet dsApproved = dh.ConsultantLoadApprovedReports("hugh");
+                Assert.AreEqual(0, dsApproved.Tables[0].Rows.Count);
                 TestTransaction.Dispose();
             }
 
         }
+        //[TestCategory("Supervisor")]
+        //[TestMethod]
+        //public void SupervisorTest()
+        //{
+
+        //    DatabaseHandler dh = new DatabaseHandler();
+        //    using (TransactionScope TestTransaction = new TransactionScope())
+        //    {
+
+        //        dh.ConsultantsInsertExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
+        //        dh.ConsultantsInsertExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
+        //        TestTransaction.Dispose();
+        //    }
+        //}
 
         //currency tests below here
          [TestCategory("Currency")]
