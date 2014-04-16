@@ -28,26 +28,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         public double departmentBudgetRemaining()
         {
-            //double numb = 0.0;
 
-
-            //var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            //var connection = new SqlConnection(connectionString);
-            //var selectCommand = new SqlCommand("SELECT Budget FROM DepartmentDB WHERE Dept_name = '"+ userGroupMember +"'", connection);
-            ////ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
-            //var adapter = new SqlDataAdapter(selectCommand);
-
-            //var resultSet = new DataSet();
-            //adapter.Fill(resultSet);
-
-            //try
-            //{
-            //    numb = Convert.ToDouble(resultSet.Tables[0].Rows[0].ItemArray[0]);
-            //}
-            //catch
-            //{
-            //        numb = 0;
-            //}
 
             return new DatabaseHandler().ReturnCurrentDepartmentMoney(userGroupMember) - new DatabaseHandler().ReturnDepartmentExpensesMade(userGroupMember);
         }

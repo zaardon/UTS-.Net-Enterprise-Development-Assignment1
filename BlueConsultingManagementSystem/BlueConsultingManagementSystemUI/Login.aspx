@@ -10,12 +10,8 @@
     <form id="form1" runat="server">
     <div>
     
-        <asp:Login ID="Login1" DestinationPageUrl="~/index.aspx" runat="server"></asp:Login>
-
-        
-
-      
-
+        <asp:Login ID="Login1" DestinationPageUrl="~/index.aspx" runat="server"></asp:Login>     
+         
     </div>
     </form>
 </body>

@@ -39,8 +39,8 @@ namespace BlueConsultingManagementSystemTests
         //        TestTransaction.Dispose();
         //    }
         //}
-        [TestCategory("staff")]
-        [TestMethod]
+        //[TestCategory("staff")]
+        //[TestMethod]
         [TestCategory("staff")]
         [TestMethod]
         public void ReturnDepExpensesMadeTest()

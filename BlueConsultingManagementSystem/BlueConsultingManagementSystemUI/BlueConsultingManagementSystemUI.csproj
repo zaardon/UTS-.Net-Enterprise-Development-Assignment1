@@ -57,7 +57,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ConsultantOnlyPages\ConsultantAddReport.aspx" />
     <Content Include="ConsultantOnlyPages\ConsultantMain.aspx" />
+    <Content Include="ConsultantOnlyPages\ConsultantSelectReportName.aspx" />
+    <Content Include="ConsultantOnlyPages\ConsultantViewReportHistory.aspx" />
+    <Content Include="ConsultantOnlyPages\ConsultantViewReportHistoryExpenses.aspx" />
     <Content Include="Global.asax" />
     <Content Include="index.aspx" />
     <Content Include="Login.aspx" />
@@ -75,12 +79,40 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsultantOnlyPages\ConsultantAddReport.aspx.cs">
+      <DependentUpon>ConsultantAddReport.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConsultantOnlyPages\ConsultantAddReport.aspx.designer.cs">
+      <DependentUpon>ConsultantAddReport.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ConsultantOnlyPages\ConsultantMain.aspx.cs">
       <DependentUpon>ConsultantMain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ConsultantOnlyPages\ConsultantMain.aspx.designer.cs">
       <DependentUpon>ConsultantMain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ConsultantOnlyPages\ConsultantSelectReportName.aspx.cs">
+      <DependentUpon>ConsultantSelectReportName.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConsultantOnlyPages\ConsultantSelectReportName.aspx.designer.cs">
+      <DependentUpon>ConsultantSelectReportName.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ConsultantOnlyPages\ConsultantViewReportHistory.aspx.cs">
+      <DependentUpon>ConsultantViewReportHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConsultantOnlyPages\ConsultantViewReportHistory.aspx.designer.cs">
+      <DependentUpon>ConsultantViewReportHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ConsultantOnlyPages\ConsultantViewReportHistoryExpenses.aspx.cs">
+      <DependentUpon>ConsultantViewReportHistoryExpenses.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConsultantOnlyPages\ConsultantViewReportHistoryExpenses.aspx.designer.cs">
+      <DependentUpon>ConsultantViewReportHistoryExpenses.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
