@@ -174,20 +174,43 @@ namespace BlueConsultingManagementSystemTests
             }
 
         }
-        //[TestCategory("Supervisor")]
-        //[TestMethod]
-        //public void SupervisorTest()
-        //{
+        [TestCategory("Supervisor")]
+        [TestMethod]
+        public void SupervisorTest()
+        {
 
-        //    DatabaseHandler dh = new DatabaseHandler();
-        //    using (TransactionScope TestTransaction = new TransactionScope())
-        //    {
+            DatabaseHandler dh = new DatabaseHandler();
+            using (TransactionScope TestTransaction = new TransactionScope())
+            {
 
-        //        dh.ConsultantsInsertExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
-        //        dh.ConsultantsInsertExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
-        //        TestTransaction.Dispose();
-        //    }
-        //}
+                dh.ConsultantsInsertExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
+                dh.ConsultantsInsertExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
+               DataSet dsDepartmentSupervisor = dh.LoadDepartmentSupervisorData("LogisticServices");
+               int i = 0;
+               bool resultDepsup= false;
+               while (i < dsDepartmentSupervisor.Tables[0].Rows.Count)
+               {
+                   if (dsDepartmentSupervisor.Tables[0].Rows[i]["ReportName"].ToString() == "SUPERVISORSUPERTEST" && dsDepartmentSupervisor.Tables[0].Rows[i]["ConsultantName"].ToString() == "Hugh")
+                   {
+                       resultDepsup = true;
+                       break;
+                   }
+                   i++;
+               }
+               Assert.AreEqual(true, resultDepsup);
+               DataSet dsExpenseSupervisor = dh.LoadExpenseTable("SUPERVISORSUPERTEST");
+               Assert.AreEqual("Hugh", dsExpenseSupervisor.Tables[0].Rows[0]["Name"].ToString());
+               dh.ApproveReportSupervisor("SuperSupervisor", "SUPERVISORSUPERTEST");
+               dh.UpdateDepartmentBudget("LogisticServices", 3001.00);
+
+
+
+              
+                 
+
+                TestTransaction.Dispose();
+            }
+        }
 
         //currency tests below here
          [TestCategory("Currency")]
