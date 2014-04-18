@@ -11,10 +11,10 @@
     <div>
          Please select the type of report you wish to view:<br />
         <br />
-        <asp:Button ID="ReportsButton" runat="server" Text="Unapproved Reports" OnClick="ReportsButton_Click" />
+        <asp:Button ID="ReportsButton" runat="server" Text="Consultant Unapproved Reports" OnClick="ReportsButton_Click" />
         <asp:Button ID="ExpenseResultsButton" runat="server" Text="Expense Results" OnClick="ExpenseResultsButton_Click" />
         <asp:Button ID="RejectedResultsButton" runat="server" Text="Rejected Submits" OnClick="RejectedResultsButton_Click" />
-        <asp:Button ID="ApprovedReportsButton" runat="server" Text="All Approved Reports" Visible = "false" OnClick="ApprovedReportsButton_Click" />
+        <asp:Button ID="ApprovedReportsButton" runat="server" Text="Supervisor Unapproved Reports" Visible = "false" OnClick="ApprovedReportsButton_Click" />
         
 
         <br />

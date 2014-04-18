@@ -16,11 +16,11 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string reportName = (string)Session["reportName"];
+            string reportName = HttpUtility.HtmlDecode(Session["reportName"].ToString());
 
             if (reportName != "")
             {
-                reportBox.Text = reportName;
+                reportBox.Text = reportName.ToString();
                 reportBox.ReadOnly = true;
             }
 

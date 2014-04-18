@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using BlueConsultingManagementSystemLogic;
 
+
 namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 {
     public partial class SupervisorReportsDisplayPage : System.Web.UI.Page
@@ -22,10 +23,10 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         {
             Label2.Text = User.Identity.AuthenticationType.ToString();
             Label1.Text = "null";
-            reportName = (string)Session["reportName"];
+            reportName = Session["reportName"].ToString();
             Label1.Text = reportName;
             fillExpenseTable();
-            CurrentAmount.Text = "The total is: " + getTotalNumber().ToString();
+            CurrentAmount.Text = "The total is: $" + getTotalNumber().ToString()+" AUD";
 
             if (User.IsInRole("Higher Education Services"))
                 userGroupMember = "HigherEducation";
@@ -57,7 +58,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             }
             else
             {
-                ConfirmLabel.Text = "Are you sure you want to proceed? The current department budget is: " + returnCurrentDeptMoney();
+                ConfirmLabel.Text = "Are you sure you want to proceed? The current department budget is: $" + returnCurrentDeptMoney()+" AUD";
                 ConfirmLabel.Visible = true;
                 ConfirmButton.Visible = true;
             }
@@ -91,12 +92,14 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         {
             double totalNumber = 0;
             string colNumb = "";
+            string currency = "";
 
             foreach (GridViewRow row in DisplayResultsGridSQLConnection.Rows)
             {
                 //totalNumber += Convert.ToDouble(row.Cells[4].Text.ToString());
                 colNumb = row.Cells[4].Text.ToString();
-                totalNumber += Convert.ToDouble(colNumb);
+                currency = row.Cells[5].Text.ToString();
+                totalNumber += new CurrencyConverter().ConvertCurrencyToAUD(currency, Convert.ToDouble(colNumb));
             }
 
             return totalNumber;

@@ -8,25 +8,31 @@ namespace BlueConsultingManagementSystemLogic
 {
     public class CurrencyConverter
     {
-        private double EUR = 0.680265, CND = 1.03215;
-        public double ConvertDollars(String ConverType,double money )
+        private double EUR = 0.680265, CNY = 1.03215, USD = 0.94, AUD = 1.00;
+        public double ConvertCurrencyToAUD(String ConvertType, double money)
         {
-            double coney = 0.0;
-            if (ConverType == "EUR")
+            double conversion = 0.0;
+            if (ConvertType == "EUR")
             {
-                coney = money * EUR;
-
+                conversion = money * EUR;
             }
-            else if (ConverType == "CND")
+            else if (ConvertType == "CNY")
             {
-                coney = money * CND;
+                conversion = money * CNY;
+            }
+            else if (ConvertType == "USD")
+            {
+                conversion = money * USD;
+            }
+            else if (ConvertType == "AUD")
+            {
+                conversion = money * AUD;
             }
             else
             {
-                //for now this is the deafualt somethings broken value
-                coney = -1.0;
+                conversion = -1.0;
             }
-            return coney;
+            return conversion;
         }
     }
 }

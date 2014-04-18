@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -23,7 +24,7 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
                 Session["reportName"] = reportName;
             }
 
-            WelcomeMessage.Text = "Welcome: " + User.Identity.Name + ", you may continue the following reports";
+            WelcomeMessage.Text = "Welcome " + User.Identity.Name + "!";
 
             loadCurrentReports();
         }
@@ -42,6 +43,7 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow selectedRow = CurrentReportNamesSQLConnection.Rows[index];
             reportName = selectedRow.Cells[1].Text.ToString();
+
             Session["reportName"] = reportName;
             Response.Redirect("ConsultantAddReport.aspx");
             //fix that hardcode
