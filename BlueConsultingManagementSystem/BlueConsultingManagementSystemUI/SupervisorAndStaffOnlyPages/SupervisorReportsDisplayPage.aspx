@@ -16,9 +16,9 @@
         <br />
         <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
 
-        <asp:GridView ID="DisplayResultsGridSQLConnection" runat="server">
+        <asp:GridView ID="DisplayResultsGridSQLConnection" runat="server" onrowcommand="DisplayResultsGridSQLConnection_RowCommand">
             <Columns>
-                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="PDFFile" ShowHeader="True" Text="Receipt" />
+                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="PDFFile" ShowHeader="True" Text="Receipt"  />
             </Columns>
         </asp:GridView>
     </div>
