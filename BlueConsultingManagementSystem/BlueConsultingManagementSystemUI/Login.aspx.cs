@@ -12,9 +12,7 @@ namespace BlueConsultingManagementSystemUI
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            double output;
-            CurrencyConverter CC = new CurrencyConverter();
-            output = CC.ConvertCurrencyToAUD("CND", 1);
+           
             
         }
 

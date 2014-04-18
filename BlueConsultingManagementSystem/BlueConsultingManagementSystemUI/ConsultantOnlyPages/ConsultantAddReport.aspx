@@ -1,12 +1,19 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ConsultantAddReport.aspx.cs" Inherits="BlueConsultingManagementSystemUI.ConsultantOnlyPages.ConsultantAddReport" %>
 
 <!DOCTYPE html>
+<link rel="stylesheet" href="../css/css/bootstrap-theme.css" type="text/css">
+<link rel="stylesheet" href="../css/css/bootstrap.min.css" type="text/css" />
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
 </head>
 <body>
+     <div class="modal-dialog">
+        <div class ="panel panel-primary"  >  
+            <div class="panel-heading">
+                <h1 class="panel-title" margin-left: 30%;> Blue management Consultant expense</h1>
+                </div>
     <form id="form1" runat="server">
     <div>
     </div>
@@ -25,7 +32,7 @@
 <tr>
   <td>location</td>
   <td>
-      <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox></td> 
+      <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" placeholder="Text input"></asp:TextBox></td> 
 </tr>
             <tr>
   <td>description</td>
@@ -76,6 +83,12 @@
         
 
     </form>
+            </div>
+         </div>
     
 </body>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="../css/js/bootstrap.min.js"></script>
+    <script src="../css/js/docs.min.js"></script>
 </html>
