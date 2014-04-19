@@ -100,7 +100,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                 //totalNumber += Convert.ToDouble(row.Cells[4].Text.ToString());
                 colNumb = row.Cells[4].Text.ToString();
                 currency = row.Cells[5].Text.ToString();
-                totalNumber += new CurrencyConverter().ConvertCurrencyToAUD(currency, Convert.ToDouble(colNumb));
+                totalNumber += CurrencyConverter.ConvertCurrencyToAUD(currency, Convert.ToDouble(colNumb));
             }
 
             return totalNumber;

@@ -1,38 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BlueConsultingManagementSystemLogic
+﻿namespace BlueConsultingManagementSystemLogic
 {
-    public class CurrencyConverter
+    public static class CurrencyConverter
     {
-        private double EUR = 0.680265, CNY = 1.03215, USD = 0.94, AUD = 1.00;
-        public double ConvertCurrencyToAUD(String ConvertType, double money)
+        const double EUR = 0.680265;
+        const double CNY = 1.03215;
+        const double USD = 0.94;
+        const double AUD = 1.00;
+
+        public static double ConvertCurrencyToAUD(string currency, double amount)
         {
-            double conversion = 0.0;
-            if (ConvertType == "EUR")
+            switch (currency)
             {
-                conversion = money * EUR;
+                case "EUR":
+                    return amount * EUR;
+                case "CNY":
+                    return amount * CNY;
+                case "USD":
+                    return amount * USD;
+                case "AUD":
+                    return amount;
+                default:
+                    return -1.0;
             }
-            else if (ConvertType == "CNY")
-            {
-                conversion = money * CNY;
-            }
-            else if (ConvertType == "USD")
-            {
-                conversion = money * USD;
-            }
-            else if (ConvertType == "AUD")
-            {
-                conversion = money * AUD;
-            }
-            else
-            {
-                conversion = -1.0;
-            }
-            return conversion;
         }
     }
 }

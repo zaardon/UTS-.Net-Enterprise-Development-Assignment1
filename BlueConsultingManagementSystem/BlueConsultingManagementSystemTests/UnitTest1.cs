@@ -13,16 +13,22 @@ namespace BlueConsultingManagementSystemTests
     [TestClass]
     public class UnitTest1
     {
+        DatabaseHandler dh;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            this.dh = new DatabaseHandler();
+        }
+
         [TestCategory("staff")]
         [TestMethod]
         public void AllApprovedReportsTest()
         {
-            DatabaseHandler dh = new DatabaseHandler();
-            DataSet ds= dh.AllApprovedReports();
-            for(int j = 0; j< ds.Tables[0].Rows.Count; j++)
+            var ds = dh.AllApprovedReports();
+            foreach (DataRow row in ds.Tables[0].Rows)
             {
-                    String testify = ds.Tables[0].Rows[j]["StatusReport"].ToString();
-                    Assert.AreEqual("Approved", testify);
+                Assert.AreEqual("Approved", row["StatusReport"].ToString());
             }
         }
         //[TestCategory("staff")]
@@ -45,39 +51,36 @@ namespace BlueConsultingManagementSystemTests
         [TestMethod]
         public void ReturnDepExpensesMadeTest()
         {
-            DatabaseHandler dh = new DatabaseHandler();
-            double result = dh.ReturnDepartmentExpensesMade("LogisticServices");
-            Assert.AreEqual(0, result);
+            Assert.AreEqual(0, dh.ReturnDepartmentExpensesMade("LogisticServices"));
         }
+
         [TestCategory("staff")]
         [TestMethod]
         public void LoadRejectedInfoTest()
         {
-            DatabaseHandler dh = new DatabaseHandler();
-            DataSet ds = dh.LoadStaffUnapprovedReportInfo("The Big Meeting");
+            var ds = dh.LoadStaffUnapprovedReportInfo("The Big Meeting");
             Assert.AreEqual("dsfdsfds", ds.Tables[0].Rows[0]["Location"].ToString());
         }
+
         [TestCategory("staff")]
         [TestMethod]
         public void LoadRejectedReportNames()
         {
-            DatabaseHandler dh = new DatabaseHandler();
-            DataSet ds = dh.LoadStaffUnapprovedReportNames();
-            string result = ds.Tables[0].Rows[0]["ReportName"].ToString();
-            Assert.AreEqual("The Big Meeting", result);
+            var ds = dh.LoadStaffUnapprovedReportNames();
+            Assert.AreEqual("The Big Meeting", ds.Tables[0].Rows[0]["ReportName"].ToString());
         }
+
         [TestCategory("staff")]
         [TestMethod]
         //this test I am unsure about.
         public void UpdateDeptBudgetTest()
         {
-            DatabaseHandler dh = new DatabaseHandler();
-             using (TransactionScope TestTransaction = new TransactionScope())
+            using (TransactionScope TestTransaction = new TransactionScope())
             {
                 dh.UpdateDepartmentBudget("LogisticServices", 1.2);
-                double result = dh.ReturnDepartmentExpensesMade("HigherEducation");
-                Assert.AreEqual(424537.31, result);
-               
+                Assert.AreEqual(424537.31, dh.ReturnDepartmentExpensesMade("HigherEducation"));
+
+                // not sure if you need this, as the transaction should dispose at the end of the using block.
                 TestTransaction.Dispose();
             }
         }
@@ -85,41 +88,39 @@ namespace BlueConsultingManagementSystemTests
         [TestMethod]
         public void UnapprovedReportNames()
         {
-            DatabaseHandler dh = new DatabaseHandler();
-            DataSet ds = dh.LoadStaffUnapprovedReportNames();
-            for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+            var ds = dh.LoadStaffUnapprovedReportNames();
+            foreach (DataRow row in ds.Tables[0].Rows)
             {
-                String teststatus = ds.Tables[0].Rows[j]["StatusReport"].ToString();
-                Assert.AreEqual("Approved", teststatus);
-   
+                Assert.AreEqual("Approved", row["StatusReport"].ToString());
             }
         }
         [TestCategory("staff")]
         [TestMethod]
         public void LoadStaffUnapprovedInfoTest()
         {
-            DatabaseHandler dh = new DatabaseHandler();
-            DataSet ds = dh.LoadStaffUnapprovedReportInfo("bacon");
-            string result = ds.Tables[0].Rows[0]["name"].ToString();
-            Assert.AreEqual("james",result);
-
-
+            var ds = dh.LoadStaffUnapprovedReportInfo("bacon");
+            Assert.AreEqual("james", ds.Tables[0].Rows[0]["name"].ToString());
         }
+
         [TestCategory("staff")]
         [TestMethod]
         public void CurrentDeptBudgetTest()
         {
-            DatabaseHandler dh = new DatabaseHandler();
-            double result = dh.ReturnCurrentDepartmentMoney("HigherEducation");
-            //Assert.AreEqual(10000.000, result);
+            // This test isn't testing anything different across departments - perhaps make LogisticServices return a different number
+            var result = dh.ReturnCurrentDepartmentMoney("HigherEducation");
+            Assert.AreEqual(10000.00, result);
             result = dh.ReturnCurrentDepartmentMoney("LogisticServices");
             Assert.AreEqual(10000.000, result);
         }
+
         [TestCategory("staff")]
         [TestMethod]
         public void DenyReportTest()
         {
-            DatabaseHandler dh = new DatabaseHandler();
+            // Would strongly recommend combining all the parameters of ConsultantsInsertExpenseQuery into
+            // their own class, as this is way too many parameters for one function that looks pretty simple at
+            // first glance.
+
             using (TransactionScope TestTransaction = new TransactionScope())
             {
 
@@ -134,11 +135,11 @@ namespace BlueConsultingManagementSystemTests
                 TestTransaction.Dispose();
             }
         }
-         [TestCategory("staff")]
+
+        [TestCategory("staff")]
         [TestMethod]
         public void ApproveReportTest()
         {
-            DatabaseHandler dh = new DatabaseHandler();
             using (TransactionScope TestTransaction = new TransactionScope())
             {
 
@@ -158,10 +159,8 @@ namespace BlueConsultingManagementSystemTests
         [TestMethod]
         public void ConsultantTest()
         {
-            DatabaseHandler dh = new DatabaseHandler();
             using (TransactionScope TestTransaction = new TransactionScope())
             {
-
                 dh.ConsultantsInsertExpenseQuery("CONSULTANTSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
                 DataSet dsInprogress = dh.ConsultantLoadInProgressReports("Hugh");
                 Assert.AreEqual(1, dsInprogress.Tables[0].Rows.Count);
@@ -172,7 +171,6 @@ namespace BlueConsultingManagementSystemTests
                 Assert.AreEqual(0, dsApproved.Tables[0].Rows.Count);
                 TestTransaction.Dispose();
             }
-
         }
         [TestCategory("Supervisor")]
         [TestMethod]
@@ -213,35 +211,31 @@ namespace BlueConsultingManagementSystemTests
         }
 
         //currency tests below here
-         [TestCategory("Currency")]
-                [TestMethod]
+        [TestCategory("Currency")]
+        [TestMethod]
         public void TestEUR()
         {
-            double expected;
-            CurrencyConverter cc = new CurrencyConverter();
-            expected = cc.ConvertCurrencyToAUD("EUR", 1);
-            Assert.AreEqual(0.680265,expected);
+            var expected = CurrencyConverter.ConvertCurrencyToAUD("EUR", 1);
+            Assert.AreEqual(0.680265, expected);
         }
-         [TestCategory("Currency")]
+
+        [TestCategory("Currency")]
         [TestMethod]
         public void TestCAD()
         {
-            double expected;
-            CurrencyConverter cc = new CurrencyConverter();
-            expected = cc.ConvertCurrencyToAUD("CNY", 1);
+            var expected = CurrencyConverter.ConvertCurrencyToAUD("CNY", 1);
             Assert.AreEqual(1.03215, expected);
 
         }
-         [TestCategory("Currency")]
+        [TestCategory("Currency")]
         [TestMethod]
         public void TestCurrencyConvertFails()
         {
-            double expected;
-            CurrencyConverter cc = new CurrencyConverter();
-            expected = cc.ConvertCurrencyToAUD("fsd", 1);
+            var expected = CurrencyConverter.ConvertCurrencyToAUD("fsd", 1);
             Assert.AreEqual(-1.0, expected);
 
         }
+
 
     }
 }
