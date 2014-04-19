@@ -162,7 +162,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         {
 
 
-            DisplayResultsGridSQLConnection.DataSource = new DatabaseHandler().LoadExpenseTable(reportName);
+            DisplayResultsGridSQLConnection.DataSource = new DatabaseHandler().LoadExpenseTableNonRejectedOrApproved(reportName);
             DisplayResultsGridSQLConnection.DataBind();
 
         }

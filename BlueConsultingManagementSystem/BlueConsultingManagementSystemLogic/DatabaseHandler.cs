@@ -209,6 +209,19 @@ namespace BlueConsultingManagementSystemLogic
          
         }
 
+        public DataSet LoadExpenseTableNonRejectedOrApproved(string reportName)
+        {
+            SQLConnection.Open();
+            var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND StatusReport = 'Submitted'", SQLConnection);
+            var adapter = new SqlDataAdapter(selectCommand);
+
+            var resultSet = new DataSet();
+            adapter.Fill(resultSet);
+            SQLConnection.Close();
+            return resultSet;
+
+        }
+
 
         public DataSet LoadStaffDataExpenses()
         {
