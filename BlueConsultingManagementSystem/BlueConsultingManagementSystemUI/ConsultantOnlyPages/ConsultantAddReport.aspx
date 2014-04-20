@@ -111,8 +111,7 @@
       <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control" >
           <asp:ListItem>AUD</asp:ListItem>
           <asp:ListItem>CNY</asp:ListItem>
-          <asp:ListItem>ERU</asp:ListItem>
-          <asp:ListItem>USD</asp:ListItem>
+          <asp:ListItem>EUR</asp:ListItem>
       </asp:DropDownList></td> 
 </tr>
 

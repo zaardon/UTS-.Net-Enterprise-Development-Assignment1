@@ -41,7 +41,7 @@ namespace BlueConsultingManagementSystemLogic
         {
             SQLConnection.Open();
 
-            string cmd = "INSERT INTO [dbo].[ExpenseDB] ( [ReportName], [ConsultantName], [StatusReport], [Location], [Description], [Amount], [Currency], [Dept_type], [DateExpense]) VALUES(@repName, @user, @status, @location, @description, @amount, @currency, @dept_type, @dateExp)";
+            string cmd = "INSERT INTO [dbo].[ExpenseDB] ( [ReportName], [ConsultantName], [StatusReport], [Location], [Description], [Amount], [Currency], [Dept_type], [DateExpense], [PDF_File], [TotalAUD]) VALUES(@repName, @user, @status, @location, @description, @amount, @currency, @dept_type, @dateExp, @PDF_File, @totalAUD)";
             SqlCommand sqlcmd = new SqlCommand(cmd, SQLConnection);
             sqlcmd.Parameters.AddWithValue("@repName", repName);
             sqlcmd.Parameters.AddWithValue("@user", user);
@@ -52,6 +52,8 @@ namespace BlueConsultingManagementSystemLogic
             sqlcmd.Parameters.AddWithValue("@currency", currency);
             sqlcmd.Parameters.AddWithValue("@dept_type", deptType);
             sqlcmd.Parameters.AddWithValue("@dateExp", dateExp);
+            sqlcmd.Parameters.Add("@PDF_File", null);
+            sqlcmd.Parameters.AddWithValue("@totalAUD", new CurrencyConverter().ConvertCurrencyToAUD(currency, amount));
 
             sqlcmd.ExecuteNonQuery();
 
@@ -62,7 +64,7 @@ namespace BlueConsultingManagementSystemLogic
         {
             SQLConnection.Open();
 
-            string cmd = "INSERT INTO [dbo].[ExpenseDB] ( [ReportName], [ConsultantName], [StatusReport], [Location], [Description], [Amount], [Currency], [Dept_type], [DateExpense], [PDF_File]) VALUES(@repName, @user, @status, @location, @description, @amount, @currency, @dept_type, @dateExp, @PDF_File)";
+            string cmd = "INSERT INTO [dbo].[ExpenseDB] ( [ReportName], [ConsultantName], [StatusReport], [Location], [Description], [Amount], [Currency], [Dept_type], [DateExpense], [PDF_File], [TotalAUD]) VALUES(@repName, @user, @status, @location, @description, @amount, @currency, @dept_type, @dateExp, @PDF_File, @totalAUD)";
             SqlCommand sqlcmd = new SqlCommand(cmd, SQLConnection);
             sqlcmd.Parameters.AddWithValue("@repName", repName);
             sqlcmd.Parameters.AddWithValue("@user", user);
@@ -73,6 +75,7 @@ namespace BlueConsultingManagementSystemLogic
             sqlcmd.Parameters.AddWithValue("@currency", currency);
             sqlcmd.Parameters.AddWithValue("@dept_type", deptType);
             sqlcmd.Parameters.AddWithValue("@dateExp", dateExp);
+            sqlcmd.Parameters.AddWithValue("@totalAUD", new CurrencyConverter().ConvertCurrencyToAUD(currency, amount));
  
             sqlcmd.Parameters.Add("@PDF_File", SqlDbType.VarBinary, file.Length).Value = file;
 
@@ -273,12 +276,27 @@ namespace BlueConsultingManagementSystemLogic
         }
 
 
+        //public DataSet LoadStaffDataExpenses()
+        //{
+        //    SQLConnection.Open();
+        //    var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
+        //    var connection = new SqlConnection(connectionString);
+        //    var selectCommand = new SqlCommand("SELECT distinct ProcessedBy, SUM(Amount) FROM ExpenseDB WHERE StatusReport ='Approved' AND StaffApproved = 'YES' GROUP BY ProcessedBy", connection);
+        //    //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
+        //    var adapter = new SqlDataAdapter(selectCommand);
+
+        //    var resultSet = new DataSet();
+        //    adapter.Fill(resultSet);
+        //    SQLConnection.Close();
+        //    return resultSet;
+        //}
+
         public DataSet LoadStaffDataExpenses()
         {
             SQLConnection.Open();
             var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
             var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT distinct ProcessedBy, SUM(Amount) FROM ExpenseDB WHERE StatusReport ='Approved' AND StaffApproved = 'YES' GROUP BY ProcessedBy", connection);
+            var selectCommand = new SqlCommand("SELECT distinct ProcessedBy, SUM(TotalAUD) FROM ExpenseDB WHERE StatusReport ='Approved' AND StaffApproved = 'YES' GROUP BY ProcessedBy", connection);
             //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
             var adapter = new SqlDataAdapter(selectCommand);
 
@@ -286,6 +304,7 @@ namespace BlueConsultingManagementSystemLogic
             adapter.Fill(resultSet);
             SQLConnection.Close();
             return resultSet;
+
         }
 
         public double ReturnTotalBudgetRemaining()
@@ -344,7 +363,7 @@ namespace BlueConsultingManagementSystemLogic
         {
             SQLConnection.Open();
             double numb = 0.0;
-            var selectCommand = new SqlCommand("SELECT distinct SUM(Amount) FROM ExpenseDB WHERE StatusReport = 'Approved' AND StaffApproved = 'YES' ", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT distinct SUM(TotalAUD) FROM ExpenseDB WHERE StatusReport = 'Approved' AND StaffApproved = 'YES' ", SQLConnection);
             //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
             var adapter = new SqlDataAdapter(selectCommand);
 

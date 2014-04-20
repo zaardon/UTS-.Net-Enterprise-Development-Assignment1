@@ -8,7 +8,7 @@ namespace BlueConsultingManagementSystemLogic
 {
     public class CurrencyConverter
     {
-        private double EUR = 0.680265, CNY = 1.03215, USD = 0.94, AUD = 1.00;
+        private double EUR = 0.680265, CNY = 0.172175, AUD = 1.00;
         public double ConvertCurrencyToAUD(String ConvertType, double money)
         {
             double conversion = 0.0;
@@ -19,10 +19,6 @@ namespace BlueConsultingManagementSystemLogic
             else if (ConvertType == "CNY")
             {
                 conversion = money * CNY;
-            }
-            else if (ConvertType == "USD")
-            {
-                conversion = money * USD;
             }
             else if (ConvertType == "AUD")
             {
