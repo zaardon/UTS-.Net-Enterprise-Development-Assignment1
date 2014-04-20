@@ -41,7 +41,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                 loadStaffData();
                 AllDepartmentExpensesGridViewSQLConnection.Visible = true;
                 TotalExpenses.Text = "The total expenses currently approved is: " + totalExpensesApproved();
-                RemainingBudget.Text = "The remaining company budget is: " + remainingTotalBudget();
+                RemainingBudget.Text = "The remaining company budget is: " + remainingTotalBudgetForStaff();
             }
         }
 
@@ -66,7 +66,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             AllDepartmentExpensesGridViewSQLConnection.DataBind();
         }
 
-        public double remainingTotalBudget()
+        public double remainingTotalBudgetForStaff()
         {
             return new DatabaseHandler().ReturnTotalBudgetRemaining();
         }

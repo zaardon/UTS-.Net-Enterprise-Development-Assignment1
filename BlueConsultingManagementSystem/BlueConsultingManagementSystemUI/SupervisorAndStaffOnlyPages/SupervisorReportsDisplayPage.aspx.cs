@@ -54,7 +54,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             if (isUnder())
             {
                 approveReport();
-                deductBudget();
+                
                 Response.Redirect("SupervisorAndStaffMain.aspx");
             }
             else
@@ -114,7 +114,11 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         public void approveReport()
         {
             if (department == "DepartmentSupervisor")
+            {
                 approveSupervisor();
+                deductBudget();
+            }
+
             else if (department == "Staff")
                 approveReportStaff();
         }

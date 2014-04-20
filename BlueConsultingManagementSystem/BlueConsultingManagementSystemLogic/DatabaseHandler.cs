@@ -279,9 +279,37 @@ namespace BlueConsultingManagementSystemLogic
         public double ReturnTotalBudgetRemaining()
         {
             SQLConnection.Open();
-            double numb = 0.0;
+
+            double numb;
+
+
 
             var selectCommand = new SqlCommand("SELECT SUM(Budget) FROM DepartmentDB", SQLConnection);
+            //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
+            var adapter = new SqlDataAdapter(selectCommand);
+
+            var resultSet = new DataSet();
+            adapter.Fill(resultSet);
+
+            try
+            {
+                numb = Convert.ToDouble(resultSet.Tables[0].Rows[0].ItemArray[0]);
+            }
+            catch
+            {
+                numb = 0;
+            }
+
+            SQLConnection.Close();
+            return numb + ReturnTotalBudgetSpentUnapproved();
+        }
+
+        public double ReturnTotalBudgetSpentUnapproved()
+        {
+            SQLConnection.Open();
+            double numb = 0.0;
+
+            var selectCommand = new SqlCommand("SELECT SUM(Amount) FROM ExpenseDB WHERE (StaffApproved is NULL) AND StatusReport = 'Approved'", SQLConnection);
             //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
             var adapter = new SqlDataAdapter(selectCommand);
 
