@@ -466,7 +466,7 @@ namespace BlueConsultingManagementSystemLogic
         public DataSet ConsultantLoadApprovedReports(string name)
         {
             SQLConnection.Open();
-            var selectCommand = new SqlCommand("SELECT distinct ReportName, StatusReport as 'Supvervisor Approval', StaffApproved as 'Account Staff Approval' FROM ExpenseDB WHERE ConsultantName = '" + name + "' AND StatusReport = 'Approved'", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT distinct ReportName, StatusReport as 'Supvervisor Approval', StaffApproved as 'Account Staff Approval' FROM ExpenseDB WHERE ConsultantName = '" + name + "' AND StatusReport = 'Approved' AND StaffApproved <> 'NO'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
 
             var resultSet = new DataSet();
