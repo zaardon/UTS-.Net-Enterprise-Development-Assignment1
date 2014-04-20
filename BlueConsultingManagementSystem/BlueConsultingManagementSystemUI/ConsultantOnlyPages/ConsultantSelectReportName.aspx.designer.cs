@@ -13,15 +13,6 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages {
     public partial class ConsultantSelectReportName {
         
         /// <summary>
-        /// form1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
-        /// <summary>
         /// WelcomeMessage control.
         /// </summary>
         /// <remarks>
@@ -29,6 +20,15 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label WelcomeMessage;
+        
+        /// <summary>
+        /// form1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
         /// CurrentReportNamesSQLConnection control.

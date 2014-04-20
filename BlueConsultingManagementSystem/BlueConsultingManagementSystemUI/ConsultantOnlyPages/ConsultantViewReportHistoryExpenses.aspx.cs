@@ -18,7 +18,7 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
         {
            // reportName = (string) HttpUtility.HtmlDecode(Session["reportName"].ToString());
             reportName = (string)(Session["reportName"].ToString());
-            Response.Write(Session["reportName"].ToString());
+            Label1.Text = reportName;
             loadData();
 
         }

@@ -9,45 +9,106 @@
     <title></title>
 </head>
 <body>
+<div class="navbar navbar-inverse">
+
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button">
+                <span class="sr-only">
+
+                    Toggle navigation
+
+                </span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../index.aspx">
+
+                Blue Management Expense reporting
+
+            </a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+
+                        Consultant 
+
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="ConsultantSelectReportName.aspx">
+
+                                Add a expense 
+
+                            </a>
+                        </li>
+                        <li>
+                            <a href="ConsultantViewReportHistory.aspx">
+
+                                View All submitted reports 
+
+                            </a>
+                        </li>
+                        <li>
+                            <a href="ConsultantViewReportHistory.aspx">
+
+                                View all Approved reports
+
+                            </a>
+                        </li>
+                        <li>
+                            <a href="ConsultantViewReportHistory.aspx">
+
+                                View in progress reports
+
+                            </a>
+                        </li>
+                      
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        </div>
+</div>
      <div class="modal-dialog">
         <div class ="panel panel-primary"  >  
             <div class="panel-heading">
-                <h1 class="panel-title" margin-left: 30%;> Blue management Consultant expense</h1>
+                <h1 class="panel-title"> Blue management Consultant expense</h1>
                 </div>
+             <div id="padSpacer" align="center">
     <form id="form1" runat="server">
     <div>
     </div>
         <table style="width:300px">
-<tr>
-  <td>date</td>
-  <td>
-      <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
-      </td> 
-</tr>
+
             <tr>
                 <td>Report name</td>
                 <td>
-                    <asp:TextBox ID="reportBox" runat="server"></asp:TextBox></td>
+                    <asp:TextBox ID="reportBox" runat="server" CssClass="form-control" placeholder="Enter Report Name"></asp:TextBox></td>
             </tr>
 <tr>
   <td>location</td>
   <td>
-      <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" placeholder="Text input"></asp:TextBox></td> 
+      <asp:TextBox ID="TextBox1" runat="server" CssClass="form-control" placeholder="Enter location of Expense"></asp:TextBox></td> 
 </tr>
             <tr>
   <td>description</td>
   <td>
-      <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox></td> 
+      <asp:TextBox ID="TextBox2" runat="server" CssClass="form-control" placeholder="Enter Description of Expense"></asp:TextBox></td> 
 </tr>
             <tr>
   <td>amount</td>
   <td>
-      <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>  </td> 
+      <asp:TextBox ID="TextBox3" runat="server" CssClass="form-control" placeholder="Enter Amount of Expense"></asp:TextBox>  </td> 
 </tr>
             <tr>
   <td>currency</td>
   <td>
-      <asp:DropDownList ID="DropDownList1" runat="server">
+      <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control" >
           <asp:ListItem>AUD</asp:ListItem>
           <asp:ListItem>CNY</asp:ListItem>
           <asp:ListItem>ERU</asp:ListItem>
@@ -57,7 +118,7 @@
 
             <tr>
                 <td> Department Type</td>
-                <td> <asp:DropDownList ID="DropDownList2" runat="server">
+                <td> <asp:DropDownList ID="DropDownList2" runat="server" CssClass="form-control" >
                     <asp:ListItem Value="HigherEducation">Higher Education Services</asp:ListItem>
                     <asp:ListItem Value="LogisticServices">Logistic Services</asp:ListItem>
                     <asp:ListItem Value="StateServices">State Services</asp:ListItem>
@@ -68,7 +129,13 @@
 <tr>
   <td>PDF RECEIPT</td>
   <td>
-      <asp:FileUpload ID="FileUpload1" runat="server" /></td> 
+      <asp:FileUpload ID="FileUpload1" runat="server" CssClass="btn-primary" /></td> 
+</tr>
+            <tr>
+  <td>date</td>
+  <td>
+      <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+      </td> 
 </tr>
 
 
@@ -77,7 +144,7 @@
 
         
 
-        <asp:Button ID="submitbtn" runat="server" OnClick="submitbtn_Click" Text="submit" />
+        <asp:Button ID="submitbtn" runat="server" OnClick="submitbtn_Click" Text="submit" CssClass="btn-lg btn-primary" />
        
 
         
@@ -85,7 +152,7 @@
     </form>
             </div>
          </div>
-    
+    </div>
 </body>
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

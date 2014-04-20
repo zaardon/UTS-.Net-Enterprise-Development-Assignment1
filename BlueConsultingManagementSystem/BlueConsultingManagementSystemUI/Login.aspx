@@ -22,12 +22,14 @@
             </div>    
         </div>
        </div>
-       <div class="well">
-        <h3>Student numbers and UTS AND WHATE EVER ELSE
+    <div class="modal-footer">
+       <div class="well-sm">
+        Student numbers and UTS AND WHATE EVER ELSE
             </br>
             Also working on centring the elements in aspx.css is a pain
-        </h3>
+        
     </div>
+        </div>
 </body>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
