@@ -41,7 +41,7 @@ namespace BlueConsultingManagementSystemLogic
         {
             SQLConnection.Open();
 
-            string cmd = "INSERT INTO [dbo].[ExpenseDB] ( [ReportName], [ConsultantName], [StatusReport], [Location], [Description], [Amount], [Currency], [Dept_type], [DateExpense], [TotalAUD]) VALUES(@repName, @user, @status, @location, @description, @amount, @currency, @dept_type, @dateExp, @totalAUD)";
+            string cmd = "INSERT INTO [dbo].[ExpenseDB] ( [ReportName], [ConsultantName], [StatusReport], [Location], [Description], [Amount], [Currency], [Dept_type], [DateExpense], [PDF_File], [TotalAUD]) VALUES(@repName, @user, @status, @location, @description, @amount, @currency, @dept_type, @dateExp, @PDF_File, @totalAUD)";
             SqlCommand sqlcmd = new SqlCommand(cmd, SQLConnection);
             sqlcmd.Parameters.AddWithValue("@repName", repName);
             sqlcmd.Parameters.AddWithValue("@user", user);
@@ -53,7 +53,7 @@ namespace BlueConsultingManagementSystemLogic
             sqlcmd.Parameters.AddWithValue("@dept_type", deptType);
             sqlcmd.Parameters.AddWithValue("@dateExp", dateExp);
             sqlcmd.Parameters.AddWithValue("@totalAUD", new CurrencyConverter().ConvertCurrencyToAUD(currency, amount));
-
+            sqlcmd.Parameters.Add("@PDF_File", null);
             sqlcmd.ExecuteNonQuery();
 
             SQLConnection.Close();

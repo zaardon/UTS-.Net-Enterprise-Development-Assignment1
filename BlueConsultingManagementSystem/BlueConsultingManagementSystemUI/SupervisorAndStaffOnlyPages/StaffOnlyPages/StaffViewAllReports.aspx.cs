@@ -38,7 +38,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             string report = "";
             foreach (GridViewRow row in AllApprovedReportsGridViewSQLConnection.Rows)
             {
-                dept = results.Tables[0].Rows[temp].ItemArray[2].ToString();
+                dept = results.Tables[0].Rows[temp].ItemArray[3].ToString();
                 report = (results.Tables[0].Rows[temp].ItemArray[0].ToString());
                 //if (Convert.ToDouble(resultSet.Tables[0].Rows[temp].ItemArray[3]) > departmentBudgetRemaining(dept))
                 if (getReportTotal(report) > departmentBudgetRemaining(dept))
@@ -59,10 +59,6 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         {
             return new DatabaseHandler().ReturnSingleDepartmentBudgetRemaining(dept);
         }
-
-
-
-
 
         protected void AllApprovedReportsGridViewSQLConnection_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
