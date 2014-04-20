@@ -34,7 +34,7 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
 
-                        Consultant 
+                        Consultant
 
                         <b class="caret"></b>
                     </a>
@@ -42,14 +42,14 @@
                         <li>
                             <a href="ConsultantSelectReportName.aspx">
 
-                                Add a expense 
+                                Add a expense
 
                             </a>
                         </li>
                         <li>
                             <a href="ConsultantViewReportHistory.aspx">
 
-                                View All submitted reports 
+                                View All submitted reports
 
                             </a>
                         </li>
@@ -67,26 +67,31 @@
 
                             </a>
                         </li>
-                      
+
                     </ul>
                 </li>
             </ul>
         </div>
         </div>
-</div>  
+</div>
        <div class="modal-dialog">
-        <div class ="panel panel-primary" style="align-content:center">  
+        <div class ="panel panel-primary" style="align-content:center">
             <div class="panel-heading">
-             <h1 class="panel-title"> Blue management system - Report Name : 
+             <h1 class="panel-title"> Blue management system - Report Name :
                  <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
                 </h1>
                 </div>
           <div id="padSpacer" align="center">
       <form id="form1" runat="server">
     <div>
+
         <asp:GridView ID="ReportExpenseHistoryDetailsSQLConnection" runat="server" CssClass="table table-responsive"></asp:GridView>
+            <Columns>
+                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="ViewReceipt" ShowHeader="True" Text="Receipt" />
+            </Columns>
+        </asp:GridView>
     </div>
-           </div>    
+           </div>
         </div>
        </div>
     </form>

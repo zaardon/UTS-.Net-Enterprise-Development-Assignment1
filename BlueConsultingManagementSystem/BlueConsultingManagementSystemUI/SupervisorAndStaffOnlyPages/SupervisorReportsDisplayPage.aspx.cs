@@ -54,7 +54,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             if (isUnder())
             {
                 approveReport();
-                deductBudget();
+                
                 Response.Redirect("SupervisorAndStaffMain.aspx");
             }
             else
@@ -114,7 +114,11 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         public void approveReport()
         {
             if (department == "DepartmentSupervisor")
+            {
                 approveSupervisor();
+                deductBudget();
+            }
+
             else if (department == "Staff")
                 approveReportStaff();
         }
@@ -131,8 +135,8 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         public void denyReportStaff()
         {
-
-            new DatabaseHandler().DenyReportStaff(reportName);
+            double temp = getTotalNumber();
+            new DatabaseHandler().DenyReportStaff(reportName, temp);
 
         }
 
@@ -162,7 +166,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         {
 
 
-            DisplayResultsGridSQLConnection.DataSource = new DatabaseHandler().LoadExpenseTable(reportName);
+            DisplayResultsGridSQLConnection.DataSource = new DatabaseHandler().LoadExpenseTableNonRejectedOrApproved(reportName);
             DisplayResultsGridSQLConnection.DataBind();
 
         }

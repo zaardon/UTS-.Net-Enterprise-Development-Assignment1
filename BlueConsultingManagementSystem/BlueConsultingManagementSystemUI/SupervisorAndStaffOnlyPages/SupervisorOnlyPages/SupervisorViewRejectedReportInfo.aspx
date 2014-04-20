@@ -9,7 +9,11 @@
 <body>
     <form id="form1" runat="server">
     <div>
-        <asp:GridView ID="RejectedReportInfoSQLConnection" runat="server"></asp:GridView>
+        <asp:GridView ID="RejectedReportInfoSQLConnection" runat="server" OnRowCommand="RejectedReportInfoSQLConnection_RowCommand">
+            <Columns>
+                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="ViewReceipt" ShowHeader="True" Text="Receipt" />
+            </Columns>
+        </asp:GridView>
     </div>
     </form>
 </body>
