@@ -16,5 +16,15 @@ namespace BlueConsultingManagementSystemUI
 
         }
 
+        protected void ConsultantBtn_Click(object sender, EventArgs e)
+        {
+          Response.Redirect("ConsultantOnlyPages/ConsultantMain.aspx");
+        }
+
+        protected void SuperStaffbtn_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("SupervisorAndStaffOnlyPages/SupervisorAndStaffMain.aspx");
+        }
+
     }
 }

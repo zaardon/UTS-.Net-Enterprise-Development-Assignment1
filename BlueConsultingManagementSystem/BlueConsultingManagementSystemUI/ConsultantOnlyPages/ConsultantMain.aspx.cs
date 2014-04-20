@@ -44,5 +44,10 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             Session["reportType"] = reportType;
             Response.Redirect("ConsultantViewReportHistory.aspx");
         }
+
+        protected void BackButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../index.aspx");
+        }
     }
 }
