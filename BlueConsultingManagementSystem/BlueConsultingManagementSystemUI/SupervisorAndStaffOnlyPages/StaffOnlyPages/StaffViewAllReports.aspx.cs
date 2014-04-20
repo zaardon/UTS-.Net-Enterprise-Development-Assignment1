@@ -57,7 +57,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         public double departmentBudgetRemaining(string dept)
         {
-            return new DatabaseHandler().ReturnStaffReportTotalAmountForSupervisorName(dept);
+            return new DatabaseHandler().ReturnSingleDepartmentBudgetRemaining(dept);
         }
 
 

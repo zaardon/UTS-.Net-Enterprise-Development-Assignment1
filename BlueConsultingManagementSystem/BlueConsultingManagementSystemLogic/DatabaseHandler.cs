@@ -41,7 +41,7 @@ namespace BlueConsultingManagementSystemLogic
         {
             SQLConnection.Open();
 
-            string cmd = "INSERT INTO [dbo].[ExpenseDB] ( [ReportName], [ConsultantName], [StatusReport], [Location], [Description], [Amount], [Currency], [Dept_type], [DateExpense], [PDF_File], [TotalAUD]) VALUES(@repName, @user, @status, @location, @description, @amount, @currency, @dept_type, @dateExp, @PDF_File, @totalAUD)";
+            string cmd = "INSERT INTO [dbo].[ExpenseDB] ( [ReportName], [ConsultantName], [StatusReport], [Location], [Description], [Amount], [Currency], [Dept_type], [DateExpense], [TotalAUD]) VALUES(@repName, @user, @status, @location, @description, @amount, @currency, @dept_type, @dateExp, @totalAUD)";
             SqlCommand sqlcmd = new SqlCommand(cmd, SQLConnection);
             sqlcmd.Parameters.AddWithValue("@repName", repName);
             sqlcmd.Parameters.AddWithValue("@user", user);
@@ -52,7 +52,6 @@ namespace BlueConsultingManagementSystemLogic
             sqlcmd.Parameters.AddWithValue("@currency", currency);
             sqlcmd.Parameters.AddWithValue("@dept_type", deptType);
             sqlcmd.Parameters.AddWithValue("@dateExp", dateExp);
-            sqlcmd.Parameters.Add("@PDF_File", null);
             sqlcmd.Parameters.AddWithValue("@totalAUD", new CurrencyConverter().ConvertCurrencyToAUD(currency, amount));
 
             sqlcmd.ExecuteNonQuery();
@@ -119,33 +118,15 @@ namespace BlueConsultingManagementSystemLogic
             int i = 0;
             string currency = "";
 
-            var selectCommand = new SqlCommand("SELECT distinct SUM(Amount), Currency FROM ExpenseDB WHERE Dept_type = '" + userGroupMember + "' AND StatusReport = 'Approved' AND (StaffApproved = 'YES' OR StaffApproved IS NULL) GROUP BY Currency", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT distinct SUM(TotalAUD) FROM ExpenseDB WHERE Dept_type = '" + userGroupMember + "' AND StatusReport = 'Approved' AND (StaffApproved = 'YES' OR StaffApproved IS NULL)", SQLConnection);
             //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
             var adapter = new SqlDataAdapter(selectCommand);
 
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
 
-            try
-            {
-                while (resultSet.Tables[0].Rows[i] != null)
-                {
-                    currency = resultSet.Tables[0].Rows[i].ItemArray[1].ToString();
-                    tempNumb += (Convert.ToDouble(resultSet.Tables[0].Rows[i].ItemArray[0]));
-                    
-
-                    numb += new CurrencyConverter().ConvertCurrencyToAUD(currency, tempNumb);
-                    i++;
-                }
-
-            }
-            catch
-            {
-                tempNumb = 0;
-
-            }
             SQLConnection.Close();
-            return numb;
+            return (Convert.ToDouble(resultSet.Tables[0].Rows[i].ItemArray[0]));
 
         }
 
@@ -340,7 +321,7 @@ namespace BlueConsultingManagementSystemLogic
             SQLConnection.Open();
             double numb = 0.0;
 
-            var selectCommand = new SqlCommand("SELECT SUM(Amount) FROM ExpenseDB WHERE (StaffApproved is NULL) AND StatusReport = 'Approved'", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT SUM(TotalAUD) FROM ExpenseDB WHERE (StaffApproved is NULL) AND StatusReport = 'Approved'", SQLConnection);
             //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
             var adapter = new SqlDataAdapter(selectCommand);
 
@@ -436,7 +417,7 @@ namespace BlueConsultingManagementSystemLogic
             SQLConnection.Open();
             double numb = 0.0;
 
-            var selectCommand = new SqlCommand("SELECT SUM(Amount) FROM ExpenseDB WHERE ReportName = '" + name + "'", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT SUM(TotalAUD) FROM ExpenseDB WHERE ReportName = '" + name + "'", SQLConnection);
             //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
             var adapter = new SqlDataAdapter(selectCommand);
 
