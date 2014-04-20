@@ -26,12 +26,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             loadData();
         }
 
-        public double departmentBudgetRemaining()
-        {
 
-
-            return new DatabaseHandler().ReturnCurrentDepartmentMoney(userGroupMember) - new DatabaseHandler().ReturnDepartmentExpensesMade(userGroupMember);
-        }
 
 
         public void loadData()
@@ -48,6 +43,13 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                 TotalExpenses.Text = "The total expenses currently approved is: " + totalExpensesApproved();
                 RemainingBudget.Text = "The remaining company budget is: " + remainingTotalBudget();
             }
+        }
+
+        public double departmentBudgetRemaining()
+        {
+
+
+            return new DatabaseHandler().ReturnCurrentDepartmentMoney(userGroupMember);
         }
 
         protected void Back_Click(object sender, EventArgs e)

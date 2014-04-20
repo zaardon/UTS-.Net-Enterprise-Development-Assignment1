@@ -131,8 +131,8 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         public void denyReportStaff()
         {
-
-            new DatabaseHandler().DenyReportStaff(reportName);
+            double temp = getTotalNumber();
+            new DatabaseHandler().DenyReportStaff(reportName, temp);
 
         }
 
