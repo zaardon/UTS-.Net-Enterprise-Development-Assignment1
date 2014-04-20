@@ -29,20 +29,31 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 
         protected void submitbtn_Click(object sender, EventArgs e)
         {
-            if (FileUpload1.FileName == null)
+            try
             {
-                DatabaseHandler dh = new DatabaseHandler();
-                dh.ConsultantsInsertExpenseQuery(reportBox.Text, User.Identity.Name, TextBox1.Text, TextBox2.Text, Convert.ToDouble(TextBox3.Text), DropDownList1.Text, DropDownList2.Text, Calendar1.SelectedDate.Date);
+                if (reportBox.Text == null || TextBox1.Text == null || TextBox2.Text == null || TextBox3.Text == null || Calendar1.SelectedDate.ToString() == null)
+                {
+                    throw new Exception("Missing parameters please check the form more closely");
+                }
+                if (FileUpload1.FileName == null)
+                {
+                    DatabaseHandler dh = new DatabaseHandler();
+                    dh.ConsultantsInsertExpenseQuery(reportBox.Text, User.Identity.Name, TextBox1.Text, TextBox2.Text, Convert.ToDouble(TextBox3.Text), DropDownList1.Text, DropDownList2.Text, Calendar1.SelectedDate.Date);
+                }
+                else
+                {
+                    byte[] file = FileUpload1.FileBytes;
+
+                    DatabaseHandler dh = new DatabaseHandler();
+                    dh.ConsultantsInsertExpenseQueryWithPDF(reportBox.Text, User.Identity.Name, TextBox1.Text, TextBox2.Text, Convert.ToDouble(TextBox3.Text), DropDownList1.Text, DropDownList2.Text, Calendar1.SelectedDate.Date, file);
+                }
+
+                Response.Redirect("ConsultantMain.aspx");
             }
-            else
+            catch (Exception ex)
             {
-                byte[] file = FileUpload1.FileBytes;
-
-                DatabaseHandler dh = new DatabaseHandler();
-                dh.ConsultantsInsertExpenseQueryWithPDF(reportBox.Text, User.Identity.Name, TextBox1.Text, TextBox2.Text, Convert.ToDouble(TextBox3.Text), DropDownList1.Text, DropDownList2.Text, Calendar1.SelectedDate.Date, file);
+                excLbl.Text = ex.Message;
             }
-
-            Response.Redirect("ConsultantMain.aspx");
         }
 
 
