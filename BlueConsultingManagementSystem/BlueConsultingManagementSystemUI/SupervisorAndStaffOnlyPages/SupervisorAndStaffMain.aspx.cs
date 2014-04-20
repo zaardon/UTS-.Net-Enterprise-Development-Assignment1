@@ -44,6 +44,11 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             Response.Redirect("StaffOnlyPages/StaffViewAllReports.aspx");
         }
 
+        protected void BacktoSupervisor_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../index.aspx");
+        }
+
 
     }
 }

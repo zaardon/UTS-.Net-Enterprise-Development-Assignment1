@@ -9,64 +9,7 @@
     <title></title>
 </head>
 <body>
-    <div class="navbar navbar-inverse">
-
-    <div class="container">
-        <div class="navbar-header">
-            <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button">
-                <span class="sr-only">
-
-                    Toggle navigation
-
-                </span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="../index.aspx">
-
-                Blue Management Expense reporting
-
-            </a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-
-                        Supervisor 
-
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="SupervisorUnapprovedResults.aspx">
-
-                                Unapproved expenses 
-
-                            </a>
-                        </li>
-                        <li>
-                            <a href="SupervisorExpenseTotalPage.aspx">
-
-                                Department Budget
-
-                            </a>
-                        </li>
-                        <li>
-                            <a href="SupervisorOnlyPages/SupervisorRejectedReportsPage.aspx">
-
-                                Rejected expenses
-
-                            </a>
-                        </li>
-                                        
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        </div>
-</div>
+    
      <div class="modal-dialog">
         <div class ="panel panel-primary"  >  
             <div class="panel-heading">
@@ -104,6 +47,11 @@
              <br />
              <asp:Button ID="ConfirmButton" runat="server" Text="Confirm" Visible=" false" OnClick="ConfirmButton_Click" CssClass="btn-info" />
              <br />
+            <p>
+
+            </p>
+            <asp:Button ID="BacktoSupervisor" runat="server" Text="Back" CssClass="btn btn-primary" OnClick="BacktoSupervisor_Click" />
+         
     </form>
                      </div>
          </div>

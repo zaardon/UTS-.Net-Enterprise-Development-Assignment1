@@ -60,18 +60,18 @@
                     </asp:DropDownList></td>
 
             </tr>
-
-<tr>
-  <td>PDF RECEIPT</td>
-  <td>
-      <asp:FileUpload ID="FileUpload1" runat="server" CssClass="btn-primary" /></td> 
-</tr>
             <tr>
   <td>date</td>
   <td>
       <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
       </td> 
 </tr>
+<tr>
+  <td>PDF RECEIPT</td>
+  <td>
+      <asp:FileUpload ID="FileUpload1" runat="server" CssClass="btn-primary" /></td> 
+</tr>
+
 
 
 </table>

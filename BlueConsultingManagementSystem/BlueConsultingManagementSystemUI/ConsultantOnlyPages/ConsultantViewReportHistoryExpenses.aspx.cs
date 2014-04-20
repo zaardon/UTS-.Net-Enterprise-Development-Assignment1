@@ -57,5 +57,10 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             }
 
         }
+
+        protected void BackButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ConsultantMain.aspx");
+        }
     }
 }

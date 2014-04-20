@@ -200,6 +200,11 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         }
 
+        protected void BacktoSupervisor_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/SupervisorAndStaffOnlyPages/SupervisorAndStaffMain.aspx");
+        }
+
             
         
 
