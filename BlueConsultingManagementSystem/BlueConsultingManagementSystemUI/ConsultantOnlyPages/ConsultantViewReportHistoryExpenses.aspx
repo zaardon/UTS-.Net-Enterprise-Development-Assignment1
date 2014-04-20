@@ -9,71 +9,7 @@
 </head>
 <body>
 
-<div class="navbar navbar-inverse">
 
-    <div class="container">
-        <div class="navbar-header">
-            <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button">
-                <span class="sr-only">
-
-                    Toggle navigation
-
-                </span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="../index.aspx">
-
-                Blue Management Expense reporting
-
-            </a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-
-                        Consultant
-
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li>
-                            <a href="ConsultantSelectReportName.aspx">
-
-                                Add a expense
-
-                            </a>
-                        </li>
-                        <li>
-                            <a href="ConsultantViewReportHistory.aspx">
-
-                                View All submitted reports
-
-                            </a>
-                        </li>
-                        <li>
-                            <a href="ConsultantViewReportHistory.aspx">
-
-                                View all Approved reports
-
-                            </a>
-                        </li>
-                        <li>
-                            <a href="ConsultantViewReportHistory.aspx">
-
-                                View in progress reports
-
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        </div>
-</div>
        <div class="modal-dialog">
         <div class ="panel panel-primary" style="align-content:center">
             <div class="panel-heading">
@@ -85,15 +21,17 @@
       <form id="form1" runat="server">
     <div>
 
-        <asp:GridView ID="ReportExpenseHistoryDetailsSQLConnection" runat="server" CssClass="table table-responsive"></asp:GridView>
+<asp:GridView ID="ReportExpenseHistoryDetailsSQLConnection" runat="server" OnRowCommand="ReportExpenseHistoryDetailsSQLConnection_RowCommand" CssClass="table-responsive">
             <Columns>
-                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="ViewReceipt" ShowHeader="True" Text="Receipt" />
+                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="ViewReceipt" ShowHeader="True" Text="Receipt" ControlStyle-CssClass="btn-primary" />
             </Columns>
         </asp:GridView>
     </div>
+         
            </div>
         </div>
        </div>
+    
     </form>
 </body>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

@@ -54,5 +54,10 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             Session["reportName"] = "";
             Response.Redirect("ConsultantAddReport.aspx");
         }
+
+        protected void BackButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ConsultantMain.aspx");
+        }
     }
 }
