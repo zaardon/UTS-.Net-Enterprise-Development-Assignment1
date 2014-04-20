@@ -109,11 +109,14 @@ namespace BlueConsultingManagementSystemLogic
             return numb;
         }
 
-        public double ReturnDepartmentExpensesMade(string userGroupMember)
+         public double ReturnDepartmentExpensesMade(string userGroupMember)
         {
-            double numb = 0.0;
+            double tempNumb = 0.0;
+            double numb = 0;
+            int i = 0;
+            string currency = "";
 
-            var selectCommand = new SqlCommand("SELECT distinct SUM(Amount) FROM ExpenseDB WHERE Dept_type = '" + userGroupMember + "' AND StatusReport = 'Approved' AND (StaffApproved = 'YES' OR StaffApproved IS NULL)", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT distinct SUM(Amount), Currency FROM ExpenseDB WHERE Dept_type = '" + userGroupMember + "' AND StatusReport = 'Approved' AND (StaffApproved = 'YES' OR StaffApproved IS NULL) GROUP BY Currency", SQLConnection);
             //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
             var adapter = new SqlDataAdapter(selectCommand);
 
@@ -122,18 +125,27 @@ namespace BlueConsultingManagementSystemLogic
 
             try
             {
-                numb = Convert.ToDouble(resultSet.Tables[0].Rows[0].ItemArray[0]);
-                
+                while (resultSet.Tables[0].Rows[i] != null)
+                {
+                    currency = resultSet.Tables[0].Rows[i].ItemArray[1].ToString();
+                    tempNumb += (Convert.ToDouble(resultSet.Tables[0].Rows[i].ItemArray[0]));
+                    
+
+                    numb += new CurrencyConverter().ConvertCurrencyToAUD(currency, tempNumb);
+                    i++;
+                }
+
             }
             catch
             {
-                numb = 0;
-               
+                tempNumb = 0;
+
             }
             SQLConnection.Close();
             return numb;
-            
+
         }
+
 
 
         public void UpdateDepartmentBudget(string userGroupMember, double total)
