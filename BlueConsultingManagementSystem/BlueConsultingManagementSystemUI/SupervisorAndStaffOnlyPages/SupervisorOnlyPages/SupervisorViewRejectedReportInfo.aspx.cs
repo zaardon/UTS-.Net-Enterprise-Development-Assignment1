@@ -59,5 +59,10 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.Superviso
             }
 
         }
+
+            protected void BacktoSupervisor_Click(object sender, EventArgs e)
+            {
+                Response.Redirect("SupervisorRejectedReportsPage.aspx");
+            }
     }
 }
