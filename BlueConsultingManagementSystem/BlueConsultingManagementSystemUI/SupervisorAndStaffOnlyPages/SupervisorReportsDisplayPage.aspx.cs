@@ -186,7 +186,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
 
             byte[] pdfFile = new DatabaseHandler().RetrievePDFPage(reportName, name, location, description, amount, currency);
-            if(pdfFile != null)
+            if(pdfFile != null && pdfFile.Length !=0)
             {
                   HttpContext.Current.Response.ContentType = "application/pdf";
                   HttpContext.Current.Response.AddHeader("Content-Disposition", "inline;filename =test.pdf");

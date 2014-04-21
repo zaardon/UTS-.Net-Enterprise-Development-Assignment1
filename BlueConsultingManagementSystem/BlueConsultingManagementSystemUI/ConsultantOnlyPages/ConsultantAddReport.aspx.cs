@@ -35,7 +35,7 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
                 {
                     throw new Exception("Missing parameters please check the form more closely");
                 }
-                if (FileUpload1.FileName == null)
+                if (FileUpload1.FileName == null || FileUpload1.FileName == "")
                 {
                     DatabaseHandler dh = new DatabaseHandler();
                     dh.ConsultantsInsertExpenseQuery(reportBox.Text, User.Identity.Name, TextBox1.Text, TextBox2.Text, Convert.ToDouble(TextBox3.Text), DropDownList1.Text, DropDownList2.Text, Calendar1.SelectedDate.Date);
