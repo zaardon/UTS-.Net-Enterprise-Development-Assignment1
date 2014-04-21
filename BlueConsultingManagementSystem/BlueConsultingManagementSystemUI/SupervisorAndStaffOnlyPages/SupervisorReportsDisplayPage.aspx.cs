@@ -158,7 +158,6 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         protected void ConfirmButton_Click(object sender, EventArgs e)
         {
             approveReport();
-            deductBudget();
             Response.Redirect("SupervisorAndStaffMain.aspx");
         }
 

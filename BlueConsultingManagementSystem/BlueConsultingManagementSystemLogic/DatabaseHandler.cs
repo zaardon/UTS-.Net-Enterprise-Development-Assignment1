@@ -113,11 +113,7 @@ namespace BlueConsultingManagementSystemLogic
 
          public double ReturnDepartmentExpensesMade(string userGroupMember)
         {
-            double tempNumb = 0.0;
-            double numb = 0;
             int i = 0;
-            string currency = "";
-
             var selectCommand = new SqlCommand("SELECT distinct SUM(TotalAUD) FROM ExpenseDB WHERE Dept_type = '" + userGroupMember + "' AND StatusReport = 'Approved' AND (StaffApproved = 'YES' OR StaffApproved IS NULL)", SQLConnection);
             //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
             var adapter = new SqlDataAdapter(selectCommand);
@@ -126,7 +122,14 @@ namespace BlueConsultingManagementSystemLogic
             adapter.Fill(resultSet);
 
             SQLConnection.Close();
-            return (Convert.ToDouble(resultSet.Tables[0].Rows[i].ItemArray[0]));
+            try
+            {
+                return (Convert.ToDouble(resultSet.Tables[0].Rows[i].ItemArray[0]));
+            }
+            catch
+            {
+                return 0;
+            }
 
         }
 
@@ -412,12 +415,12 @@ namespace BlueConsultingManagementSystemLogic
             return resultSet;
         }
 
-        public double ReturnStaffReportTotalAmountForSupervisorName(string name)
+        public double ReturnStaffReportTotalAmountForSupervisorReportName(string name)
         {
             SQLConnection.Open();
             double numb = 0.0;
 
-            var selectCommand = new SqlCommand("SELECT SUM(TotalAUD) FROM ExpenseDB WHERE ReportName = '" + name + "'", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT SUM(TotalAUD) FROM ExpenseDB WHERE ReportName = '" + name + "'  AND StaffApproved is NULL", SQLConnection);
             //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
             var adapter = new SqlDataAdapter(selectCommand);
 
@@ -438,12 +441,17 @@ namespace BlueConsultingManagementSystemLogic
 
         public double ReturnSingleDepartmentBudgetRemaining(string dept)
         {
+            return ReturnCurrentDepartmentMoney(dept) + ReturnNonStaffApprovedDepartmentTotal(dept);
+        }
+
+        public double ReturnNonStaffApprovedDepartmentTotal(string dept)
+        {
             double numb = 0.0;
             SQLConnection.Open();
 
             var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
             var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT Budget FROM DepartmentDB WHERE Dept_name = '" + dept + "'", connection);
+            var selectCommand = new SqlCommand("SELECT SUM(TotalAUD) FROM ExpenseDB WHERE Dept_Type = '" + dept + "' AND StatusReport = 'Approved' AND StaffApproved is null", connection);
             //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
             var adapter = new SqlDataAdapter(selectCommand);
 
