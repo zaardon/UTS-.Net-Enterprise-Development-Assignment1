@@ -124,7 +124,7 @@ namespace BlueConsultingManagementSystemTests
             {
 
                 dh.ConsultantsInsertExpenseQuery("testReport", "test", "test", "test", 12.04, "AUD", "TestDept", DateTime.Today);
-                dh.DenyReportStaff("testReport");
+               // dh.DenyReportStaff("testReport");
                 var selectCommand = new SqlCommand("select ReportName,StaffApproved from [dbo].[ExpenseDB] where ReportName='testReport';", dh.SQLConnection);
                 var adapter = new SqlDataAdapter(selectCommand);
                 var resultSet = new DataSet();

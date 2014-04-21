@@ -43,7 +43,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                 //if (Convert.ToDouble(resultSet.Tables[0].Rows[temp].ItemArray[3]) > departmentBudgetRemaining(dept))
                 if (getReportTotal(report) > departmentBudgetRemaining(dept))
                 {
-                    row.BackColor = ColorTranslator.FromHtml("#A1DCF2");
+                    row.CssClass = "info";
                 }
                 temp++;
             }
@@ -70,6 +70,11 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             Session["reportName"] = reportName;
             Response.Redirect("~/SupervisorAndStaffOnlyPages/SupervisorReportsDisplayPage.aspx");
             //fix that hardcode
+        }
+
+        protected void Back_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("../SupervisorAndStaffMain.aspx");
         }
 
     }
