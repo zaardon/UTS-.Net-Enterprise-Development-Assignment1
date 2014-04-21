@@ -13,146 +13,146 @@ namespace BlueConsultingManagementSystemTests
     [TestClass]
     public class UnitTest1
     {
-        [TestCategory("staff")]
-        [TestMethod]
-        public void AllApprovedReportsTest()
-        {
-            DatabaseHandler dh = new DatabaseHandler();
-            DataSet ds= dh.AllApprovedReports();
-            for(int j = 0; j< ds.Tables[0].Rows.Count; j++)
-            {
-                    String testify = ds.Tables[0].Rows[j]["StatusReport"].ToString();
-                    Assert.AreEqual("Approved", testify);
-            }
-        }
         //[TestCategory("staff")]
         //[TestMethod]
-        //public void DenyReportSupervisor()
+        //public void AllApprovedReportsTest()
         //{
         //    DatabaseHandler dh = new DatabaseHandler();
-        //    using (TransactionScope TestTransaction = new TransactionScope())
+        //    DataSet ds= dh.AllApprovedReports();
+        //    for(int j = 0; j< ds.Tables[0].Rows.Count; j++)
         //    {
-        //        dh.DenyReportSupervisor("supervisor", "JamesLoves");
-        //        DataSet ds = dh.LoadRejectedReportNames();
-        //        Assert.AreEqual("JamesLoves", ds.Tables[0].Rows[""].Contains);
-        //fell asleep at keyboard commiting and going to sleep.
+        //            String testify = ds.Tables[0].Rows[j]["StatusReport"].ToString();
+        //            Assert.AreEqual("Approved", testify);
+        //    }
+        //}
+        ////[TestCategory("staff")]
+        ////[TestMethod]
+        ////public void DenyReportSupervisor()
+        ////{
+        ////    DatabaseHandler dh = new DatabaseHandler();
+        ////    using (TransactionScope TestTransaction = new TransactionScope())
+        ////    {
+        ////        dh.DenyReportSupervisor("supervisor", "JamesLoves");
+        ////        DataSet ds = dh.LoadRejectedReportNames();
+        ////        Assert.AreEqual("JamesLoves", ds.Tables[0].Rows[""].Contains);
+        ////fell asleep at keyboard commiting and going to sleep.
+        ////        TestTransaction.Dispose();
+        ////    }
+        ////}
+        ////[TestCategory("staff")]
+        ////[TestMethod]
+        //[TestCategory("staff")]
+        //[TestMethod]
+        //public void ReturnDepExpensesMadeTest()
+        //{
+        //    DatabaseHandler dh = new DatabaseHandler();
+        //    double result = dh.ReturnDepartmentExpensesMade("LogisticServices");
+        //    Assert.AreEqual(0, result);
+        //}
+        //[TestCategory("staff")]
+        //[TestMethod]
+        //public void LoadRejectedInfoTest()
+        //{
+        //    DatabaseHandler dh = new DatabaseHandler();
+        //    DataSet ds = dh.LoadStaffUnapprovedReportInfo("The Big Meeting");
+        //    Assert.AreEqual("dsfdsfds", ds.Tables[0].Rows[0]["Location"].ToString());
+        //}
+        //[TestCategory("staff")]
+        //[TestMethod]
+        //public void LoadRejectedReportNames()
+        //{
+        //    DatabaseHandler dh = new DatabaseHandler();
+        //    DataSet ds = dh.LoadStaffUnapprovedReportNames();
+        //    string result = ds.Tables[0].Rows[0]["ReportName"].ToString();
+        //    Assert.AreEqual("The Big Meeting", result);
+        //}
+        //[TestCategory("staff")]
+        //[TestMethod]
+        ////this test I am unsure about.
+        //public void UpdateDeptBudgetTest()
+        //{
+        //    DatabaseHandler dh = new DatabaseHandler();
+        //     using (TransactionScope TestTransaction = new TransactionScope())
+        //    {
+        //        dh.UpdateDepartmentBudget("LogisticServices", 1.2);
+        //        double result = dh.ReturnDepartmentExpensesMade("HigherEducation");
+        //        Assert.AreEqual(424537.31, result);
+               
         //        TestTransaction.Dispose();
         //    }
         //}
         //[TestCategory("staff")]
         //[TestMethod]
-        [TestCategory("staff")]
-        [TestMethod]
-        public void ReturnDepExpensesMadeTest()
-        {
-            DatabaseHandler dh = new DatabaseHandler();
-            double result = dh.ReturnDepartmentExpensesMade("LogisticServices");
-            Assert.AreEqual(0, result);
-        }
-        [TestCategory("staff")]
-        [TestMethod]
-        public void LoadRejectedInfoTest()
-        {
-            DatabaseHandler dh = new DatabaseHandler();
-            DataSet ds = dh.LoadStaffUnapprovedReportInfo("The Big Meeting");
-            Assert.AreEqual("dsfdsfds", ds.Tables[0].Rows[0]["Location"].ToString());
-        }
-        [TestCategory("staff")]
-        [TestMethod]
-        public void LoadRejectedReportNames()
-        {
-            DatabaseHandler dh = new DatabaseHandler();
-            DataSet ds = dh.LoadStaffUnapprovedReportNames();
-            string result = ds.Tables[0].Rows[0]["ReportName"].ToString();
-            Assert.AreEqual("The Big Meeting", result);
-        }
-        [TestCategory("staff")]
-        [TestMethod]
-        //this test I am unsure about.
-        public void UpdateDeptBudgetTest()
-        {
-            DatabaseHandler dh = new DatabaseHandler();
-             using (TransactionScope TestTransaction = new TransactionScope())
-            {
-                dh.UpdateDepartmentBudget("LogisticServices", 1.2);
-                double result = dh.ReturnDepartmentExpensesMade("HigherEducation");
-                Assert.AreEqual(424537.31, result);
-               
-                TestTransaction.Dispose();
-            }
-        }
-        [TestCategory("staff")]
-        [TestMethod]
-        public void UnapprovedReportNames()
-        {
-            DatabaseHandler dh = new DatabaseHandler();
-            DataSet ds = dh.LoadStaffUnapprovedReportNames();
-            for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
-            {
-                String teststatus = ds.Tables[0].Rows[j]["StatusReport"].ToString();
-                Assert.AreEqual("Approved", teststatus);
+        //public void UnapprovedReportNames()
+        //{
+        //    DatabaseHandler dh = new DatabaseHandler();
+        //    DataSet ds = dh.LoadStaffUnapprovedReportNames();
+        //    for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
+        //    {
+        //        String teststatus = ds.Tables[0].Rows[j]["StatusReport"].ToString();
+        //        Assert.AreEqual("Approved", teststatus);
    
-            }
-        }
-        [TestCategory("staff")]
-        [TestMethod]
-        public void LoadStaffUnapprovedInfoTest()
-        {
-            DatabaseHandler dh = new DatabaseHandler();
-            DataSet ds = dh.LoadStaffUnapprovedReportInfo("bacon");
-            string result = ds.Tables[0].Rows[0]["name"].ToString();
-            Assert.AreEqual("james",result);
+        //    }
+        //}
+        //[TestCategory("staff")]
+        //[TestMethod]
+        //public void LoadStaffUnapprovedInfoTest()
+        //{
+        //    DatabaseHandler dh = new DatabaseHandler();
+        //    DataSet ds = dh.LoadStaffUnapprovedReportInfo("bacon");
+        //    string result = ds.Tables[0].Rows[0]["name"].ToString();
+        //    Assert.AreEqual("james",result);
 
 
-        }
-        [TestCategory("staff")]
-        [TestMethod]
-        public void CurrentDeptBudgetTest()
-        {
-            DatabaseHandler dh = new DatabaseHandler();
-            double result = dh.ReturnCurrentDepartmentMoney("HigherEducation");
-            //Assert.AreEqual(10000.000, result);
-            result = dh.ReturnCurrentDepartmentMoney("LogisticServices");
-            Assert.AreEqual(10000.000, result);
-        }
-        [TestCategory("staff")]
-        [TestMethod]
-        public void DenyReportTest()
-        {
-            DatabaseHandler dh = new DatabaseHandler();
-            using (TransactionScope TestTransaction = new TransactionScope())
-            {
+        //}
+        //[TestCategory("staff")]
+        //[TestMethod]
+        //public void CurrentDeptBudgetTest()
+        //{
+        //    DatabaseHandler dh = new DatabaseHandler();
+        //    double result = dh.ReturnCurrentDepartmentMoney("HigherEducation");
+        //    //Assert.AreEqual(10000.000, result);
+        //    result = dh.ReturnCurrentDepartmentMoney("LogisticServices");
+        //    Assert.AreEqual(10000.000, result);
+        //}
+        //[TestCategory("staff")]
+        //[TestMethod]
+        //public void DenyReportTest()
+        //{
+        //    DatabaseHandler dh = new DatabaseHandler();
+        //    using (TransactionScope TestTransaction = new TransactionScope())
+        //    {
 
-                dh.ConsultantsInsertExpenseQuery("testReport", "test", "test", "test", 12.04, "AUD", "TestDept", DateTime.Today);
-               // dh.DenyReportStaff("testReport");
-                var selectCommand = new SqlCommand("select ReportName,StaffApproved from [dbo].[ExpenseDB] where ReportName='testReport';", dh.SQLConnection);
-                var adapter = new SqlDataAdapter(selectCommand);
-                var resultSet = new DataSet();
-                adapter.Fill(resultSet);
-                string testify = resultSet.Tables[0].Rows[0]["StaffApproved"].ToString();
-                Assert.AreEqual("NO", testify);
-                TestTransaction.Dispose();
-            }
-        }
-         [TestCategory("staff")]
-        [TestMethod]
-        public void ApproveReportTest()
-        {
-            DatabaseHandler dh = new DatabaseHandler();
-            using (TransactionScope TestTransaction = new TransactionScope())
-            {
+        //        dh.ConsultantsInsertExpenseQuery("testReport", "test", "test", "test", 12.04, "AUD", "TestDept", DateTime.Today);
+        //       // dh.DenyReportStaff("testReport");
+        //        var selectCommand = new SqlCommand("select ReportName,StaffApproved from [dbo].[ExpenseDB] where ReportName='testReport';", dh.SQLConnection);
+        //        var adapter = new SqlDataAdapter(selectCommand);
+        //        var resultSet = new DataSet();
+        //        adapter.Fill(resultSet);
+        //        string testify = resultSet.Tables[0].Rows[0]["StaffApproved"].ToString();
+        //        Assert.AreEqual("NO", testify);
+        //        TestTransaction.Dispose();
+        //    }
+        //}
+        // [TestCategory("staff")]
+        //[TestMethod]
+        //public void ApproveReportTest()
+        //{
+        //    DatabaseHandler dh = new DatabaseHandler();
+        //    using (TransactionScope TestTransaction = new TransactionScope())
+        //    {
 
-                dh.ConsultantsInsertExpenseQuery("testReport", "test", "test", "test", 12.04, "AUD", "TestDept", DateTime.Today);
-                dh.ApproveReportStaff("testReport");
-                var selectCommand = new SqlCommand("select ReportName,StaffApproved from [dbo].[ExpenseDB] where ReportName='testReport';", dh.SQLConnection);
-                var adapter = new SqlDataAdapter(selectCommand);
-                var resultSet = new DataSet();
-                adapter.Fill(resultSet);
-                string testify = resultSet.Tables[0].Rows[0]["StaffApproved"].ToString();
-                Assert.AreEqual("YES", testify);
-                TestTransaction.Dispose();
-            }
-        }
+        //        dh.ConsultantsInsertExpenseQuery("testReport", "test", "test", "test", 12.04, "AUD", "TestDept", DateTime.Today);
+        //        dh.ApproveReportStaff("testReport");
+        //        var selectCommand = new SqlCommand("select ReportName,StaffApproved from [dbo].[ExpenseDB] where ReportName='testReport';", dh.SQLConnection);
+        //        var adapter = new SqlDataAdapter(selectCommand);
+        //        var resultSet = new DataSet();
+        //        adapter.Fill(resultSet);
+        //        string testify = resultSet.Tables[0].Rows[0]["StaffApproved"].ToString();
+        //        Assert.AreEqual("YES", testify);
+        //        TestTransaction.Dispose();
+        //    }
+        //}
         //INSERTION TEST METHOD.
         [TestCategory("Consultant")]
         [TestMethod]
@@ -202,12 +202,36 @@ namespace BlueConsultingManagementSystemTests
                Assert.AreEqual("Hugh", dsExpenseSupervisor.Tables[0].Rows[0]["Name"].ToString());
                dh.ApproveReportSupervisor("SuperSupervisor", "SUPERVISORSUPERTEST");
                dh.UpdateDepartmentBudget("LogisticServices", 3001.00);
+               DataSet dsStatus = dh.ConsultantLoadSubmittedReports("Hugh");
+               Assert.AreEqual("Approved", dsStatus.Tables[0].Rows[0]["Supvervisor Approval"].ToString());
+                Assert.AreEqual(6999,dh.ReturnCurrentDepartmentMoney("LogisticServices"));
+                TestTransaction.Dispose();
+            }
 
+            //deny route
+            using (TransactionScope TestTransaction = new TransactionScope())
+            {
 
-
-              
-                 
-
+                dh.ConsultantsInsertExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
+                dh.ConsultantsInsertExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
+                DataSet dsDepartmentSupervisor = dh.LoadDepartmentSupervisorData("LogisticServices");
+                int i = 0;
+                bool resultDepsup = false;
+                while (i < dsDepartmentSupervisor.Tables[0].Rows.Count)
+                {
+                    if (dsDepartmentSupervisor.Tables[0].Rows[i]["ReportName"].ToString() == "SUPERVISORSUPERTEST" && dsDepartmentSupervisor.Tables[0].Rows[i]["ConsultantName"].ToString() == "Hugh")
+                    {
+                        resultDepsup = true;
+                        break;
+                    }
+                    i++;
+                }
+                Assert.AreEqual(true, resultDepsup);
+                DataSet dsExpenseSupervisor = dh.LoadExpenseTable("SUPERVISORSUPERTEST");
+                Assert.AreEqual("Hugh", dsExpenseSupervisor.Tables[0].Rows[0]["Name"].ToString());
+                dh.DenyReportSupervisor("SuperSupervisor", "SUPERVISORSUPERTEST");
+                DataSet dsStatus = dh.ConsultantLoadSubmittedReports("Hugh");
+                Assert.AreEqual("Declined", dsStatus.Tables[0].Rows[0]["Supvervisor Approval"].ToString());
                 TestTransaction.Dispose();
             }
         }
@@ -224,12 +248,12 @@ namespace BlueConsultingManagementSystemTests
         }
          [TestCategory("Currency")]
         [TestMethod]
-        public void TestCAD()
+        public void TestCNY()
         {
             double expected;
             CurrencyConverter cc = new CurrencyConverter();
             expected = cc.ConvertCurrencyToAUD("CNY", 1);
-            Assert.AreEqual(1.03215, expected);
+            Assert.AreEqual(0.172175, expected);
 
         }
          [TestCategory("Currency")]
