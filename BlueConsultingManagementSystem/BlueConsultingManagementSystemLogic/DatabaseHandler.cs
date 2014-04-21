@@ -20,11 +20,15 @@ namespace BlueConsultingManagementSystemLogic
          * ALLWAYS FOLLOW
          */
         public SqlConnection SQLConnection;
+        public DateTime START_OF_THIS_MONTH;
         public DatabaseHandler()
         {
             var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
             var con = new SqlConnection(connectionString);
             this.SQLConnection = con;
+
+            DateTime today = DateTime.Today;
+            START_OF_THIS_MONTH = today.AddDays(1 - today.Day);
         }
 
         public DataSet AllApprovedReports()
@@ -111,7 +115,7 @@ namespace BlueConsultingManagementSystemLogic
             return numb;
         }
 
-         public double ReturnDepartmentExpensesMade(string userGroupMember)
+        public double ReturnDepartmentExpensesMade(string userGroupMember)
         {
             int i = 0;
             var selectCommand = new SqlCommand("SELECT distinct SUM(TotalAUD) FROM ExpenseDB WHERE Dept_type = '" + userGroupMember + "' AND StatusReport = 'Approved' AND (StaffApproved = 'YES' OR StaffApproved IS NULL)", SQLConnection);
@@ -132,6 +136,42 @@ namespace BlueConsultingManagementSystemLogic
             }
 
         }
+
+
+        //CHECK THIS
+        //CHECK THIS
+        //CHECK THIS
+         //public double ReturnDepartmentExpensesMade(string userGroupMember)
+         //{
+         //    int i = 0;
+         //    double expenses = 0;
+         //    var selectCommand = new SqlCommand("SELECT distinct SUM(TotalAUD), DateApproved FROM ExpenseDB WHERE Dept_type = '" + userGroupMember + "' AND StatusReport = 'Approved' AND (StaffApproved = 'YES' OR StaffApproved IS NULL) GROUP BY DateApproved", SQLConnection);
+         //    //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
+         //    var adapter = new SqlDataAdapter(selectCommand);
+
+         //    var resultSet = new DataSet();
+         //    adapter.Fill(resultSet);
+
+         //    SQLConnection.Close();
+         //    try
+         //    {
+         //        do
+         //        {
+         //            if (DateTime.Compare(Convert.ToDateTime(resultSet.Tables[0].Rows[i].ItemArray[1]), START_OF_THIS_MONTH) >= 0)
+         //                expenses += Convert.ToDouble(resultSet.Tables[0].Rows[i].ItemArray[0]);
+
+         //            i++;
+         //        }
+         //        while (resultSet.Tables[0].Rows[i].ItemArray[0] != null);
+
+         //        return expenses;
+         //    }
+         //    catch
+         //    {
+         //        return expenses;
+         //    }
+
+         //}
 
         public void UpdateDepartmentBudget(string userGroupMember, double total)
         {
