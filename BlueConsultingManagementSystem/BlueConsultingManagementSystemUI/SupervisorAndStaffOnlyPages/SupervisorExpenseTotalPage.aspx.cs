@@ -33,15 +33,15 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         {
             if (User.IsInRole("Department Supervisor"))
             {
-                TotalExpenses.Text = "Total expenses for your department, " + userGroupMember + ", are: $" + new DatabaseHandler().ReturnDepartmentExpensesMade(userGroupMember).ToString();
-                RemainingBudget.Text = "Remaining budget for your department is: $" + departmentBudgetRemaining().ToString();
+                TotalExpenses.Text = "Total expenses for your department for this month, " + userGroupMember + ", are: $" + new DatabaseHandler().ReturnDepartmentExpensesMade(userGroupMember).ToString();
+                RemainingBudget.Text = "Remaining budget for your department for this month is: $" + departmentBudgetRemaining().ToString();
             }
             else if(User.IsInRole("Staff"))
             {
                 loadStaffData();
                 AllDepartmentExpensesGridViewSQLConnection.Visible = true;
-                TotalExpenses.Text = "The total expenses currently approved is: $" + totalExpensesApproved();
-                RemainingBudget.Text = "The remaining company budget is: $" + remainingTotalBudgetForStaff();
+                TotalExpenses.Text = "The total expenses currently approved this month is: $" + totalExpensesApproved();
+                RemainingBudget.Text = "The remaining company budget for this month is: $" + remainingTotalBudgetForStaff();
             }
         }
 
