@@ -41,7 +41,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                 dept = results.Tables[0].Rows[temp].ItemArray[3].ToString();
                 report = (results.Tables[0].Rows[temp].ItemArray[0].ToString());
                 //if (Convert.ToDouble(resultSet.Tables[0].Rows[temp].ItemArray[3]) > departmentBudgetRemaining(dept))
-                if (getReportTotal(report) >= departmentBudgetRemaining(dept))
+                if (getReportTotal(report) > departmentBudgetRemaining(dept))
                 {
                     row.CssClass = "info";
                 }

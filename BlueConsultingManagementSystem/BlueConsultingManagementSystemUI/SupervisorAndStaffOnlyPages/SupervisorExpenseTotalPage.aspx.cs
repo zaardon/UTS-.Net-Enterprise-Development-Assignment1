@@ -68,6 +68,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         public double remainingTotalBudgetForStaff()
         {
+            //How is this working?
             return new DatabaseHandler().ReturnTotalBudgetRemaining();
         }
 

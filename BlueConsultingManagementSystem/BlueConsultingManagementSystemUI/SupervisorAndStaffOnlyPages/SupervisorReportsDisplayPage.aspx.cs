@@ -49,12 +49,9 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         protected void ApproveButton_Click(object sender, EventArgs e)
         {
-
-
             if (isUnder())
             {
-                approveReport();
-                
+                approveReport();                
                 Response.Redirect("SupervisorAndStaffMain.aspx");
             }
             else
@@ -73,20 +70,25 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         protected bool isUnder()
         {
-            if (getTotalNumber() < returnCurrentDeptMoney())
+            if (getTotalNumber() <= returnCurrentDeptMoney())
             {                              
                 return true;
             }
             else
             {
-
                 return false;
             }
         }
 
         public double returnCurrentDeptMoney()
         {
-            return new DatabaseHandler().ReturnCurrentDepartmentMoney(userGroupMember);
+            if (department == "DepartmentSupervisor")
+                return new DatabaseHandler().ReturnCurrentDepartmentMoney(userGroupMember);
+            else
+            {
+                string deptName = DisplayResultsGridSQLConnection.Rows[0].Cells[7].Text.ToString();
+                return new DatabaseHandler().ReturnDepartmentBudgetForStaffExpenses(deptName);
+            }
         }
 
         public double getTotalNumber()
@@ -118,7 +120,6 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                 approveSupervisor();
                 deductBudget();
             }
-
             else if (department == "Staff")
                 approveReportStaff();
         }

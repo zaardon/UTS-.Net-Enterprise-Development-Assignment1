@@ -352,7 +352,7 @@ namespace BlueConsultingManagementSystemLogic
         public DataSet LoadExpenseTableNonRejectedOrApproved(string reportName)
         {
             SQLConnection.Open();
-            var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND (StatusReport = 'Submitted' OR StaffApproved is NULL)", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, DateExpense as 'Date', Dept_type FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND (StatusReport = 'Submitted' OR StaffApproved is NULL)", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
 
             var resultSet = new DataSet();
@@ -498,12 +498,12 @@ namespace BlueConsultingManagementSystemLogic
             return resultSet;
         }
 
-        public double ReturnStaffReportTotalAmountForSupervisorReportName(string name)
+        public double ReturnStaffReportTotalAmountForSupervisorReportName(string reportName)
         {
             SQLConnection.Open();
             double numb = 0.0;
 
-            var selectCommand = new SqlCommand("SELECT SUM(TotalAUD) FROM ExpenseDB WHERE ReportName = '" + name + "'  AND StaffApproved is NULL", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT SUM(TotalAUD) FROM ExpenseDB WHERE ReportName = '" + reportName + "'  AND StaffApproved is NULL", SQLConnection);
             //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
             var adapter = new SqlDataAdapter(selectCommand);
 
@@ -569,7 +569,7 @@ namespace BlueConsultingManagementSystemLogic
         public DataSet ConsultantLoadApprovedReports(string name)
         {
             SQLConnection.Open();
-            var selectCommand = new SqlCommand("SELECT distinct ReportName, StatusReport as 'Supvervisor Approval', StaffApproved as 'Account Staff Approval' FROM ExpenseDB WHERE ConsultantName = '" + name + "' AND StatusReport = 'Approved' AND StaffApproved <> 'NO'", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT distinct ReportName FROM ExpenseDB WHERE ConsultantName = '" + name + "' AND StaffApproved = 'YES'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
 
             var resultSet = new DataSet();
@@ -613,6 +613,35 @@ namespace BlueConsultingManagementSystemLogic
             }
 
             return pdfFile;
+        }
+
+        public double ReturnDepartmentBudgetForStaffExpenses(string dept)
+        {
+            return ReturnCurrentDepartmentMoney(dept) + ReturnDepartmentBudgetSpentUnapproved(dept);
+        }
+
+        private double ReturnDepartmentBudgetSpentUnapproved(string dept)
+        {
+            SQLConnection.Open();
+            double numb = 0.0;
+
+            var selectCommand = new SqlCommand("SELECT SUM(TotalAUD) FROM ExpenseDB WHERE (StaffApproved is NULL) AND StatusReport = 'Approved' AND Dept_type ='"+dept+"'", SQLConnection);
+            //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
+            var adapter = new SqlDataAdapter(selectCommand);
+
+            var resultSet = new DataSet();
+            adapter.Fill(resultSet);
+
+            try
+            {
+                numb = Convert.ToDouble(resultSet.Tables[0].Rows[0].ItemArray[0]);
+            }
+            catch
+            {
+                numb = 0;
+            }
+            SQLConnection.Close();
+            return numb;
         }
     }
 }
