@@ -25,7 +25,6 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SuperViso
 
             if (Session["reportName"] == null)
             {
-
                 Session["reportName"] = reportName;
             }
 
@@ -34,14 +33,14 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SuperViso
             else if (User.IsInRole("Logistic Services"))
                 userGroupMember = "Logistic";
             else
-                userGroupMember = "State";
+                userGroupMember = "StateServices";
             loadResults();
         }
 
         public void loadResults()
         {
             RejectedResultsGridViewSQLConnection.Visible = true;
-            RejectedResultsGridViewSQLConnection.DataSource = new DatabaseHandler().LoadRejectedReportNames();
+            RejectedResultsGridViewSQLConnection.DataSource = new DatabaseHandler().LoadRejectedReportNames(userGroupMember, User.Identity.Name);
             RejectedResultsGridViewSQLConnection.DataBind();
 
         }
@@ -54,6 +53,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SuperViso
             GridViewRow selectedRow = RejectedResultsGridViewSQLConnection.Rows[index];
             reportName = selectedRow.Cells[1].Text.ToString();
             Session["reportName"] = reportName;
+            Session["deptName"] = userGroupMember;
             Response.Redirect("SupervisorViewRejectedReportInfo.aspx");
             //fix that hardcode
         }

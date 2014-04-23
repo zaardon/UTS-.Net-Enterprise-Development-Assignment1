@@ -15,16 +15,18 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.Superviso
     {
 
             string reportName;
+            string deptName;
             protected void Page_Load(object sender, EventArgs e)
             {
                 reportName = Session["reportName"].ToString();
+                deptName = Session["deptName"].ToString();
                 loadData();
             }
 
             public void loadData()
             {
 
-                RejectedReportInfoSQLConnection.DataSource = new DatabaseHandler().LoadRejectedReportInfo(reportName);
+                RejectedReportInfoSQLConnection.DataSource = new DatabaseHandler().LoadRejectedReportInfo(reportName, deptName);
                 RejectedReportInfoSQLConnection.DataBind();
 
             }
