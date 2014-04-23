@@ -18,11 +18,11 @@ namespace BlueConsultingManagementSystemTests
         //public void AllApprovedReportsTest()
         //{
         //    DatabaseHandler dh = new DatabaseHandler();
-        //    DataSet ds= dh.AllApprovedReports();
-        //    for(int j = 0; j< ds.Tables[0].Rows.Count; j++)
+        //    DataSet ds = dh.AllApprovedReports();
+        //    for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
         //    {
-        //            String testify = ds.Tables[0].Rows[j]["StatusReport"].ToString();
-        //            Assert.AreEqual("Approved", testify);
+        //        String testify = ds.Tables[0].Rows[j]["StatusReport"].ToString();
+        //        Assert.AreEqual("Approved", testify);
         //    }
         //}
         ////[TestCategory("staff")]
