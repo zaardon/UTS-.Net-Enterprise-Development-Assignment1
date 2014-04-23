@@ -31,6 +31,15 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages {
         protected global::System.Web.UI.WebControls.Button ReportsButton;
         
         /// <summary>
+        /// ApprovedReportsButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ApprovedReportsButton;
+        
+        /// <summary>
         /// ExpenseResultsButton control.
         /// </summary>
         /// <remarks>
@@ -47,15 +56,6 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button RejectedResultsButton;
-        
-        /// <summary>
-        /// ApprovedReportsButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ApprovedReportsButton;
         
         /// <summary>
         /// BacktoSupervisor control.

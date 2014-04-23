@@ -20,9 +20,10 @@
          Please select the type of report you wish to view:<br />
         <br />
         <asp:Button ID="ReportsButton" runat="server" Text="Consultant Unapproved Reports" OnClick="ReportsButton_Click" CssClass="btn-primary"  />
+        <asp:Button ID="ApprovedReportsButton" runat="server" Text="Supervisor Unapproved Reports" Visible = "false" OnClick="ApprovedReportsButton_Click" CssClass="btn-primary" />
         <asp:Button ID="ExpenseResultsButton" runat="server" Text="Expense Results" OnClick="ExpenseResultsButton_Click" CssClass="btn-primary" />
         <asp:Button ID="RejectedResultsButton" runat="server" Text="Rejected Submits" OnClick="RejectedResultsButton_Click" CssClass="btn-primary" />
-        <asp:Button ID="ApprovedReportsButton" runat="server" Text="Supervisor Unapproved Reports" Visible = "false" OnClick="ApprovedReportsButton_Click" CssClass="btn-primary" />
+        
         
 
         <br />
