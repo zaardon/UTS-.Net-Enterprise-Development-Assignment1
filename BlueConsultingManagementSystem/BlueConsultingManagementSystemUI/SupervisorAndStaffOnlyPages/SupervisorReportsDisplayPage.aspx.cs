@@ -22,7 +22,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Label2.Text = User.Identity.AuthenticationType.ToString();
+            //Label2.Text = User.Identity.AuthenticationType.ToString();
             Label1.Text = "null";
             reportName = Session["reportName"].ToString();
             Label1.Text = reportName;

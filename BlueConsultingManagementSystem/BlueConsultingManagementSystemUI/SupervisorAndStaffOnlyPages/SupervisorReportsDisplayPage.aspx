@@ -9,8 +9,9 @@
     <title></title>
 </head>
 <body>
-    
-     <div class="modal-dialog">
+    <div id="Div1" align="center">
+     <div class="col-lg-8">
+       
         <div class ="panel panel-primary"  >  
             <div class="panel-heading">
                 <h1 class="panel-title"> Blue management Consultant expense -
@@ -22,18 +23,18 @@
     <form id="form1" runat="server">
       <div>
     </div>
-        <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
+       
 
             <br />
 
         <br />
 
-        <asp:GridView ID="DisplayResultsGridSQLConnection" runat="server" onrowcommand="DisplayResultsGridSQLConnection_RowCommand" CssClass="table-responsive table-condensed">
+        <asp:GridView ID="DisplayResultsGridSQLConnection" runat="server" onrowcommand="DisplayResultsGridSQLConnection_RowCommand" CssClass="table-condensed">
             <Columns>
                 <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="PDFFile" ShowHeader="True" Text="Receipt" ControlStyle-CssClass="btn btn-primary"  />
             </Columns>
         </asp:GridView>
-    </div>
+    
 
         <asp:Label ID="CurrentAmount" runat="server" Text=""></asp:Label>
         <br />
@@ -51,11 +52,12 @@
 
             </p>
             <asp:Button ID="BacktoSupervisor" runat="server" Text="Back" CssClass="btn btn-primary" OnClick="BacktoSupervisor_Click" />
-         
+         </div>
     </form>
                      </div>
          </div>
     </div>
+         </div>
 </body>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="../css/js/bootstrap.min.js"></script>
