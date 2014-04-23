@@ -32,9 +32,17 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             try
             {
                 if (reportBox.Text == null || TextBox1.Text == null || TextBox2.Text == null || TextBox3.Text == null || Calendar1.SelectedDate.ToString() == null)
-                {
-                    throw new Exception("Missing parameters please check the form more closely");
-                }
+                    throw new Exception("Missing parameters: please check the form more closely.");
+
+                if (new InputChecker().hasNonAlphaNumCharacters(reportBox.Text) || new InputChecker().hasNonAlphaNumCharacters(TextBox1.Text) || new InputChecker().hasNonAlphaNumCharacters(TextBox2.Text))
+                    throw new Exception("This report uses non-alphanumeric characters.");
+
+                if (new DatabaseHandler().isReportNameUsed(reportBox.Text))
+                    throw new Exception("This report name has currently been processed, please use another one.");
+
+                if (new DatabaseHandler().isExpenseRepeated(reportBox.Text, TextBox1.Text, TextBox2.Text, Convert.ToDouble(TextBox3.Text), DropDownList1.Text, DropDownList2.Text, Calendar1.SelectedDate.Date))
+                    throw new Exception("This individual expense currently exists, please alter it's details.");              
+
                 if (FileUpload1.FileName == null || FileUpload1.FileName == "")
                 {
                     DatabaseHandler dh = new DatabaseHandler();
@@ -43,7 +51,6 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
                 else
                 {
                     byte[] file = FileUpload1.FileBytes;
-
                     DatabaseHandler dh = new DatabaseHandler();
                     dh.ConsultantsInsertExpenseQueryWithPDF(reportBox.Text, User.Identity.Name, TextBox1.Text, TextBox2.Text, Convert.ToDouble(TextBox3.Text), DropDownList1.Text, DropDownList2.Text, Calendar1.SelectedDate.Date, file);
                 }
@@ -54,9 +61,16 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             {
                 excLbl.Text = ex.Message;
             }
+
+            try
+            {
+                double.Parse(TextBox3.Text);
+            }              
+            catch (FormatException ex)
+            {
+                excLbl.Text = "You have entered non-numeric characters for the amount";
+            }
         }
-
-
     }
-    
 }
+    

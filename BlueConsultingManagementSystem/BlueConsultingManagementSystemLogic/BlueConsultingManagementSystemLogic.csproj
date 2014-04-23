@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="CurrencyConverter.cs" />
     <Compile Include="DatabaseHandler.cs" />
+    <Compile Include="InputChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

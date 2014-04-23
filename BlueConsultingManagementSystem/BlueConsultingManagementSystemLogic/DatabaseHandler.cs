@@ -643,5 +643,54 @@ namespace BlueConsultingManagementSystemLogic
             SQLConnection.Close();
             return numb;
         }
+
+        public bool isReportNameUsed(string reportName)
+        {
+            SQLConnection.Open();
+            var selectCommand = new SqlCommand("SELECT distinct ReportName FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND (StatusReport = 'Approved' OR StatusReport = 'Rejected')", SQLConnection);
+            var adapter = new SqlDataAdapter(selectCommand);
+
+            var resultSet = new DataSet();
+            adapter.Fill(resultSet);
+            SQLConnection.Close();
+
+            string foundName = "";
+            foreach (DataRow row in resultSet.Tables[0].Rows)
+            {
+                 foundName = row.ItemArray[0].ToString();
+
+                 if (foundName == reportName)
+                 {
+                     return true;
+                 }
+            }
+
+            return false;
+        }
+
+        public bool isExpenseRepeated(string reportName, string location, string description, double amount, string currency, string deptType, DateTime dateExpense)
+        {
+            SQLConnection.Open();
+            var selectCommand = new SqlCommand("SELECT distinct ReportName FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND Location = '"+location+"' AND Description = '"+description+"' AND Amount = "+amount+" AND Currency = '"+currency+"' AND Dept_type = '"+deptType+"' AND DateExpense = @dateExpense", SQLConnection);
+            selectCommand.Parameters.AddWithValue("@dateExpense", dateExpense);
+            var adapter = new SqlDataAdapter(selectCommand);
+
+            var resultSet = new DataSet();
+            adapter.Fill(resultSet);
+            SQLConnection.Close();
+
+            string foundName = "";
+            foreach (DataRow row in resultSet.Tables[0].Rows)
+            {
+                foundName = row.ItemArray[0].ToString();
+
+                if (foundName == reportName)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }
