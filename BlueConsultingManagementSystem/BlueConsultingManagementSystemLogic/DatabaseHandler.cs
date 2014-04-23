@@ -475,10 +475,10 @@ namespace BlueConsultingManagementSystemLogic
             return numb;
         }
 
-        public DataSet LoadRejectedReportInfo(string reportName)
+        public DataSet LoadRejectedReportInfo(string reportName, string dept)
         {
             SQLConnection.Open();
-            var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "'", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND Dept_type = '"+dept+"'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
 
             var resultSet = new DataSet();
@@ -487,12 +487,12 @@ namespace BlueConsultingManagementSystemLogic
             return resultSet;
 
         }
-        public DataSet LoadRejectedReportNames()
+        public DataSet LoadRejectedReportNames(string dept, string processedBy)
         {
             SQLConnection.Open();
             var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
             var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT distinct ReportName, ConsultantName FROM ExpenseDB WHERE StaffApproved = 'NO'", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT distinct ReportName, ConsultantName FROM ExpenseDB WHERE StaffApproved = 'NO' AND dept_type = '" + dept + "' AND processedBy = '" + processedBy + "'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
             var resultSet = new DataSet();
             adapter.Fill(resultSet);          
