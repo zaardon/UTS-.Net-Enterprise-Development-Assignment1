@@ -16,6 +16,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
     public partial class SupervisorReportsDisplayPage : System.Web.UI.Page
     {
         public string reportName;
+        public string deptNameForStaff;
         public string userGroupMember = "";
         public string department = "";
         
@@ -25,9 +26,10 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             Label2.Text = User.Identity.AuthenticationType.ToString();
             Label1.Text = "null";
             reportName = Session["reportName"].ToString();
+            
             Label1.Text = reportName;
-            fillExpenseTable();
-            CurrentAmount.Text = "The total is: $" + getTotalNumber().ToString()+" AUD";
+            
+            
 
             if (User.IsInRole("Higher Education Services"))
                 userGroupMember = "HigherEducation";
@@ -36,14 +38,20 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             else
                 userGroupMember = "StateServices";
 
+            
+
             if(User.IsInRole("Staff"))
             {
                 department = "Staff";
+                deptNameForStaff = Session["deptNameForStaff"].ToString();
             }
             else if(User.IsInRole("Department Supervisor"))
             {
                 department = "DepartmentSupervisor";
             }
+
+            fillExpenseTable();
+            CurrentAmount.Text = "The total is: $" + getTotalNumber().ToString() + " AUD";
 
         }
 
@@ -137,23 +145,25 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         public void denyReportStaff()
         {
             double temp = getTotalNumber();
-            new DatabaseHandler().DenyReportStaff(reportName, temp);
+            new DatabaseHandler().DenyReportStaff(reportName, temp, deptNameForStaff);
 
         }
 
         public void approveReportStaff()
         {
-            new DatabaseHandler().ApproveReportStaff(reportName);
+            new DatabaseHandler().ApproveReportStaff(reportName, deptNameForStaff);
         }
 
+        //sdfsdfdsf
         public void denySupervisor()
         {
-            new DatabaseHandler().DenyReportSupervisor(User.Identity.Name, reportName);
+            new DatabaseHandler().DenyReportSupervisor(User.Identity.Name, reportName, userGroupMember);
         }
 
+        //dgdfgsfgds
         public void approveSupervisor()
         {
-            new DatabaseHandler().ApproveReportSupervisor(User.Identity.Name, reportName);
+            new DatabaseHandler().ApproveReportSupervisor(User.Identity.Name, reportName, userGroupMember);
         }
 
         protected void ConfirmButton_Click(object sender, EventArgs e)
@@ -165,8 +175,11 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         public void fillExpenseTable()
         {
 
+            if (User.IsInRole("Department Supervisor"))
+                DisplayResultsGridSQLConnection.DataSource = new DatabaseHandler().LoadExpenseTableNonRejectedOrApprovedForSupervisor(reportName,userGroupMember);
+            else if (department == "Staff")
+                DisplayResultsGridSQLConnection.DataSource = new DatabaseHandler().LoadExpenseTableNonRejectedOrApprovedForStaff(reportName, deptNameForStaff);
 
-            DisplayResultsGridSQLConnection.DataSource = new DatabaseHandler().LoadExpenseTableNonRejectedOrApproved(reportName);
             DisplayResultsGridSQLConnection.DataBind();
 
         }
