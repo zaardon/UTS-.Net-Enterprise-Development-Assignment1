@@ -31,31 +31,31 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages {
         protected global::System.Web.UI.WebControls.TextBox reportBox;
         
         /// <summary>
-        /// TextBox1 control.
+        /// LocationBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox1;
+        protected global::System.Web.UI.WebControls.TextBox LocationBox;
         
         /// <summary>
-        /// TextBox2 control.
+        /// DescriptionBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox2;
+        protected global::System.Web.UI.WebControls.TextBox DescriptionBox;
         
         /// <summary>
-        /// TextBox3 control.
+        /// AmountBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox3;
+        protected global::System.Web.UI.WebControls.TextBox AmountBox;
         
         /// <summary>
         /// DropDownList1 control.
