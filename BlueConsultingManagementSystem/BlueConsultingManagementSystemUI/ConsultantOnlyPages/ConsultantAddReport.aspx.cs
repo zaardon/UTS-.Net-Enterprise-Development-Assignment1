@@ -15,6 +15,7 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 {
     public partial class ConsultantAddReport : System.Web.UI.Page
     {
+        DateTime TODAY;
         protected void Page_Load(object sender, EventArgs e)
         {
             string reportName = HttpUtility.HtmlDecode(Session["reportName"].ToString());
@@ -25,6 +26,7 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
                 reportBox.ReadOnly = true;
             }
 
+            TODAY = DateTime.Today;
         }
 
         protected void submitbtn_Click(object sender, EventArgs e)
@@ -36,11 +38,10 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
                     throw new Exception("This report uses non-alphanumeric characters.");
 
                 if (new DatabaseHandler().isReportNameUsed(reportBox.Text))
-                    throw new Exception("This report name has currently been processed, please use another one.");
+                    throw new Exception("This report name has currently been processed, and is awaiting approval or has been declined. \nPlease use another one.");
 
                 if (new DatabaseHandler().isExpenseRepeated(reportBox.Text, LocationBox.Text, DescriptionBox.Text, Convert.ToDouble(AmountBox.Text), DropDownList1.Text, DropDownList2.Text, Calendar1.SelectedDate.Date))
                     throw new Exception("This individual expense currently exists, please alter it's details.");              
-
 
                 if (reportBox.Text == null || reportBox.Text =="") 
                 {
@@ -61,6 +62,11 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
                 if(Calendar1.SelectedDate.ToString()=="" || Calendar1.SelectedDate.ToString() == null)
                 {
                     throw new Exception("Missing Date !");
+                }
+
+                if (DateTime.Compare(Calendar1.SelectedDate, TODAY) > 0)
+                {
+                    throw new Exception("Date is pointing to the future.");
                 }
 
                 if (FileUpload1.FileName == null || FileUpload1.FileName == "")
