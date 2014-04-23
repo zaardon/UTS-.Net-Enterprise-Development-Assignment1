@@ -15,13 +15,18 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
     public partial class StaffViewAllReports : System.Web.UI.Page
     {
         public string reportName;
+        public string deptName;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["reportName"] == null)
             {
-
                 Session["reportName"] = reportName;
             }
+            if (Session["deptNameForStaff"] == null)
+            {
+                Session["deptNameForStaff"] = deptName;
+            }
+
             loadStaffData();
         }
 
@@ -67,7 +72,9 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow selectedRow = AllApprovedReportsGridViewSQLConnection.Rows[index];
             reportName = selectedRow.Cells[1].Text.ToString();
+            deptName = selectedRow.Cells[4].Text.ToString();
             Session["reportName"] = reportName;
+            Session["deptNameForStaff"] = deptName;
             Response.Redirect("~/SupervisorAndStaffOnlyPages/SupervisorReportsDisplayPage.aspx");
             //fix that hardcode
         }
