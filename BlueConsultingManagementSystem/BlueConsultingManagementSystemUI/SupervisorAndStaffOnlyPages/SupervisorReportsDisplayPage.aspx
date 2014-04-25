@@ -9,9 +9,7 @@
     <title></title>
 </head>
 <body>
-    <div id="Div1" align="center">
-     <div class="col-lg-8">
-       
+      
         <div class ="panel panel-primary"  >  
             <div class="panel-heading">
                 <h1 class="panel-title"> Blue management Consultant expense -
@@ -53,11 +51,15 @@
             </p>
             <asp:Button ID="BacktoSupervisor" runat="server" Text="Back" CssClass="btn btn-primary" OnClick="BacktoSupervisor_Click" />
          </div>
+                         </div>
+         
+                        <div class="modal-dialog">
+    <div class="alert-danger">
+    <asp:Label ID="excLbl" runat="server" Text=""></asp:Label>
+        </div>
+        </div>
     </form>
-                     </div>
-         </div>
-    </div>
-         </div>
+        
 </body>
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="../css/js/bootstrap.min.js"></script>

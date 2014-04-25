@@ -15,6 +15,11 @@
             </Columns>
         </asp:GridView>
     </div>
+                <div class="modal-dialog">
+    <div class="alert-danger">
+    <asp:Label ID="excLbl" runat="server" Text=""></asp:Label>
+        </div>
+        </div>
     </form>
 </body>
 </html>

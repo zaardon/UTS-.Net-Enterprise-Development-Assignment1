@@ -198,9 +198,9 @@ namespace BlueConsultingManagementSystemTests
                    i++;
                }
                Assert.AreEqual(true, resultDepsup);
-               DataSet dsExpenseSupervisor = dh.LoadExpenseTable("SUPERVISORSUPERTEST");
+               DataSet dsExpenseSupervisor = dh.LoadExpenseTable("SUPERVISORSUPERTEST", "LogisticServices");
                Assert.AreEqual("Hugh", dsExpenseSupervisor.Tables[0].Rows[0]["Name"].ToString());
-               dh.ApproveReportSupervisor("SuperSupervisor", "SUPERVISORSUPERTEST");
+               dh.ApproveReportSupervisor("SuperSupervisor", "SUPERVISORSUPERTEST","LogisticServices");
                dh.UpdateDepartmentBudget("LogisticServices", 3001.00);
                DataSet dsStatus = dh.ConsultantLoadSubmittedReports("Hugh");
                Assert.AreEqual("Approved", dsStatus.Tables[0].Rows[0]["Supvervisor Approval"].ToString());
@@ -227,9 +227,9 @@ namespace BlueConsultingManagementSystemTests
                     i++;
                 }
                 Assert.AreEqual(true, resultDepsup);
-                DataSet dsExpenseSupervisor = dh.LoadExpenseTable("SUPERVISORSUPERTEST");
+                DataSet dsExpenseSupervisor = dh.LoadExpenseTable("SUPERVISORSUPERTEST", "LogisticServices");
                 Assert.AreEqual("Hugh", dsExpenseSupervisor.Tables[0].Rows[0]["Name"].ToString());
-                dh.DenyReportSupervisor("SuperSupervisor", "SUPERVISORSUPERTEST");
+                dh.DenyReportSupervisor("SuperSupervisor", "SUPERVISORSUPERTEST","LogisticServices");
                 DataSet dsStatus = dh.ConsultantLoadSubmittedReports("Hugh");
                 Assert.AreEqual("Declined", dsStatus.Tables[0].Rows[0]["Supvervisor Approval"].ToString());
                 TestTransaction.Dispose();

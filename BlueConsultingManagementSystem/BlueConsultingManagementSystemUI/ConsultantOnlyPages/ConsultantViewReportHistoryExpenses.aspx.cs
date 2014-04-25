@@ -55,7 +55,8 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             }
             else
             {
-                Response.Write("No PDF File for expense has been added");
+              
+                excLbl.Text = "No PDF File for expense has been added";
             }
 
         }

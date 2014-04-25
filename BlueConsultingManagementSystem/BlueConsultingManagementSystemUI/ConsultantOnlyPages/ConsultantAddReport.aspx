@@ -80,8 +80,10 @@
         
 
         <asp:Button ID="submitbtn" runat="server" OnClick="submitbtn_Click" Text="submit" CssClass="btn-lg btn-primary" />
-       
+       <p>
 
+       </p>
+        <asp:Button ID="BackButton" runat="server" Text="Back" ControlStyle-CssClass="btn btn-primary" OnClick="BackButton_Click" />
         
 
     </form>

@@ -97,6 +97,11 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
                 excLbl.Text = "You have entered non-numeric characters for the amount";
             }
         }
+
+        protected void BackButton_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("ConsultantSelectReportName.aspx");
+        }
     }
 }
     
