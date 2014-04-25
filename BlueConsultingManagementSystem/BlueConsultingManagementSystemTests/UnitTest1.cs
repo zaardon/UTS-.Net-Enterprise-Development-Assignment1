@@ -185,7 +185,7 @@ namespace BlueConsultingManagementSystemTests
 
                 dh.InsertConsultantExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
                 dh.InsertConsultantExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
-               DataSet dsDepartmentSupervisor = dh.LoadSubmittedReportsForDepartmentSupervisor("LogisticServices");
+                DataSet dsDepartmentSupervisor = dh.ReturnSubmittedReportsForDepartmentSupervisor("LogisticServices");
                int i = 0;
                bool resultDepsup= false;
                while (i < dsDepartmentSupervisor.Tables[0].Rows.Count)
@@ -214,7 +214,7 @@ namespace BlueConsultingManagementSystemTests
 
                 dh.InsertConsultantExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
                 dh.InsertConsultantExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
-                DataSet dsDepartmentSupervisor = dh.LoadSubmittedReportsForDepartmentSupervisor("LogisticServices");
+                DataSet dsDepartmentSupervisor = dh.ReturnSubmittedReportsForDepartmentSupervisor("LogisticServices");
                 int i = 0;
                 bool resultDepsup = false;
                 while (i < dsDepartmentSupervisor.Tables[0].Rows.Count)

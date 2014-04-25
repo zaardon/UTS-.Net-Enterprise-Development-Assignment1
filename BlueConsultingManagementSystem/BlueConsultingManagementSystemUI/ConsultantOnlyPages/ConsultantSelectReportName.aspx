@@ -22,7 +22,7 @@
         
         <asp:GridView ID="CurrentReportNamesSQLConnection" runat="server" OnRowCommand="CurrentReportNamesSQLConnection_RowCommand" CssClass="table table-responsive">
             <Columns>
-                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="ContinueReport" ShowHeader="True" Text="Continue Report" ControlStyle-CssClass="btn btn-primary" />
+                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="" ShowHeader="True" Text="Continue Report" ControlStyle-CssClass="btn btn-primary" />
             </Columns>
         </asp:GridView>
         <br />

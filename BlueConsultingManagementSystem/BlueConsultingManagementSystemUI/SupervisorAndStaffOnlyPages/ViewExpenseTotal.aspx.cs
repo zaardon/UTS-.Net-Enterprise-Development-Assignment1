@@ -18,11 +18,11 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         protected void Page_Load(object sender, EventArgs e)
         {
             if (User.IsInRole("Higher Education Services"))
-                userGroupMember = "HigherEducation";
+                userGroupMember = "Higher Education";
             else if (User.IsInRole("Logistic Services"))
-                userGroupMember = "LogisticServices";
+                userGroupMember = "Logistic Services";
             else
-                userGroupMember = "StateServices";
+                userGroupMember = "State Services";
             LoadData();
         }
 

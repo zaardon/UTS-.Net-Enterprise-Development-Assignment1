@@ -23,7 +23,9 @@
 
 <asp:GridView ID="ReportExpenseHistoryDetailsSQLConnection" runat="server" OnRowCommand="ReportExpenseHistoryDetailsSQLConnection_RowCommand" CssClass="table-responsive">
             <Columns>
-                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="ViewReceipt" ShowHeader="True" Text="Receipt" ControlStyle-CssClass="btn-primary" />
+                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="View Receipt" ShowHeader="True" Text="Receipt" ControlStyle-CssClass="btn-primary" >
+<ControlStyle CssClass="btn-primary"></ControlStyle>
+                </asp:ButtonField>
             </Columns>
         </asp:GridView>
     </div>

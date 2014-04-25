@@ -17,7 +17,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         private string reportName;
         private string deptName;
         private int REP_POS = 0;
-        private int DEPT_POS = 3; 
+        private int DEPT_POS = 2; 
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -60,8 +60,8 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             string currentCommand = e.CommandName;
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow selectedRow = AllApprovedReportsGridViewSQLConnection.Rows[index];
-            reportName = selectedRow.Cells[1].Text.ToString();
-            deptName = selectedRow.Cells[4].Text.ToString();
+            reportName = selectedRow.Cells[REP_POS + 1].Text.ToString();
+            deptName = selectedRow.Cells[DEPT_POS + 1].Text.ToString();
             Session["reportName"] = reportName;
             Session["deptNameForStaff"] = deptName;
             Response.Redirect("~/SupervisorAndStaffOnlyPages/ViewReports.aspx");
