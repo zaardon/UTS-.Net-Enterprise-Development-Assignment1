@@ -40,7 +40,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SuperViso
         public void loadResults()
         {
             RejectedResultsGridViewSQLConnection.Visible = true;
-            RejectedResultsGridViewSQLConnection.DataSource = new DatabaseHandler().LoadRejectedReportNames(userGroupMember, User.Identity.Name);
+            RejectedResultsGridViewSQLConnection.DataSource = new DatabaseHandler().ReturnRejectedReportNamesForSupervisor(userGroupMember, User.Identity.Name);
             RejectedResultsGridViewSQLConnection.DataBind();
 
         }

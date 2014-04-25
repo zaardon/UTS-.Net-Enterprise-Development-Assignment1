@@ -44,7 +44,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         protected void loadDepartmentSupervisorData()
         {
-                UnapprovedReportsGridViewSQLConnection.DataSource = new DatabaseHandler().LoadDepartmentSupervisorData(userGroupMember);
+                UnapprovedReportsGridViewSQLConnection.DataSource = new DatabaseHandler().LoadSubmittedReportsForDepartmentSupervisor(userGroupMember);
                 UnapprovedReportsGridViewSQLConnection.DataBind();
         }
 

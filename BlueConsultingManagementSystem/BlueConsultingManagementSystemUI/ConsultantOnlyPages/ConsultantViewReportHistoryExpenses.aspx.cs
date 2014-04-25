@@ -27,7 +27,7 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 
         public void loadData()
         {
-            ReportExpenseHistoryDetailsSQLConnection.DataSource = new DatabaseHandler().LoadExpenseTable(reportName, deptName);
+            ReportExpenseHistoryDetailsSQLConnection.DataSource = new DatabaseHandler().ReturnExpenseTable(reportName, deptName);
             ReportExpenseHistoryDetailsSQLConnection.DataBind();
         }
 

@@ -145,25 +145,25 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         public void denyReportStaff()
         {
             double temp = getTotalNumber();
-            new DatabaseHandler().DenyReportStaff(reportName, temp, deptNameForStaff);
+            new DatabaseHandler().DenyReportForStaffMember(reportName, temp, deptNameForStaff);
 
         }
 
         public void approveReportStaff()
         {
-            new DatabaseHandler().ApproveReportStaff(reportName, deptNameForStaff);
+            new DatabaseHandler().ApproveReportForStaffMember(reportName, deptNameForStaff);
         }
 
         //sdfsdfdsf
         public void denySupervisor()
         {
-            new DatabaseHandler().DenyReportSupervisor(User.Identity.Name, reportName, userGroupMember);
+            new DatabaseHandler().DenyReportForSupervisor(User.Identity.Name, reportName, userGroupMember);
         }
 
         //dgdfgsfgds
         public void approveSupervisor()
         {
-            new DatabaseHandler().ApproveReportSupervisor(User.Identity.Name, reportName, userGroupMember);
+            new DatabaseHandler().ApproveReportForSupervisor(User.Identity.Name, reportName, userGroupMember);
         }
 
         protected void ConfirmButton_Click(object sender, EventArgs e)
@@ -176,9 +176,9 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         {
 
             if (User.IsInRole("Department Supervisor"))
-                DisplayResultsGridSQLConnection.DataSource = new DatabaseHandler().LoadExpenseTableNonRejectedOrApprovedForSupervisor(reportName,userGroupMember);
+                DisplayResultsGridSQLConnection.DataSource = new DatabaseHandler().ReturnNonRejectedOrApprovedExpensesForSupervisor(reportName,userGroupMember);
             else if (department == "Staff")
-                DisplayResultsGridSQLConnection.DataSource = new DatabaseHandler().LoadExpenseTableNonRejectedOrApprovedForStaff(reportName, deptNameForStaff);
+                DisplayResultsGridSQLConnection.DataSource = new DatabaseHandler().ReturnNonRejectedOrApprovedExpensesForStaff(reportName, deptNameForStaff);
 
             DisplayResultsGridSQLConnection.DataBind();
 

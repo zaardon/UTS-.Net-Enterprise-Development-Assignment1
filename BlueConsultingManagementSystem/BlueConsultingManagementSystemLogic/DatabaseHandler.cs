@@ -21,22 +21,20 @@ namespace BlueConsultingManagementSystemLogic
          */
         public SqlConnection SQLConnection;
         private DateTime START_OF_THIS_MONTH;
+
         public DatabaseHandler()
         {
             var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
             var con = new SqlConnection(connectionString);
-            this.SQLConnection = con;
-
-            
+            this.SQLConnection = con;           
 
             DateTime today = DateTime.Today;
             START_OF_THIS_MONTH = today.AddDays(1 - today.Day);
 
-
-            ImplementMonthRoleBack();
+            RoleBackOldMonthlyExpenses();
         }
 
-        private void ImplementMonthRoleBack()
+        private void RoleBackOldMonthlyExpenses()
         {
             DataSet nonRolledBackReports = ReturnNonRolledBackReports();
 
@@ -103,7 +101,7 @@ namespace BlueConsultingManagementSystemLogic
 
         }
 
-        public DataSet AllApprovedReports()
+        public DataSet ReturnAllApprovedReports()
         {
             var selectCommand = new SqlCommand("SELECT DISTINCT ReportName, ConsultantName, StatusReport, Dept_type FROM ExpenseDB WHERE StatusReport = 'Approved'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
@@ -113,7 +111,7 @@ namespace BlueConsultingManagementSystemLogic
             return resultSet;
         }
 
-        public void ConsultantsInsertExpenseQuery(string repName, string user, string location, string description, double amount, string currency, string deptType, DateTime dateExp)
+        public void InsertConsultantExpenseQuery(string repName, string user, string location, string description, double amount, string currency, string deptType, DateTime dateExp)
         {
             SQLConnection.Open();
 
@@ -135,7 +133,7 @@ namespace BlueConsultingManagementSystemLogic
             SQLConnection.Close();
         }
 
-        public void ConsultantsInsertExpenseQueryWithPDF(string repName, string user, string location, string description, double amount, string currency, string deptType, DateTime dateExp, byte[] file)
+        public void InsertConsultantExpenseQueryWithPDF(string repName, string user, string location, string description, double amount, string currency, string deptType, DateTime dateExp, byte[] file)
         {
             SQLConnection.Open();
 
@@ -161,7 +159,7 @@ namespace BlueConsultingManagementSystemLogic
 
 
 
-        public DataSet LoadDepartmentSupervisorData(string userGroupMember)
+        public DataSet LoadSubmittedReportsForDepartmentSupervisor(string userGroupMember)
         {
             SQLConnection.Open();
             var selectCommand = new SqlCommand("SELECT distinct ReportName, ConsultantName FROM ExpenseDB WHERE Dept_Type = '" + userGroupMember + "' AND StatusReport <> 'Approved' AND StatusReport <> 'Declined'", SQLConnection);
@@ -223,14 +221,13 @@ namespace BlueConsultingManagementSystemLogic
 
         }
 
-        public void DenyReportStaff(string reportName, double returnedMoney, string dept)
+        public void DenyReportForStaffMember(string reportName, double returnedMoney, string dept)
         {
-            DenyReportStaffApproval(reportName, dept);
-
-            DenyReportStaffReturnSupervisorMoney(dept, returnedMoney);
+            SetReportStaffApprovalForDecline(reportName, dept);
+            ReturnDeclinedSupervisorBudget(dept, returnedMoney);
         }
 
-        private void DenyReportStaffApproval(string reportName, string dept)
+        private void SetReportStaffApprovalForDecline(string reportName, string dept)
         {
             SQLConnection.Open();
             var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StaffApproved = 'NO' WHERE ReportName = '" + reportName + "' AND Dept_type = '" + dept + "'", SQLConnection);
@@ -240,28 +237,7 @@ namespace BlueConsultingManagementSystemLogic
             SQLConnection.Close();
         }
 
-        //private string DenyReportStaffGetDepartmentFromReportName(string reportName)
-        //{
-        //    SQLConnection.Open();
-        //    var selectCommand = new SqlCommand("SELECT distinct reportName, Dept_type FROM ExpenseDB WHERE ReportName = '" + reportName + "'", SQLConnection);
-        //    var adapter = new SqlDataAdapter(selectCommand);
-        //    var resultSet = new DataSet();
-        //    adapter.Fill(resultSet);
-        //    SQLConnection.Close();
-
-        //    string dept;
-        //    try
-        //    {
-        //        return dept = (resultSet.Tables[0].Rows[0].ItemArray[1]).ToString();
-
-        //    }
-        //    catch
-        //    {
-        //        return dept = "";
-        //    }
-        //}
-
-        private void DenyReportStaffReturnSupervisorMoney(string dept, double returnedMoney)
+        private void ReturnDeclinedSupervisorBudget(string dept, double returnedMoney)
         {
             SQLConnection.Open();
             var selectCommand = new SqlCommand("UPDATE [dbo].[DepartmentDB] SET Budget = Budget + " + returnedMoney + " WHERE Dept_Name = '" + dept + "'", SQLConnection);
@@ -271,77 +247,58 @@ namespace BlueConsultingManagementSystemLogic
             SQLConnection.Close();
         }
 
-
-
-        public void ApproveReportStaff(string reportName, string dept)
+        public void ApproveReportForStaffMember(string reportName, string dept)
         {
-
-            ApproveReportStaffReportDate(reportName, dept);
-            ApproveReportStaffApproval(reportName, dept);
-
+            SetReportStaffApprovalDate(reportName, dept);
+            SetReportStaffApprovalForApprove(reportName, dept);
         }
 
-        private void ApproveReportStaffApproval(string reportName, string dept)
+        private void SetReportStaffApprovalForApprove(string reportName, string dept)
         {
             SQLConnection.Open();
             var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StaffApproved = 'YES' WHERE ReportName = '" + reportName + "' AND Dept_type = '"+dept+"'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
-
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
-
             SQLConnection.Close();
         }
 
-        private void ApproveReportStaffReportDate(string reportName, string dept)
+        private void SetReportStaffApprovalDate(string reportName, string dept)
         {
             SQLConnection.Open();
             var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET DateApproved = @dateApproved WHERE ReportName = '" + reportName + "' AND StatusReport = 'Approved' AND StaffApproved is NULL AND Dept_type = '" + dept + "'", SQLConnection);
             selectCommand.Parameters.AddWithValue("@dateApproved", DateTime.Now.Date);
             var adapter = new SqlDataAdapter(selectCommand);
-
-
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
-
             SQLConnection.Close();
-
         }
 
-        public void DenyReportSupervisor(string name, string reportName, string dept)
+        public void DenyReportForSupervisor(string name, string reportName, string dept)
         {
             SQLConnection.Open();
             var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StatusReport = 'Declined', ProcessedBy ='" + name + "' WHERE ReportName = '" + reportName + "' AND Dept_type = '" + dept + "'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
-
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
-
             SQLConnection.Close();
         }
 
-        public void ApproveReportSupervisor(string name, string reportName,string dept)
+        public void ApproveReportForSupervisor(string name, string reportName,string dept)
         {
             SQLConnection.Open();
             var selectCommand = new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StatusReport = 'Approved', ProcessedBy ='" + name + "' WHERE ReportName = '" + reportName + "' AND Dept_type = '"+dept+"'", SQLConnection);
-            var adapter = new SqlDataAdapter(selectCommand);
-            
-
+            var adapter = new SqlDataAdapter(selectCommand);          
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
-
             SQLConnection.Close();
-
         }
 
-
-
-        public DataSet LoadExpenseTable(string reportName, string dept)
+        public DataSet ReturnExpenseTable(string reportName, string dept)
         {
             SQLConnection.Open();
             var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, dept_type as 'Department', DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND Dept_type = '"+dept+"'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
-
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
             SQLConnection.Close();
@@ -349,54 +306,33 @@ namespace BlueConsultingManagementSystemLogic
          
         }
 
-        //public DataSet LoadExpenseTableNonRejectedOrApproved(string reportName)
-        //{
-        //    SQLConnection.Open();
-        //    var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, DateExpense as 'Date', Dept_type FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND (StatusReport = 'Submitted' OR StaffApproved is NULL)", SQLConnection);
-        //    var adapter = new SqlDataAdapter(selectCommand);
-
-        //    var resultSet = new DataSet();
-        //    adapter.Fill(resultSet);
-        //    SQLConnection.Close();
-        //    return resultSet;
-
-        //}
-
-        public DataSet LoadExpenseTableNonRejectedOrApprovedForStaff(string reportName, string dept)
+        public DataSet ReturnNonRejectedOrApprovedExpensesForStaff(string reportName, string dept)
         {
             SQLConnection.Open();
             var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, DateExpense as 'Date', Dept_type FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND (StatusReport = 'Submitted' OR StaffApproved is NULL) AND Dept_type = '"+dept+"'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
-
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
             SQLConnection.Close();
             return resultSet;
-
         }
 
-        public DataSet LoadExpenseTableNonRejectedOrApprovedForSupervisor(string reportName, string dept)
+        public DataSet ReturnNonRejectedOrApprovedExpensesForSupervisor(string reportName, string dept)
         {
             SQLConnection.Open();
             var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, DateExpense as 'Date', Dept_type FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND (StatusReport = 'Submitted' OR StaffApproved is NULL) AND Dept_type = '"+dept+"'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
-
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
             SQLConnection.Close();
             return resultSet;
-
         }
 
-        public DataSet LoadStaffDataExpenses()
+        public DataSet ReturnStaffApprovedExpenses()
         {
             SQLConnection.Open();
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT distinct ProcessedBy, SUM(TotalAUD) FROM ExpenseDB WHERE StatusReport ='Approved' AND StaffApproved = 'YES' AND RolledBack is null GROUP BY ProcessedBy", connection);
-            //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
+            var selectCommand = new SqlCommand("SELECT distinct ProcessedBy, SUM(TotalAUD) FROM ExpenseDB WHERE StatusReport ='Approved' AND StaffApproved = 'YES' AND RolledBack is null GROUP BY ProcessedBy", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
-
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
             SQLConnection.Close();
@@ -425,10 +361,10 @@ namespace BlueConsultingManagementSystemLogic
             }
 
             SQLConnection.Close();
-            return numb + ReturnTotalBudgetSpentUnapproved();
+            return numb + ReturnTotalUnapprovedSpentBudget();
         }
 
-        public double ReturnTotalBudgetSpentUnapproved()
+        private double ReturnTotalUnapprovedSpentBudget()
         {
             SQLConnection.Open();
             double numb = 0.0;
@@ -452,7 +388,7 @@ namespace BlueConsultingManagementSystemLogic
             return numb;
         }
 
-        public double ReturnTotalExpensesApproved()
+        public double ReturnTotalStaffExpensesApproved()
         {
             SQLConnection.Open();
             double numb = 0.0;
@@ -475,19 +411,18 @@ namespace BlueConsultingManagementSystemLogic
             return numb;
         }
 
-        public DataSet LoadRejectedReportInfo(string reportName, string dept)
+        public DataSet ReturnRejectedReportExpensesForSupervisor(string reportName, string dept)
         {
             SQLConnection.Open();
             var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND Dept_type = '"+dept+"'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
-
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
             SQLConnection.Close();
             return resultSet;
 
         }
-        public DataSet LoadRejectedReportNames(string dept, string processedBy)
+        public DataSet ReturnRejectedReportNamesForSupervisor(string dept, string processedBy)
         {
             SQLConnection.Open();
             var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
@@ -500,37 +435,22 @@ namespace BlueConsultingManagementSystemLogic
             return resultSet;
         }
 
-        public DataSet LoadStaffUnapprovedReportInfo(string reportName)
+        public DataSet ReturnUnapprovedReportNamesForStaff()
         {
             SQLConnection.Open();
-            var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "'", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT distinct ReportName, ConsultantName, StatusReport, Dept_type FROM ExpenseDB WHERE StatusReport = 'Approved' AND StaffApproved is NULL", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
-
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
             SQLConnection.Close();
             return resultSet;
         }
 
-        public DataSet LoadStaffUnapprovedReportNames()
-        {
-            SQLConnection.Open();
-           var selectCommand = new SqlCommand("SELECT distinct ReportName, ConsultantName, StatusReport, Dept_type FROM ExpenseDB WHERE StatusReport = 'Approved' AND StaffApproved is NULL", SQLConnection);
-           var adapter = new SqlDataAdapter(selectCommand);
-
-            var resultSet = new DataSet();
-            adapter.Fill(resultSet);
-            SQLConnection.Close();
-            return resultSet;
-        }
-
-        public double ReturnStaffReportTotalAmountForSupervisorReportName(string reportName, string dept)
+        public double ReturnReportTotalAmountForStaff(string reportName, string dept)
         {
             SQLConnection.Open();
             double numb = 0.0;
-
             var selectCommand = new SqlCommand("SELECT SUM(TotalAUD) FROM ExpenseDB WHERE ReportName = '" + reportName + "'  AND StaffApproved is NULL AND Dept_type = '"+dept+"'", SQLConnection);
-            //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
             var adapter = new SqlDataAdapter(selectCommand);
 
             var resultSet = new DataSet();
@@ -553,14 +473,12 @@ namespace BlueConsultingManagementSystemLogic
             return ReturnCurrentDepartmentMoney(dept) + ReturnNonStaffApprovedDepartmentTotal(dept);
         }
 
-        public double ReturnNonStaffApprovedDepartmentTotal(string dept)
+        private double ReturnNonStaffApprovedDepartmentTotal(string dept)
         {
             double numb = 0.0;
             SQLConnection.Open();
 
-            var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
-            var connection = new SqlConnection(connectionString);
-            var selectCommand = new SqlCommand("SELECT SUM(TotalAUD) FROM ExpenseDB WHERE Dept_Type = '" + dept + "' AND StatusReport = 'Approved' AND StaffApproved is null", connection);
+            var selectCommand = new SqlCommand("SELECT SUM(TotalAUD) FROM ExpenseDB WHERE Dept_Type = '" + dept + "' AND StatusReport = 'Approved' AND StaffApproved is null", SQLConnection);
             //ONLY SHOW REPORTNAMES - DONT LET IT REPEAT ITSELF WITH THE OTHER INFO
             var adapter = new SqlDataAdapter(selectCommand);
 
@@ -580,7 +498,7 @@ namespace BlueConsultingManagementSystemLogic
             return numb;
         }
 
-        public DataSet ConsultantLoadSubmittedReports(string name)
+        public DataSet ReturnConsultantSubmittedReports(string name)
         {
             SQLConnection.Open();
             var selectCommand = new SqlCommand("SELECT distinct ReportName, Dept_type, StatusReport, StaffApproved FROM ExpenseDB WHERE ConsultantName = '" + name + "'", SQLConnection);
@@ -592,7 +510,7 @@ namespace BlueConsultingManagementSystemLogic
             return resultSet;
         }
 
-        public DataSet ConsultantLoadApprovedReports(string name)
+        public DataSet ReturnConsultantApprovedReports(string name)
         {
             SQLConnection.Open();
             var selectCommand = new SqlCommand("SELECT distinct ReportName, Dept_type FROM ExpenseDB WHERE ConsultantName = '" + name + "' AND StaffApproved = 'YES'", SQLConnection);
@@ -604,7 +522,7 @@ namespace BlueConsultingManagementSystemLogic
             return resultSet;
         }
 
-        public DataSet ConsultantLoadInProgressReports(string name)
+        public DataSet ReturnConsultantInProgressReports(string name)
         {
             SQLConnection.Open();
             var selectCommand = new SqlCommand("SELECT distinct ReportName, Dept_type FROM ExpenseDB WHERE ConsultantName = '" + name + "' AND StatusReport = 'Submitted'", SQLConnection);
@@ -670,7 +588,7 @@ namespace BlueConsultingManagementSystemLogic
             return numb;
         }
 
-        public bool isReportNameUsed(string reportName)
+        public bool CheckReportNameInUse(string reportName)
         {
             SQLConnection.Open();
             var selectCommand = new SqlCommand("SELECT distinct ReportName FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND (StatusReport = 'Approved' OR StatusReport = 'Rejected')", SQLConnection);
@@ -694,7 +612,7 @@ namespace BlueConsultingManagementSystemLogic
             return false;
         }
 
-        public bool isExpenseRepeated(string reportName, string location, string description, double amount, string currency, string deptType, DateTime dateExpense)
+        public bool CheckExpenseIsRepeated(string reportName, string location, string description, double amount, string currency, string deptType, DateTime dateExpense)
         {
             SQLConnection.Open();
             var selectCommand = new SqlCommand("SELECT distinct ReportName FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND Location = '"+location+"' AND Description = '"+description+"' AND Amount = "+amount+" AND Currency = '"+currency+"' AND Dept_type = '"+deptType+"' AND DateExpense = @dateExpense", SQLConnection);

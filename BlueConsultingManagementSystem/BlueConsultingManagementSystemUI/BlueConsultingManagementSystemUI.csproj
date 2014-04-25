@@ -66,7 +66,6 @@
     <Content Include="index.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\StaffOnlyPages\StaffViewAllReports.aspx" />
-    <Content Include="SupervisorAndStaffOnlyPages\StaffOnlyPages\StaffViewReportDetails.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorAndStaffMain.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorExpenseTotalPage.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorRejectedReportsPage.aspx" />
@@ -137,13 +136,6 @@
     </Compile>
     <Compile Include="SupervisorAndStaffOnlyPages\StaffOnlyPages\StaffViewAllReports.aspx.designer.cs">
       <DependentUpon>StaffViewAllReports.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="SupervisorAndStaffOnlyPages\StaffOnlyPages\StaffViewReportDetails.aspx.cs">
-      <DependentUpon>StaffViewReportDetails.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="SupervisorAndStaffOnlyPages\StaffOnlyPages\StaffViewReportDetails.aspx.designer.cs">
-      <DependentUpon>StaffViewReportDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="SupervisorAndStaffOnlyPages\SupervisorAndStaffMain.aspx.cs">
       <DependentUpon>SupervisorAndStaffMain.aspx</DependentUpon>

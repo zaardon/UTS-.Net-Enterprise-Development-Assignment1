@@ -31,7 +31,7 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 
         public void loadCurrentReports()
         {
-            CurrentReportNamesSQLConnection.DataSource = new DatabaseHandler().ConsultantLoadInProgressReports(User.Identity.Name);
+            CurrentReportNamesSQLConnection.DataSource = new DatabaseHandler().ReturnConsultantInProgressReports(User.Identity.Name);
             CurrentReportNamesSQLConnection.DataBind();
         }
     

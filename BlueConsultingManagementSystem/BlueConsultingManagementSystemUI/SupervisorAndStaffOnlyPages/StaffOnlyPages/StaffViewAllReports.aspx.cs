@@ -33,7 +33,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         public void loadStaffData()
         {
 
-            DataSet results = new DatabaseHandler().LoadStaffUnapprovedReportNames();
+            DataSet results = new DatabaseHandler().ReturnUnapprovedReportNamesForStaff();
             AllApprovedReportsGridViewSQLConnection.DataSource = results;
             AllApprovedReportsGridViewSQLConnection.DataBind();
 
@@ -57,7 +57,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         public double getReportTotal(string name, string dept)
         {
-            return new DatabaseHandler().ReturnStaffReportTotalAmountForSupervisorReportName(name, dept);
+            return new DatabaseHandler().ReturnReportTotalAmountForStaff(name, dept);
         }
 
         public double departmentBudgetRemaining(string dept)

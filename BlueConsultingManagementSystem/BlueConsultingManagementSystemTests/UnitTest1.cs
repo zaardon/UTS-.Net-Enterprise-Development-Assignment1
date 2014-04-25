@@ -18,7 +18,7 @@ namespace BlueConsultingManagementSystemTests
         //public void AllApprovedReportsTest()
         //{
         //    DatabaseHandler dh = new DatabaseHandler();
-        //    DataSet ds = dh.AllApprovedReports();
+        //    DataSet ds = dh.ReturnAllApprovedReports();
         //    for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
         //    {
         //        String testify = ds.Tables[0].Rows[j]["StatusReport"].ToString();
@@ -27,13 +27,13 @@ namespace BlueConsultingManagementSystemTests
         //}
         ////[TestCategory("staff")]
         ////[TestMethod]
-        ////public void DenyReportSupervisor()
+        ////public void DenyReportForSupervisor()
         ////{
         ////    DatabaseHandler dh = new DatabaseHandler();
         ////    using (TransactionScope TestTransaction = new TransactionScope())
         ////    {
-        ////        dh.DenyReportSupervisor("supervisor", "JamesLoves");
-        ////        DataSet ds = dh.LoadRejectedReportNames();
+        ////        dh.DenyReportForSupervisor("supervisor", "JamesLoves");
+        ////        DataSet ds = dh.ReturnRejectedReportNamesForSupervisor();
         ////        Assert.AreEqual("JamesLoves", ds.Tables[0].Rows[""].Contains);
         ////fell asleep at keyboard commiting and going to sleep.
         ////        TestTransaction.Dispose();
@@ -59,10 +59,10 @@ namespace BlueConsultingManagementSystemTests
         //}
         //[TestCategory("staff")]
         //[TestMethod]
-        //public void LoadRejectedReportNames()
+        //public void ReturnRejectedReportNamesForSupervisor()
         //{
         //    DatabaseHandler dh = new DatabaseHandler();
-        //    DataSet ds = dh.LoadStaffUnapprovedReportNames();
+        //    DataSet ds = dh.ReturnUnapprovedReportNamesForStaff();
         //    string result = ds.Tables[0].Rows[0]["ReportName"].ToString();
         //    Assert.AreEqual("The Big Meeting", result);
         //}
@@ -86,7 +86,7 @@ namespace BlueConsultingManagementSystemTests
         //public void UnapprovedReportNames()
         //{
         //    DatabaseHandler dh = new DatabaseHandler();
-        //    DataSet ds = dh.LoadStaffUnapprovedReportNames();
+        //    DataSet ds = dh.ReturnUnapprovedReportNamesForStaff();
         //    for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
         //    {
         //        String teststatus = ds.Tables[0].Rows[j]["StatusReport"].ToString();
@@ -123,8 +123,8 @@ namespace BlueConsultingManagementSystemTests
         //    using (TransactionScope TestTransaction = new TransactionScope())
         //    {
 
-        //        dh.ConsultantsInsertExpenseQuery("testReport", "test", "test", "test", 12.04, "AUD", "TestDept", DateTime.Today);
-        //       // dh.DenyReportStaff("testReport");
+        //        dh.InsertConsultantExpenseQuery("testReport", "test", "test", "test", 12.04, "AUD", "TestDept", DateTime.Today);
+        //       // dh.DenyReportForStaffMember("testReport");
         //        var selectCommand = new SqlCommand("select ReportName,StaffApproved from [dbo].[ExpenseDB] where ReportName='testReport';", dh.SQLConnection);
         //        var adapter = new SqlDataAdapter(selectCommand);
         //        var resultSet = new DataSet();
@@ -142,8 +142,8 @@ namespace BlueConsultingManagementSystemTests
         //    using (TransactionScope TestTransaction = new TransactionScope())
         //    {
 
-        //        dh.ConsultantsInsertExpenseQuery("testReport", "test", "test", "test", 12.04, "AUD", "TestDept", DateTime.Today);
-        //        dh.ApproveReportStaff("testReport");
+        //        dh.InsertConsultantExpenseQuery("testReport", "test", "test", "test", 12.04, "AUD", "TestDept", DateTime.Today);
+        //        dh.ApproveReportForStaffMember("testReport");
         //        var selectCommand = new SqlCommand("select ReportName,StaffApproved from [dbo].[ExpenseDB] where ReportName='testReport';", dh.SQLConnection);
         //        var adapter = new SqlDataAdapter(selectCommand);
         //        var resultSet = new DataSet();
@@ -162,13 +162,13 @@ namespace BlueConsultingManagementSystemTests
             using (TransactionScope TestTransaction = new TransactionScope())
             {
 
-                dh.ConsultantsInsertExpenseQuery("CONSULTANTSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
-                DataSet dsInprogress = dh.ConsultantLoadInProgressReports("Hugh");
+                dh.InsertConsultantExpenseQuery("CONSULTANTSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
+                DataSet dsInprogress = dh.ReturnConsultantInProgressReports("Hugh");
                 Assert.AreEqual(1, dsInprogress.Tables[0].Rows.Count);
-                dh.ConsultantsInsertExpenseQuery("CONSULTANTSUPERTEST", "Hugh", "work", "ICac Champagne, 1959 was a good year", 3000, "AUD", "LogisticServices", DateTime.Today);
-                DataSet dsSubmitted = dh.ConsultantLoadSubmittedReports("hugh");
+                dh.InsertConsultantExpenseQuery("CONSULTANTSUPERTEST", "Hugh", "work", "ICac Champagne, 1959 was a good year", 3000, "AUD", "LogisticServices", DateTime.Today);
+                DataSet dsSubmitted = dh.ReturnConsultantSubmittedReports("hugh");
                 Assert.AreEqual(1, dsSubmitted.Tables[0].Rows.Count);
-                DataSet dsApproved = dh.ConsultantLoadApprovedReports("hugh");
+                DataSet dsApproved = dh.ReturnConsultantApprovedReports("hugh");
                 Assert.AreEqual(0, dsApproved.Tables[0].Rows.Count);
                 TestTransaction.Dispose();
             }
@@ -183,9 +183,9 @@ namespace BlueConsultingManagementSystemTests
             using (TransactionScope TestTransaction = new TransactionScope())
             {
 
-                dh.ConsultantsInsertExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
-                dh.ConsultantsInsertExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
-               DataSet dsDepartmentSupervisor = dh.LoadDepartmentSupervisorData("LogisticServices");
+                dh.InsertConsultantExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
+                dh.InsertConsultantExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
+               DataSet dsDepartmentSupervisor = dh.LoadSubmittedReportsForDepartmentSupervisor("LogisticServices");
                int i = 0;
                bool resultDepsup= false;
                while (i < dsDepartmentSupervisor.Tables[0].Rows.Count)
@@ -198,11 +198,11 @@ namespace BlueConsultingManagementSystemTests
                    i++;
                }
                Assert.AreEqual(true, resultDepsup);
-               DataSet dsExpenseSupervisor = dh.LoadExpenseTable("SUPERVISORSUPERTEST", "LogisticServices");
+               DataSet dsExpenseSupervisor = dh.ReturnExpenseTable("SUPERVISORSUPERTEST");
                Assert.AreEqual("Hugh", dsExpenseSupervisor.Tables[0].Rows[0]["Name"].ToString());
-               dh.ApproveReportSupervisor("SuperSupervisor", "SUPERVISORSUPERTEST","LogisticServices");
+               dh.ApproveReportForSupervisor("SuperSupervisor", "SUPERVISORSUPERTEST");
                dh.UpdateDepartmentBudget("LogisticServices", 3001.00);
-               DataSet dsStatus = dh.ConsultantLoadSubmittedReports("Hugh");
+               DataSet dsStatus = dh.ReturnConsultantSubmittedReports("Hugh");
                Assert.AreEqual("Approved", dsStatus.Tables[0].Rows[0]["Supvervisor Approval"].ToString());
                 Assert.AreEqual(6999,dh.ReturnCurrentDepartmentMoney("LogisticServices"));
                 TestTransaction.Dispose();
@@ -212,9 +212,9 @@ namespace BlueConsultingManagementSystemTests
             using (TransactionScope TestTransaction = new TransactionScope())
             {
 
-                dh.ConsultantsInsertExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
-                dh.ConsultantsInsertExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
-                DataSet dsDepartmentSupervisor = dh.LoadDepartmentSupervisorData("LogisticServices");
+                dh.InsertConsultantExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
+                dh.InsertConsultantExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 1500.50, "AUD", "LogisticServices", DateTime.Today);
+                DataSet dsDepartmentSupervisor = dh.LoadSubmittedReportsForDepartmentSupervisor("LogisticServices");
                 int i = 0;
                 bool resultDepsup = false;
                 while (i < dsDepartmentSupervisor.Tables[0].Rows.Count)
@@ -227,10 +227,10 @@ namespace BlueConsultingManagementSystemTests
                     i++;
                 }
                 Assert.AreEqual(true, resultDepsup);
-                DataSet dsExpenseSupervisor = dh.LoadExpenseTable("SUPERVISORSUPERTEST", "LogisticServices");
+                DataSet dsExpenseSupervisor = dh.ReturnExpenseTable("SUPERVISORSUPERTEST");
                 Assert.AreEqual("Hugh", dsExpenseSupervisor.Tables[0].Rows[0]["Name"].ToString());
-                dh.DenyReportSupervisor("SuperSupervisor", "SUPERVISORSUPERTEST","LogisticServices");
-                DataSet dsStatus = dh.ConsultantLoadSubmittedReports("Hugh");
+                dh.DenyReportForSupervisor("SuperSupervisor", "SUPERVISORSUPERTEST");
+                DataSet dsStatus = dh.ReturnConsultantSubmittedReports("Hugh");
                 Assert.AreEqual("Declined", dsStatus.Tables[0].Rows[0]["Supvervisor Approval"].ToString());
                 TestTransaction.Dispose();
             }
