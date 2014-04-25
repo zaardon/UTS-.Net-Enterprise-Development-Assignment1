@@ -13,7 +13,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 {
     public partial class SupervisorExpenseTotalPage : System.Web.UI.Page
     {
-        string userGroupMember;
+        private string userGroupMember;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,32 +23,27 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                 userGroupMember = "LogisticServices";
             else
                 userGroupMember = "StateServices";
-            loadData();
+            LoadData();
         }
 
-
-
-
-        public void loadData()
+        public void LoadData()
         {
             if (User.IsInRole("Department Supervisor"))
             {
                 TotalExpenses.Text = "Total expenses for your department for this month, " + userGroupMember + ", are: $" + new DatabaseHandler().ReturnDepartmentExpensesMade(userGroupMember).ToString();
-                RemainingBudget.Text = "Remaining budget for your department for this month is: $" + departmentBudgetRemaining().ToString();
+                RemainingBudget.Text = "Remaining budget for your department for this month is: $" + DepartmentBudgetRemaining().ToString();
             }
             else if(User.IsInRole("Staff"))
             {
-                loadStaffData();
+                LoadStaffData();
                 AllDepartmentExpensesGridViewSQLConnection.Visible = true;
-                TotalExpenses.Text = "The total expenses currently approved this month is: $" + totalExpensesApproved();
-                RemainingBudget.Text = "The remaining company budget for this month is: $" + remainingTotalBudgetForStaff();
+                TotalExpenses.Text = "The total expenses currently approved this month is: $" + TotalExpensesApproved();
+                RemainingBudget.Text = "The remaining company budget for this month is: $" + RemainingTotalBudgetForStaff();
             }
         }
 
-        public double departmentBudgetRemaining()
+        public double DepartmentBudgetRemaining()
         {
-
-
             return new DatabaseHandler().ReturnCurrentDepartmentMoney(userGroupMember);
         }
 
@@ -57,22 +52,19 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             Response.Redirect("SupervisorAndStaffMain.aspx");
         }
 
-
-        public void loadStaffData()
+        public void LoadStaffData()
         {
-
-
             AllDepartmentExpensesGridViewSQLConnection.DataSource = new DatabaseHandler().ReturnStaffApprovedExpenses();
             AllDepartmentExpensesGridViewSQLConnection.DataBind();
         }
 
-        public double remainingTotalBudgetForStaff()
+        public double RemainingTotalBudgetForStaff()
         {
             //How is this working?
             return new DatabaseHandler().ReturnTotalBudgetRemaining();
         }
 
-        public double totalExpensesApproved()
+        public double TotalExpensesApproved()
         {
             return new DatabaseHandler().ReturnTotalStaffExpensesApproved();
         }

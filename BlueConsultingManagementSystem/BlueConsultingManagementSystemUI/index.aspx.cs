@@ -10,10 +10,9 @@ namespace BlueConsultingManagementSystemUI
 {
     public partial class index : System.Web.UI.Page
     {
-
         protected void Page_Load(object sender, EventArgs e)
         {
-
+        
         }
 
         protected void ConsultantBtn_Click(object sender, EventArgs e)
@@ -25,6 +24,5 @@ namespace BlueConsultingManagementSystemUI
         {
             Response.Redirect("SupervisorAndStaffOnlyPages/SupervisorAndStaffMain.aspx");
         }
-
     }
 }

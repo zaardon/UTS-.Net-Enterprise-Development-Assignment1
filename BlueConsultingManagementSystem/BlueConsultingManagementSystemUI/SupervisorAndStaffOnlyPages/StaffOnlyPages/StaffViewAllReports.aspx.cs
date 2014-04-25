@@ -14,8 +14,11 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 {
     public partial class StaffViewAllReports : System.Web.UI.Page
     {
-        public string reportName;
-        public string deptName;
+        private string reportName;
+        private string deptName;
+        private int REP_POS = 0;
+        private int DEPT_POS = 3; 
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["reportName"] == null)
@@ -27,47 +30,42 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                 Session["deptNameForStaff"] = deptName;
             }
 
-            loadStaffData();
+            LoadStaffData();
         }
 
-        public void loadStaffData()
+        public void LoadStaffData()
         {
-
             DataSet results = new DatabaseHandler().ReturnUnapprovedReportNamesForStaff();
             AllApprovedReportsGridViewSQLConnection.DataSource = results;
             AllApprovedReportsGridViewSQLConnection.DataBind();
-
             
-            int temp = 0;
+            int rNum = 0;
             string dept = "";
             string report = "";
             foreach (GridViewRow row in AllApprovedReportsGridViewSQLConnection.Rows)
             {
-                dept = results.Tables[0].Rows[temp].ItemArray[3].ToString();
-                report = (results.Tables[0].Rows[temp].ItemArray[0].ToString());
-                //if (Convert.ToDouble(resultSet.Tables[0].Rows[temp].ItemArray[3]) > departmentBudgetRemaining(dept))
-                if (getReportTotal(report, dept) > departmentBudgetRemaining(dept))
-                {
-                    row.CssClass = "info";
-                }
-                temp++;
-            }
+                report = (results.Tables[0].Rows[rNum].ItemArray[REP_POS].ToString());
+                dept = results.Tables[0].Rows[rNum].ItemArray[DEPT_POS].ToString();
 
+                if (GetReportTotal(report, dept) > DepartmentBudgetRemaining(dept))
+                    row.CssClass = "info";
+
+                rNum++;
+            }
         }
 
-        public double getReportTotal(string name, string dept)
+        public double GetReportTotal(string name, string dept)
         {
             return new DatabaseHandler().ReturnReportTotalAmountForStaff(name, dept);
         }
 
-        public double departmentBudgetRemaining(string dept)
+        public double DepartmentBudgetRemaining(string dept)
         {
             return new DatabaseHandler().ReturnSingleDepartmentBudgetRemaining(dept);
         }
 
         protected void AllApprovedReportsGridViewSQLConnection_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
-
             string currentCommand = e.CommandName;
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow selectedRow = AllApprovedReportsGridViewSQLConnection.Rows[index];
@@ -76,7 +74,6 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             Session["reportName"] = reportName;
             Session["deptNameForStaff"] = deptName;
             Response.Redirect("~/SupervisorAndStaffOnlyPages/SupervisorReportsDisplayPage.aspx");
-            //fix that hardcode
         }
 
         protected void Back_Click(object sender, EventArgs e)

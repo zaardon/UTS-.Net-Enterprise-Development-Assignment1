@@ -13,8 +13,11 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 {
     public partial class ConsultantViewReportHistory : System.Web.UI.Page
     {
-        string reportName;
-        string deptName;
+        private string reportName;
+        private string deptName;
+        private int REP_POS = 1;
+        private int DEPT_POS = 2;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             string reportType = (string)Session["reportType"];
@@ -26,26 +29,26 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
                 Session["deptName"] = deptName;
             
             if (reportType == "AllSubmitted")
-                loadSubmittedReports();
+                LoadSubmittedReports();
             else if (reportType == "AllApproved")
-                loadApprovedReports();
+                LoadApprovedReports();
             else if (reportType == "InProgress")
-                loadInProgressReports();            
+                LoadInProgressReports();            
         }
 
-        public void loadSubmittedReports()
+        public void LoadSubmittedReports()
         {
             ConsultantHistorySQLConnection.DataSource = new DatabaseHandler().ReturnConsultantSubmittedReports(User.Identity.Name);
             ConsultantHistorySQLConnection.DataBind();
         }
 
-        public void loadApprovedReports()
+        public void LoadApprovedReports()
         {
             ConsultantHistorySQLConnection.DataSource = new DatabaseHandler().ReturnConsultantApprovedReports(User.Identity.Name);
             ConsultantHistorySQLConnection.DataBind();
         }
 
-        public void loadInProgressReports()
+        public void LoadInProgressReports()
         {
             ConsultantHistorySQLConnection.DataSource = new DatabaseHandler().ReturnConsultantInProgressReports(User.Identity.Name);
             ConsultantHistorySQLConnection.DataBind();
@@ -56,18 +59,16 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             string currentCommand = e.CommandName;
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow selectedRow = ConsultantHistorySQLConnection.Rows[index];
-            reportName = selectedRow.Cells[1].Text.ToString();
+            reportName = selectedRow.Cells[REP_POS].Text.ToString();
             Session["reportName"] = reportName;
-            deptName = selectedRow.Cells[2].Text.ToString();
+            deptName = selectedRow.Cells[DEPT_POS].Text.ToString();
             Session["deptName"] = deptName;
             Response.Redirect("ConsultantViewReportHistoryExpenses.aspx");
-            //fix that hardcode
         }
 
         protected void BackButton_Click(object sender, EventArgs e)
         {
             Response.Redirect("ConsultantMain.aspx");
         }
-
     }
 }

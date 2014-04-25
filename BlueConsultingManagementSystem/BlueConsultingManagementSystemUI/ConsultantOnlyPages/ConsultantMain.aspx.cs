@@ -9,14 +9,14 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 {
     public partial class ConsultantMain : System.Web.UI.Page
     {
-        public string reportType;
+        private string reportType;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["reportType"] == null)
             {
                 Session["reportType"] = reportType;
             }
-
         }
 
         protected void AddReportButton_Click(object sender, EventArgs e)
