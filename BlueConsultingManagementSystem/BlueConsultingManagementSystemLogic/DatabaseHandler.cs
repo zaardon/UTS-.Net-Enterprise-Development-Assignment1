@@ -133,10 +133,10 @@ namespace BlueConsultingManagementSystemLogic
             SQLConnection.Close();
         }
 
-        public DataSet LoadSubmittedReportsForDepartmentSupervisor(string userGroupMember)
+        public DataSet ReturnSubmittedReportsForDepartmentSupervisor(string userGroupMember)
         {
             SQLConnection.Open();
-            var selectCommand = new SqlCommand("SELECT distinct ReportName, ConsultantName FROM ExpenseDB WHERE DeptType = '" + userGroupMember + "' AND StatusReport <> 'Approved' AND StatusReport <> 'Declined'", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT distinct ReportName as 'Report Name', ConsultantName as 'Consultant Name' FROM ExpenseDB WHERE DeptType = '" + userGroupMember + "' AND StatusReport <> 'Approved' AND StatusReport <> 'Declined'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
@@ -267,7 +267,7 @@ namespace BlueConsultingManagementSystemLogic
         public DataSet ReturnExpenseTable(string reportName, string dept)
         {
             SQLConnection.Open();
-            var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, DeptType as 'Department', DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND DeptType = '"+dept+"'", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT ConsultantName as 'Consultant Name', Location, Description, Amount, Currency, TotalAUD as 'Amount in AUD', DeptType as 'Department', DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND DeptType = '"+dept+"'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
@@ -278,7 +278,7 @@ namespace BlueConsultingManagementSystemLogic
         public DataSet ReturnNonRejectedOrApprovedExpenses(string reportName, string dept)
         {
             SQLConnection.Open();
-            var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, DateExpense as 'Date', DeptType FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND (StatusReport = 'Submitted' OR StaffApproved is NULL) AND DeptType = '"+dept+"'", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT ConsultantName as 'Consultant Name', Location, Description, Amount, Currency, TotalAUD as 'Amount in AUD', DeptType, DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND (StatusReport = 'Submitted' OR StaffApproved is NULL) AND DeptType = '" + dept + "'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
@@ -289,7 +289,7 @@ namespace BlueConsultingManagementSystemLogic
         public DataSet ReturnStaffApprovedExpenses()
         {
             SQLConnection.Open();
-            var selectCommand = new SqlCommand("SELECT distinct ProcessedBy, SUM(TotalAUD) FROM ExpenseDB WHERE StatusReport ='Approved' AND StaffApproved = 'Approved' AND RolledBack is null GROUP BY ProcessedBy", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT distinct ProcessedBy as 'Supervisor Name', SUM(TotalAUD) as 'Total in AUD' FROM ExpenseDB WHERE StatusReport ='Approved' AND StaffApproved = 'Approved' AND RolledBack is null GROUP BY ProcessedBy", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
@@ -362,7 +362,7 @@ namespace BlueConsultingManagementSystemLogic
         public DataSet ReturnRejectedReportExpensesForSupervisor(string reportName, string dept)
         {
             SQLConnection.Open();
-            var selectCommand = new SqlCommand("SELECT ConsultantName as 'Name', Location, Description, Amount, Currency, DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND DeptType = '"+dept+"'", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT ConsultantName as 'Consultant Name', Location, Description, Amount, Currency, DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND DeptType = '"+dept+"'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
@@ -373,7 +373,7 @@ namespace BlueConsultingManagementSystemLogic
         public DataSet ReturnRejectedReportNamesForSupervisor(string dept, string processedBy)
         {
             SQLConnection.Open();
-            var selectCommand = new SqlCommand("SELECT distinct ReportName, ConsultantName FROM ExpenseDB WHERE StaffApproved = 'Declined' AND DeptType = '" + dept + "' AND processedBy = '" + processedBy + "'", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT distinct ReportName as 'Report Name', ConsultantName as 'Consultant Name' FROM ExpenseDB WHERE StaffApproved = 'Declined' AND DeptType = '" + dept + "' AND processedBy = '" + processedBy + "'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
             var resultSet = new DataSet();
             adapter.Fill(resultSet);          
@@ -384,7 +384,7 @@ namespace BlueConsultingManagementSystemLogic
         public DataSet ReturnUnapprovedReportNamesForStaff()
         {
             SQLConnection.Open();
-            var selectCommand = new SqlCommand("SELECT distinct ReportName, ConsultantName, StatusReport, DeptType FROM ExpenseDB WHERE StatusReport = 'Approved' AND StaffApproved is NULL", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT distinct ReportName as 'Report Name', ConsultantName as 'Consultant Name', DeptType as 'Department' FROM ExpenseDB WHERE StatusReport = 'Approved' AND StaffApproved is NULL", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
@@ -442,7 +442,7 @@ namespace BlueConsultingManagementSystemLogic
         public DataSet ReturnConsultantSubmittedReports(string name)
         {
             SQLConnection.Open();
-            var selectCommand = new SqlCommand("SELECT distinct ReportName, DeptType, StatusReport, StaffApproved FROM ExpenseDB WHERE ConsultantName = '" + name + "'", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT distinct ReportName as 'Report Name', DeptType as 'Department', StatusReport as 'Supervisor Approval', StaffApproved as 'Staff Approval' FROM ExpenseDB WHERE ConsultantName = '" + name + "'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
@@ -453,7 +453,7 @@ namespace BlueConsultingManagementSystemLogic
         public DataSet ReturnConsultantApprovedReports(string name)
         {
             SQLConnection.Open();
-            var selectCommand = new SqlCommand("SELECT distinct ReportName, DeptType FROM ExpenseDB WHERE ConsultantName = '" + name + "' AND StaffApproved = 'Approved'", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT distinct ReportName as 'Report Name', DeptType as 'Department' FROM ExpenseDB WHERE ConsultantName = '" + name + "' AND StaffApproved = 'Approved'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
             var resultSet = new DataSet();
             adapter.Fill(resultSet);
@@ -464,7 +464,7 @@ namespace BlueConsultingManagementSystemLogic
         public DataSet ReturnConsultantInProgressReports(string name)
         {
             SQLConnection.Open();
-            var selectCommand = new SqlCommand("SELECT distinct ReportName, DeptType FROM ExpenseDB WHERE ConsultantName = '" + name + "' AND StatusReport = 'Submitted'", SQLConnection);
+            var selectCommand = new SqlCommand("SELECT distinct ReportName as 'Report Name', DeptType as 'Department' FROM ExpenseDB WHERE ConsultantName = '" + name + "' AND StatusReport = 'Submitted'", SQLConnection);
             var adapter = new SqlDataAdapter(selectCommand);
             var resultSet = new DataSet();
             adapter.Fill(resultSet);

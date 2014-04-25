@@ -29,13 +29,13 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         {
             reportName = Session["reportName"].ToString();
             Label1.Text = reportName;
-                      
+
             if (User.IsInRole("Higher Education Services"))
-                userGroupMember = "HigherEducation";
+                userGroupMember = "Higher Education";
             else if (User.IsInRole("Logistic Services"))
-                userGroupMember = "LogisticServices";
+                userGroupMember = "Logistic Services";
             else
-                userGroupMember = "StateServices";          
+                userGroupMember = "State Services";     
 
             if(User.IsInRole("Staff"))
             {

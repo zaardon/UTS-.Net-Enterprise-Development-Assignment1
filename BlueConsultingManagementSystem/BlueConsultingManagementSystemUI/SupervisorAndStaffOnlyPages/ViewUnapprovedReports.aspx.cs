@@ -28,11 +28,11 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             if (User.IsInRole("Department Supervisor"))
             {
                 if (User.IsInRole("Higher Education Services"))
-                    userGroupMember = "HigherEducation";
+                    userGroupMember = "Higher Education";
                 else if (User.IsInRole("Logistic Services"))
-                    userGroupMember = "LogisticServices";
+                    userGroupMember = "Logistic Services";
                 else
-                    userGroupMember = "StateServices";
+                    userGroupMember = "State Services";
 
                 LoadDepartmentSupervisorData();
             }
@@ -40,7 +40,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         protected void LoadDepartmentSupervisorData()
         {
-            UnapprovedReportsGridViewSQLConnection.DataSource = new DatabaseHandler().LoadSubmittedReportsForDepartmentSupervisor(userGroupMember);
+            UnapprovedReportsGridViewSQLConnection.DataSource = new DatabaseHandler().ReturnSubmittedReportsForDepartmentSupervisor(userGroupMember);
             UnapprovedReportsGridViewSQLConnection.DataBind();
         }
 

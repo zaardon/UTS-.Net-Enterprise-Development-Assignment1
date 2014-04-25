@@ -23,7 +23,7 @@
         Rejected Results:
         <asp:GridView ID="RejectedResultsGridViewSQLConnection" runat="server" OnRowCommand="RejectedResultsGridViewSQLConnection_RowCommand" CssClass="table-responsive table-condensed">
             <Columns>
-                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="ViewReport" ShowHeader="True" Text="View Report" ControlStyle-CssClass="btn btn-primary"/>
+                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="View Report" ShowHeader="True" Text="View Report" ControlStyle-CssClass="btn btn-primary"/>
             </Columns>
         </asp:GridView>
          <asp:Button ID="BacktoSupervisor" runat="server" Text="Back" CssClass="btn btn-primary" OnClick="BacktoSupervisor_Click" />

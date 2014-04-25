@@ -29,7 +29,7 @@
 
         <asp:GridView ID="DisplayResultsGridSQLConnection" runat="server" onrowcommand="DisplayResultsGridSQLConnection_RowCommand" CssClass="table-condensed">
             <Columns>
-                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="PDFFile" ShowHeader="True" Text="Receipt" ControlStyle-CssClass="btn btn-primary"  />
+                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="View Receipt" ShowHeader="True" Text="Receipt" ControlStyle-CssClass="btn btn-primary"  />
             </Columns>
         </asp:GridView>
     

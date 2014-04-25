@@ -22,7 +22,7 @@
     </div>
         <asp:GridView ID="RejectedReportInfoSQLConnection" runat="server" OnRowCommand="RejectedReportInfoSQLConnection_RowCommand" CssClass="table-condensed">
             <Columns>
-                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="ViewReceipt" ShowHeader="True" Text="Receipt" ControlStyle-CssClass="btn-primary"/>
+                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="View Receipt" ShowHeader="True" Text="Receipt" ControlStyle-CssClass="btn-primary"/>
             </Columns>
         </asp:GridView>
         <asp:Button ID="BacktoSupervisor" runat="server" Text="Back" CssClass="btn btn-primary" OnClick="BacktoSupervisor_Click" />

@@ -27,22 +27,22 @@
                     <asp:TextBox ID="reportBox" runat="server" CssClass="form-control" placeholder="Enter Report Name"></asp:TextBox></td>
             </tr>
 <tr>
-  <td>location</td>
+  <td>Location</td>
   <td>
       <asp:TextBox ID="LocationBox" runat="server" CssClass="form-control" placeholder="Enter location of Expense"></asp:TextBox></td> 
 </tr>
             <tr>
-  <td>description</td>
+  <td>Description</td>
   <td>
       <asp:TextBox ID="DescriptionBox" runat="server" CssClass="form-control" placeholder="Enter Description of Expense"></asp:TextBox></td> 
 </tr>
             <tr>
-  <td>amount</td>
+  <td>Amount</td>
   <td>
       <asp:TextBox ID="AmountBox" runat="server" CssClass="form-control" placeholder="Enter Amount of Expense"></asp:TextBox>  </td> 
 </tr>
             <tr>
-  <td>currency</td>
+  <td>Currency</td>
   <td>
       <asp:DropDownList ID="CurrencyList" runat="server" CssClass="form-control" >
           <asp:ListItem>AUD</asp:ListItem>
@@ -54,9 +54,9 @@
             <tr>
                 <td> Department Type</td>
                 <td> <asp:DropDownList ID="DepartmentList" runat="server" CssClass="form-control" >
-                    <asp:ListItem Value="HigherEducation">Higher Education Services</asp:ListItem>
-                    <asp:ListItem Value="LogisticServices">Logistic Services</asp:ListItem>
-                    <asp:ListItem Value="StateServices">State Services</asp:ListItem>
+                    <asp:ListItem Value="Higher Education">Higher Education Services</asp:ListItem>
+                    <asp:ListItem Value="Logistic Services">Logistic Services</asp:ListItem>
+                    <asp:ListItem Value="State Services">State Services</asp:ListItem>
                     </asp:DropDownList>
                     <asp:Label ID="DeptLabel" runat="server" Text="" Visible ="false"></asp:Label>
                 </td>

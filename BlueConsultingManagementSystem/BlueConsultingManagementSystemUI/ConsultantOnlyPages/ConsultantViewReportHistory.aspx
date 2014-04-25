@@ -20,7 +20,7 @@
         
         <asp:GridView ID="ConsultantHistorySQLConnection" runat="server" OnRowCommand="ConsultantHistorySQLConnection_RowCommand" CssClass="table table-responsive">
             <Columns>
-                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="ViewReport" ShowHeader="True" Text="View Report" ControlStyle-CssClass="btn btn-primary" />
+                <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="View Report" ShowHeader="True" Text="View Report" ControlStyle-CssClass="btn btn-primary" />
             </Columns>
         </asp:GridView>
     </div>
