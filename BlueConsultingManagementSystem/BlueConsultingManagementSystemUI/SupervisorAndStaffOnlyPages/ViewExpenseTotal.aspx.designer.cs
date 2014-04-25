@@ -10,7 +10,7 @@
 namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages {
     
     
-    public partial class StaffViewAllReports {
+    public partial class ViewExpenseTotal {
         
         /// <summary>
         /// form1 control.
@@ -22,13 +22,31 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// AllApprovedReportsGridViewSQLConnection control.
+        /// TotalExpenses control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView AllApprovedReportsGridViewSQLConnection;
+        protected global::System.Web.UI.WebControls.Label TotalExpenses;
+        
+        /// <summary>
+        /// RemainingBudget control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label RemainingBudget;
+        
+        /// <summary>
+        /// AllDepartmentExpensesGridViewSQLConnection control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView AllDepartmentExpensesGridViewSQLConnection;
         
         /// <summary>
         /// Back control.

@@ -10,7 +10,7 @@
 namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages {
     
     
-    public partial class SupervisorUnapprovedResults {
+    public partial class StaffViewReports {
         
         /// <summary>
         /// form1 control.
@@ -22,21 +22,21 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// UnapprovedReportsGridViewSQLConnection control.
+        /// AllApprovedReportsGridViewSQLConnection control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView UnapprovedReportsGridViewSQLConnection;
+        protected global::System.Web.UI.WebControls.GridView AllApprovedReportsGridViewSQLConnection;
         
         /// <summary>
-        /// BacktoSupervisor control.
+        /// Back control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BacktoSupervisor;
+        protected global::System.Web.UI.WebControls.Button Back;
     }
 }

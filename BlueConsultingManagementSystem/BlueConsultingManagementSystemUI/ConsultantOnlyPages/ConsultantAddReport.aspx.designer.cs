@@ -58,49 +58,58 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages {
         protected global::System.Web.UI.WebControls.TextBox AmountBox;
         
         /// <summary>
-        /// DropDownList1 control.
+        /// CurrencyList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList CurrencyList;
         
         /// <summary>
-        /// DropDownList2 control.
+        /// DepartmentList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
+        protected global::System.Web.UI.WebControls.DropDownList DepartmentList;
         
         /// <summary>
-        /// Calendar1 control.
+        /// DeptLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar Calendar1;
+        protected global::System.Web.UI.WebControls.Label DeptLabel;
         
         /// <summary>
-        /// FileUpload1 control.
+        /// ExpenseCalendar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
+        protected global::System.Web.UI.WebControls.Calendar ExpenseCalendar;
         
         /// <summary>
-        /// submitbtn control.
+        /// PDFFileUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button submitbtn;
+        protected global::System.Web.UI.WebControls.FileUpload PDFFileUpload;
+        
+        /// <summary>
+        /// SubmitButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button SubmitButton;
         
         /// <summary>
         /// BackButton control.

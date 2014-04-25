@@ -12,20 +12,16 @@ using BlueConsultingManagementSystemLogic;
 
 namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 {
-    public partial class SupervisorUnapprovedResults : System.Web.UI.Page
+    public partial class ViewUnapprovedReports : System.Web.UI.Page
     {
+        private string reportName;
+        private string userGroupMember;
+        private int REP_POS = 1;
 
-        //THIS CLASS NEEDS TO BE NAMED
-        //THIS CLASS NEEDS TO BE NAMED
-        //THIS CLASS NEEDS TO BE NAMED
-        //THIS CLASS NEEDS TO BE NAMED
-        public string reportName;
-        public string userGroupMember;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["reportName"] == null)
             {
-
                 Session["reportName"] = reportName;
             }
 
@@ -38,34 +34,29 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                 else
                     userGroupMember = "StateServices";
 
-                loadDepartmentSupervisorData();
+                LoadDepartmentSupervisorData();
             }
         }
 
-        protected void loadDepartmentSupervisorData()
+        protected void LoadDepartmentSupervisorData()
         {
-                UnapprovedReportsGridViewSQLConnection.DataSource = new DatabaseHandler().LoadSubmittedReportsForDepartmentSupervisor(userGroupMember);
-                UnapprovedReportsGridViewSQLConnection.DataBind();
+            UnapprovedReportsGridViewSQLConnection.DataSource = new DatabaseHandler().LoadSubmittedReportsForDepartmentSupervisor(userGroupMember);
+            UnapprovedReportsGridViewSQLConnection.DataBind();
         }
-
-
 
         protected void UnapprovedReportsGridViewSQLConnection_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
-
             string currentCommand = e.CommandName;
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow selectedRow = UnapprovedReportsGridViewSQLConnection.Rows[index];
-            reportName = selectedRow.Cells[1].Text.ToString();
+            reportName = selectedRow.Cells[REP_POS].Text.ToString();
             Session["reportName"] = reportName;
-            Response.Redirect("SupervisorReportsDisplayPage.aspx");
-            //fix that hardcode
+            Response.Redirect("ViewReports.aspx");
         }
 
         protected void BacktoSupervisor_Click(object sender, EventArgs e)
         {
             Response.Redirect("~/SupervisorAndStaffOnlyPages/SupervisorAndStaffMain.aspx");
         }
-
     }
 }

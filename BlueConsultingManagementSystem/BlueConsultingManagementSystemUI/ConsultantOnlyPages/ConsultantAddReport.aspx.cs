@@ -15,70 +15,59 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 {
     public partial class ConsultantAddReport : System.Web.UI.Page
     {
-        DateTime TODAY;
+        DateTime TODAY = DateTime.Today;
         protected void Page_Load(object sender, EventArgs e)
         {
             string reportName = HttpUtility.HtmlDecode(Session["reportName"].ToString());
-
+            string deptName = HttpUtility.HtmlDecode(Session["deptName"].ToString());
             if (reportName != "")
             {
                 reportBox.Text = reportName.ToString();
                 reportBox.ReadOnly = true;
+                DepartmentList.Text = deptName.ToString();
+                DeptLabel.Text = deptName.ToString();
+                DeptLabel.Visible = true;
+                DepartmentList.Visible = false;
             }
-
-            TODAY = DateTime.Today;
         }
 
-        protected void submitbtn_Click(object sender, EventArgs e)
+        protected void SubmitButton_Click(object sender, EventArgs e)
         {
             try
             {
-
-                if (new InputChecker().HasNonAlphaNumCharacters(reportBox.Text) || new InputChecker().HasNonAlphaNumCharacters(LocationBox.Text) || new InputChecker().HasNonAlphaNumCharacters(DescriptionBox.Text))
-                    throw new Exception("This report uses non-alphanumeric characters.");
+                if (new InputChecker().HasPunctuationCharacters(reportBox.Text) || new InputChecker().HasPunctuationCharacters(LocationBox.Text) || new InputChecker().HasPunctuationCharacters(DescriptionBox.Text))
+                    throw new Exception("This report uses punctuation characters, please remove them.");
 
                 if (new DatabaseHandler().CheckReportNameInUse(reportBox.Text))
                     throw new Exception("This report name has currently been processed, and is awaiting approval or has been declined. \nPlease use another one.");
 
-                if (new DatabaseHandler().CheckExpenseIsRepeated(reportBox.Text, LocationBox.Text, DescriptionBox.Text, Convert.ToDouble(AmountBox.Text), DropDownList1.Text, DropDownList2.Text, Calendar1.SelectedDate.Date))
+                if (new DatabaseHandler().CheckExpenseIsRepeated(reportBox.Text, LocationBox.Text, DescriptionBox.Text, Convert.ToDouble(AmountBox.Text), CurrencyList.Text, DepartmentList.Text, ExpenseCalendar.SelectedDate.Date))
                     throw new Exception("This individual expense currently exists, please alter it's details.");              
 
                 if (reportBox.Text == null || reportBox.Text =="") 
-                {
                     throw new Exception("Missing report name !");
-                }
+
                 if (LocationBox.Text == null || LocationBox.Text=="")
-                {
                     throw new Exception("Missing Location!");
-                }
+
                 if(DescriptionBox.Text == null || DescriptionBox.Text=="")
-                {
                     throw new Exception("Missing Description !");
-                }
+
                 if(AmountBox.Text == null || AmountBox.Text=="")
-                {
                     throw new Exception("Missing Amount !");
-                }
-                if(Calendar1.SelectedDate.ToString()=="" || Calendar1.SelectedDate.ToString() == null)
-                {
+
+                if (ExpenseCalendar.SelectedDate.ToString() == "" || ExpenseCalendar.SelectedDate.ToString() == null)
                     throw new Exception("Missing Date !");
-                }
 
-                if (DateTime.Compare(Calendar1.SelectedDate, TODAY) > 0)
-                {
+                if (DateTime.Compare(ExpenseCalendar.SelectedDate, TODAY) > 0)
                     throw new Exception("Date is pointing to the future.");
-                }
 
-                if (FileUpload1.FileName == null || FileUpload1.FileName == "")
-                {
-                    DatabaseHandler dh = new DatabaseHandler();
-                    dh.InsertConsultantExpenseQuery(reportBox.Text, User.Identity.Name, LocationBox.Text, DescriptionBox.Text, Convert.ToDouble(AmountBox.Text), DropDownList1.Text, DropDownList2.Text, Calendar1.SelectedDate.Date);
-                }
+                if (PDFFileUpload.FileName == null || PDFFileUpload.FileName == "")
+                    new DatabaseHandler().InsertConsultantExpenseQuery(reportBox.Text, User.Identity.Name, LocationBox.Text, DescriptionBox.Text, Convert.ToDouble(AmountBox.Text), CurrencyList.Text, DepartmentList.Text, ExpenseCalendar.SelectedDate.Date);
                 else
                 {
-                    byte[] file = FileUpload1.FileBytes;
-                    DatabaseHandler dh = new DatabaseHandler();
-                    dh.InsertConsultantExpenseQueryWithPDF(reportBox.Text, User.Identity.Name, LocationBox.Text, DescriptionBox.Text, Convert.ToDouble(AmountBox.Text), DropDownList1.Text, DropDownList2.Text, Calendar1.SelectedDate.Date, file);
+                    byte[] file = PDFFileUpload.FileBytes;
+                    new DatabaseHandler().InsertConsultantExpenseQueryWithPDF(reportBox.Text, User.Identity.Name, LocationBox.Text, DescriptionBox.Text, Convert.ToDouble(AmountBox.Text), CurrencyList.Text, DepartmentList.Text, ExpenseCalendar.SelectedDate.Date, file);
                 }
 
                 Response.Redirect("ConsultantMain.aspx");
@@ -92,7 +81,7 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             {
                 double.Parse(AmountBox.Text);
             }              
-            catch (FormatException ex)
+            catch (FormatException)
             {
                 excLbl.Text = "You have entered non-numeric characters for the amount";
             }

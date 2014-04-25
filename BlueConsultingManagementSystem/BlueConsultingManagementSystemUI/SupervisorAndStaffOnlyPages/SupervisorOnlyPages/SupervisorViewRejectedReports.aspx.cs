@@ -11,51 +11,39 @@ using BlueConsultingManagementSystemLogic;
 
 namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SuperVisorOnlyPages
 {
-    public partial class SupervisorRejectedReportsPage : System.Web.UI.Page
+    public partial class SupervisorViewRejectedReports : System.Web.UI.Page
     {
+        private string reportName;
+        private string userGroupMember;
+        private int REP_POS = 1;
 
-        //STAFF ACCOUNTS CANNOT DO THIS!!!!!!!!!!
-        //STAFF ACCOUNTS CANNOT DO THIS!!!!!!!!!!
-        //STAFF ACCOUNTS CANNOT DO THIS!!!!!!!!!!
-        //STAFF ACCOUNTS CANNOT DO THIS!!!!!!!!!!
-        string reportName;
-        string userGroupMember;
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            if (Session["reportName"] == null)
-            {
-                Session["reportName"] = reportName;
-            }
-
             if (User.IsInRole("Higher Education Services"))
                 userGroupMember = "HigherEducation";
             else if (User.IsInRole("Logistic Services"))
-                userGroupMember = "Logistic";
+                userGroupMember = "LogisticServices";
             else
                 userGroupMember = "StateServices";
-            loadResults();
+            LoadResults();
         }
 
-        public void loadResults()
+        private void LoadResults()
         {
             RejectedResultsGridViewSQLConnection.Visible = true;
             RejectedResultsGridViewSQLConnection.DataSource = new DatabaseHandler().ReturnRejectedReportNamesForSupervisor(userGroupMember, User.Identity.Name);
             RejectedResultsGridViewSQLConnection.DataBind();
-
         }
 
         protected void RejectedResultsGridViewSQLConnection_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
-
             string currentCommand = e.CommandName;
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow selectedRow = RejectedResultsGridViewSQLConnection.Rows[index];
-            reportName = selectedRow.Cells[1].Text.ToString();
+            reportName = selectedRow.Cells[REP_POS].Text.ToString();
             Session["reportName"] = reportName;
             Session["deptName"] = userGroupMember;
             Response.Redirect("SupervisorViewRejectedReportInfo.aspx");
-            //fix that hardcode
         }
 
         protected void BacktoSupervisor_Click(object sender, EventArgs e)

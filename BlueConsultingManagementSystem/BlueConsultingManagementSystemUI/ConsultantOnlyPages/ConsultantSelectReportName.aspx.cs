@@ -15,43 +15,39 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 {
     public partial class ConsultantSelectReportName : System.Web.UI.Page
     {
-        public string reportName;
+        private string reportName;
+        private string deptName;
+        private int REP_POS = 1;
+        private int DEPT_POS = 2;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["reportName"] == null)
-            {
-
-                Session["reportName"] = reportName;
-            }
-
             WelcomeMessage.Text = "Welcome " + User.Identity.Name + "!";
-
-            loadCurrentReports();
+            LoadCurrentReports();
         }
 
-        public void loadCurrentReports()
+        private void LoadCurrentReports()
         {
             CurrentReportNamesSQLConnection.DataSource = new DatabaseHandler().ReturnConsultantInProgressReports(User.Identity.Name);
             CurrentReportNamesSQLConnection.DataBind();
         }
     
-
         protected void CurrentReportNamesSQLConnection_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
-
             string currentCommand = e.CommandName;
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow selectedRow = CurrentReportNamesSQLConnection.Rows[index];
-            reportName = selectedRow.Cells[1].Text.ToString();
-
+            reportName = selectedRow.Cells[REP_POS].Text.ToString();
+            deptName = selectedRow.Cells[DEPT_POS].Text.ToString();
             Session["reportName"] = reportName;
+            Session["deptName"] = deptName;
             Response.Redirect("ConsultantAddReport.aspx");
-            //fix that hardcode
         }
 
         protected void NewReportButton_Click(object sender, EventArgs e)
         {
             Session["reportName"] = "";
+            Session["deptName"] = "";
             Response.Redirect("ConsultantAddReport.aspx");
         }
 
