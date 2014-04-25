@@ -63,15 +63,15 @@
 
             </tr>
             <tr>
-  <td>date</td>
+  <td>Date</td>
   <td>
-      <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+      <asp:Calendar ID="ExpenseCalendar" runat="server"></asp:Calendar>
       </td> 
 </tr>
 <tr>
   <td>PDF RECEIPT</td>
   <td>
-      <asp:FileUpload ID="FileUpload1" runat="server" CssClass="btn-primary" /></td> 
+      <asp:FileUpload ID="PDFFileUpload" runat="server" CssClass="btn-primary" /></td> 
 </tr>
 
 
@@ -81,7 +81,7 @@
 
         
 
-        <asp:Button ID="submitbtn" runat="server" OnClick="submitbtn_Click" Text="submit" CssClass="btn-lg btn-primary" />
+        <asp:Button ID="SubmitButton" runat="server" OnClick="SubmitButton_Click" Text="Submit" CssClass="btn-lg btn-primary" />
        
 
         

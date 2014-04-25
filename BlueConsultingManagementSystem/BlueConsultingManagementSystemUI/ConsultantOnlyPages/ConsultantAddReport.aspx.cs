@@ -31,7 +31,7 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             }
         }
 
-        protected void submitbtn_Click(object sender, EventArgs e)
+        protected void SubmitButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
                 if (new DatabaseHandler().CheckReportNameInUse(reportBox.Text))
                     throw new Exception("This report name has currently been processed, and is awaiting approval or has been declined. \nPlease use another one.");
 
-                if (new DatabaseHandler().CheckExpenseIsRepeated(reportBox.Text, LocationBox.Text, DescriptionBox.Text, Convert.ToDouble(AmountBox.Text), CurrencyList.Text, DepartmentList.Text, Calendar1.SelectedDate.Date))
+                if (new DatabaseHandler().CheckExpenseIsRepeated(reportBox.Text, LocationBox.Text, DescriptionBox.Text, Convert.ToDouble(AmountBox.Text), CurrencyList.Text, DepartmentList.Text, ExpenseCalendar.SelectedDate.Date))
                     throw new Exception("This individual expense currently exists, please alter it's details.");              
 
                 if (reportBox.Text == null || reportBox.Text =="") 
@@ -56,18 +56,18 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
                 if(AmountBox.Text == null || AmountBox.Text=="")
                     throw new Exception("Missing Amount !");
 
-                if(Calendar1.SelectedDate.ToString()=="" || Calendar1.SelectedDate.ToString() == null)
+                if (ExpenseCalendar.SelectedDate.ToString() == "" || ExpenseCalendar.SelectedDate.ToString() == null)
                     throw new Exception("Missing Date !");
 
-                if (DateTime.Compare(Calendar1.SelectedDate, TODAY) > 0)
+                if (DateTime.Compare(ExpenseCalendar.SelectedDate, TODAY) > 0)
                     throw new Exception("Date is pointing to the future.");
 
-                if (FileUpload1.FileName == null || FileUpload1.FileName == "")
-                    new DatabaseHandler().InsertConsultantExpenseQuery(reportBox.Text, User.Identity.Name, LocationBox.Text, DescriptionBox.Text, Convert.ToDouble(AmountBox.Text), CurrencyList.Text, DepartmentList.Text, Calendar1.SelectedDate.Date);
+                if (PDFFileUpload.FileName == null || PDFFileUpload.FileName == "")
+                    new DatabaseHandler().InsertConsultantExpenseQuery(reportBox.Text, User.Identity.Name, LocationBox.Text, DescriptionBox.Text, Convert.ToDouble(AmountBox.Text), CurrencyList.Text, DepartmentList.Text, ExpenseCalendar.SelectedDate.Date);
                 else
                 {
-                    byte[] file = FileUpload1.FileBytes;
-                    new DatabaseHandler().InsertConsultantExpenseQueryWithPDF(reportBox.Text, User.Identity.Name, LocationBox.Text, DescriptionBox.Text, Convert.ToDouble(AmountBox.Text), CurrencyList.Text, DepartmentList.Text, Calendar1.SelectedDate.Date, file);
+                    byte[] file = PDFFileUpload.FileBytes;
+                    new DatabaseHandler().InsertConsultantExpenseQueryWithPDF(reportBox.Text, User.Identity.Name, LocationBox.Text, DescriptionBox.Text, Convert.ToDouble(AmountBox.Text), CurrencyList.Text, DepartmentList.Text, ExpenseCalendar.SelectedDate.Date, file);
                 }
 
                 Response.Redirect("ConsultantMain.aspx");

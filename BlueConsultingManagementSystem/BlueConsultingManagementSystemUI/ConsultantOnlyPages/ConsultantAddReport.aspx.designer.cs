@@ -85,31 +85,31 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages {
         protected global::System.Web.UI.WebControls.Label DeptLabel;
         
         /// <summary>
-        /// Calendar1 control.
+        /// ExpenseCalendar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Calendar Calendar1;
+        protected global::System.Web.UI.WebControls.Calendar ExpenseCalendar;
         
         /// <summary>
-        /// FileUpload1 control.
+        /// PDFFileUpload control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
+        protected global::System.Web.UI.WebControls.FileUpload PDFFileUpload;
         
         /// <summary>
-        /// submitbtn control.
+        /// SubmitButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button submitbtn;
+        protected global::System.Web.UI.WebControls.Button SubmitButton;
         
         /// <summary>
         /// excLbl control.

@@ -159,9 +159,9 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         private void FillExpenseTable()
         {
             if (User.IsInRole("Department Supervisor"))
-                DisplayResultsGridSQLConnection.DataSource = new DatabaseHandler().ReturnNonRejectedOrApprovedExpensesForSupervisor(reportName,userGroupMember);
+                DisplayResultsGridSQLConnection.DataSource = new DatabaseHandler().ReturnNonRejectedOrApprovedExpenses(reportName,userGroupMember);
             else if (department == "Staff")
-                DisplayResultsGridSQLConnection.DataSource = new DatabaseHandler().ReturnNonRejectedOrApprovedExpensesForStaff(reportName, deptNameForStaff);
+                DisplayResultsGridSQLConnection.DataSource = new DatabaseHandler().ReturnNonRejectedOrApprovedExpenses(reportName, deptNameForStaff);
 
             DisplayResultsGridSQLConnection.DataBind();
         }

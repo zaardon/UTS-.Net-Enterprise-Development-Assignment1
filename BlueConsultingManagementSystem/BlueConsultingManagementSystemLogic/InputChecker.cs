@@ -12,7 +12,6 @@ namespace BlueConsultingManagementSystemLogic
         public InputChecker()
         { }
 
-
         public bool HasPunctuationCharacters(string checkString)
         {
             foreach (Char c in checkString)
