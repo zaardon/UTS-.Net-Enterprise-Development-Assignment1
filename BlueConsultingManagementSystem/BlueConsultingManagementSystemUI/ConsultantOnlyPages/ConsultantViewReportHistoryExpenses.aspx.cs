@@ -13,19 +13,23 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 {
     public partial class ConsultantViewReportHistoryExpenses : System.Web.UI.Page
     {
-        string reportName;
-        string deptName;
+        private string reportName;
+        private string deptName;
+        private int NAME_POS = 1;
+        private int LOC_POS = 2;
+        private int DESC_POS = 3;
+        private int AMOUNT_POS = 4;
+        private int CURR_POS = 5;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-           // reportName = (string) HttpUtility.HtmlDecode(Session["reportName"].ToString());
             reportName = (string)(Session["reportName"].ToString());
             deptName = Session["deptName"].ToString();
             Label1.Text = reportName;
-            loadData();
-
+            LoadData();
         }
 
-        public void loadData()
+        public void LoadData()
         {
             ReportExpenseHistoryDetailsSQLConnection.DataSource = new DatabaseHandler().ReturnExpenseTable(reportName, deptName);
             ReportExpenseHistoryDetailsSQLConnection.DataBind();
@@ -33,17 +37,15 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 
         protected void ReportExpenseHistoryDetailsSQLConnection_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
-
             string currentCommand = e.CommandName;
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow selectedRow = ReportExpenseHistoryDetailsSQLConnection.Rows[index];
 
-            string name = selectedRow.Cells[1].Text.ToString();
-            string location = selectedRow.Cells[2].Text.ToString();
-            string description = selectedRow.Cells[3].Text.ToString();
-            double amount = Convert.ToDouble(selectedRow.Cells[4].Text.ToString());
-            string currency = selectedRow.Cells[5].Text.ToString();
-
+            string name = selectedRow.Cells[NAME_POS].Text.ToString();
+            string location = selectedRow.Cells[LOC_POS].Text.ToString();
+            string description = selectedRow.Cells[DESC_POS].Text.ToString();
+            double amount = Convert.ToDouble(selectedRow.Cells[AMOUNT_POS].Text.ToString());
+            string currency = selectedRow.Cells[CURR_POS].Text.ToString();
 
             byte[] pdfFile = new DatabaseHandler().RetrievePDFPage(reportName, name, location, description, amount, currency);
             if (pdfFile != null && pdfFile.Length != 0)
@@ -54,10 +56,7 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
                 HttpContext.Current.Response.End();
             }
             else
-            {
                 Response.Write("No PDF File for expense has been added");
-            }
-
         }
 
         protected void BackButton_Click(object sender, EventArgs e)

@@ -11,7 +11,7 @@ using BlueConsultingManagementSystemLogic;
 
 namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 {
-    public partial class SupervisorExpenseTotalPage : System.Web.UI.Page
+    public partial class ViewExpenseTotal : System.Web.UI.Page
     {
         private string userGroupMember;
 

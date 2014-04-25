@@ -11,7 +11,7 @@ using BlueConsultingManagementSystemLogic;
 
 namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SuperVisorOnlyPages
 {
-    public partial class SupervisorRejectedReportsPage : System.Web.UI.Page
+    public partial class SupervisorViewRejectedReports : System.Web.UI.Page
     {
         private string reportName;
         private string userGroupMember;

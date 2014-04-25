@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SupervisorRejectedReportsPage.aspx.cs" Inherits="BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SuperVisorOnlyPages.SupervisorRejectedReportsPage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SupervisorViewRejectedReports.aspx.cs" Inherits="BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SuperVisorOnlyPages.SupervisorViewRejectedReports" %>
 
 <!DOCTYPE html>
 <link rel="stylesheet" href="../../css/css/bootstrap-theme.css" type="text/css">
@@ -12,7 +12,7 @@
      <div class="modal-dialog">
         <div class ="panel panel-primary"  >  
             <div class="panel-heading">
-                <h1 class="panel-title"> Blue management Consultant expense  
+                <h1 class="panel-title"> Blue Management Consultant Expense  
 
                 </h1>
                 </div>
@@ -20,7 +20,7 @@
     <form id="form1" runat="server">
     <div>
     </div>
-        Rejected results:
+        Rejected Results:
         <asp:GridView ID="RejectedResultsGridViewSQLConnection" runat="server" OnRowCommand="RejectedResultsGridViewSQLConnection_RowCommand" CssClass="table-responsive table-condensed">
             <Columns>
                 <asp:ButtonField ButtonType="Button" CommandName="Select" HeaderText="ViewReport" ShowHeader="True" Text="View Report" ControlStyle-CssClass="btn btn-primary"/>

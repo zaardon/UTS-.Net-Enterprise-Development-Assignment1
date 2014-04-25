@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SupervisorExpenseTotalPage.aspx.cs" Inherits="BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SupervisorExpenseTotalPage" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ViewExpenseTotal.aspx.cs" Inherits="BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.ViewExpenseTotal" %>
 
 <!DOCTYPE html>
 <link rel="stylesheet" href="../css/css/bootstrap-theme.css" type="text/css">

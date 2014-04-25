@@ -13,7 +13,7 @@ using BlueConsultingManagementSystemLogic;
 
 namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 {
-    public partial class SupervisorReportsDisplayPage : System.Web.UI.Page
+    public partial class ViewReports : System.Web.UI.Page
     {
         private string reportName;
         private string deptNameForStaff;

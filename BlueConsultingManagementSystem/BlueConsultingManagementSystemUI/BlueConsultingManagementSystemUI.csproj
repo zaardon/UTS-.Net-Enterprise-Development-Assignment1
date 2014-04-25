@@ -68,7 +68,7 @@
     <Content Include="SupervisorAndStaffOnlyPages\StaffOnlyPages\StaffViewAllReports.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorAndStaffMain.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorExpenseTotalPage.aspx" />
-    <Content Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorRejectedReportsPage.aspx" />
+    <Content Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorViewRejectedReports.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorViewRejectedReportInfo.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorReportsDisplayPage.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorUnapprovedResults.aspx" />
@@ -151,12 +151,12 @@
     <Compile Include="SupervisorAndStaffOnlyPages\SupervisorExpenseTotalPage.aspx.designer.cs">
       <DependentUpon>SupervisorExpenseTotalPage.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorRejectedReportsPage.aspx.cs">
-      <DependentUpon>SupervisorRejectedReportsPage.aspx</DependentUpon>
+    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorViewRejectedReports.aspx.cs">
+      <DependentUpon>SupervisorViewRejectedReports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorRejectedReportsPage.aspx.designer.cs">
-      <DependentUpon>SupervisorRejectedReportsPage.aspx</DependentUpon>
+    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorViewRejectedReports.aspx.designer.cs">
+      <DependentUpon>SupervisorViewRejectedReports.aspx</DependentUpon>
     </Compile>
     <Compile Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorViewRejectedReportInfo.aspx.cs">
       <DependentUpon>SupervisorViewRejectedReportInfo.aspx</DependentUpon>

@@ -12,7 +12,7 @@ using BlueConsultingManagementSystemLogic;
 
 namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 {
-    public partial class SupervisorUnapprovedResults : System.Web.UI.Page
+    public partial class ViewUnapprovedReports : System.Web.UI.Page
     {
         private string reportName;
         private string userGroupMember;
@@ -51,7 +51,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             GridViewRow selectedRow = UnapprovedReportsGridViewSQLConnection.Rows[index];
             reportName = selectedRow.Cells[REP_POS].Text.ToString();
             Session["reportName"] = reportName;
-            Response.Redirect("SupervisorReportsDisplayPage.aspx");
+            Response.Redirect("ViewReports.aspx");
         }
 
         protected void BacktoSupervisor_Click(object sender, EventArgs e)

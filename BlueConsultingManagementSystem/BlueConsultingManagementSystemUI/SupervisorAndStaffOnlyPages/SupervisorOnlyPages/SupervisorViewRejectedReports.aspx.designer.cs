@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages {
+namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SuperVisorOnlyPages {
     
     
-    public partial class SupervisorUnapprovedResults {
+    public partial class SupervisorViewRejectedReports {
         
         /// <summary>
         /// form1 control.
@@ -22,13 +22,13 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// UnapprovedReportsGridViewSQLConnection control.
+        /// RejectedResultsGridViewSQLConnection control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView UnapprovedReportsGridViewSQLConnection;
+        protected global::System.Web.UI.WebControls.GridView RejectedResultsGridViewSQLConnection;
         
         /// <summary>
         /// BacktoSupervisor control.

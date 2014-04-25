@@ -24,17 +24,17 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         protected void ReportsButton_Click(object sender, EventArgs e)
         {
-            Response.Redirect("SupervisorUnapprovedResults.aspx");
+            Response.Redirect("ViewUnapprovedReports.aspx");
         }      
 
         protected void ExpenseResultsButton_Click(object sender, EventArgs e)
         {
-            Response.Redirect("SupervisorExpenseTotalPage.aspx");
+            Response.Redirect("ViewExpenseTotal.aspx");
         }
 
         protected void RejectedResultsButton_Click(object sender, EventArgs e)
         {
-            Response.Redirect("SupervisorOnlyPages/SupervisorRejectedReportsPage.aspx");
+            Response.Redirect("SupervisorOnlyPages/SupervisorViewRejectedReports.aspx");
         }
 
         protected void ApprovedReportsButton_Click(object sender, EventArgs e)

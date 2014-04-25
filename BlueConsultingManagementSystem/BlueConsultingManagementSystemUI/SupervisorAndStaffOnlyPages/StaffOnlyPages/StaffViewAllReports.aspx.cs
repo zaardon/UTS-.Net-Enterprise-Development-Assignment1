@@ -73,7 +73,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             deptName = selectedRow.Cells[4].Text.ToString();
             Session["reportName"] = reportName;
             Session["deptNameForStaff"] = deptName;
-            Response.Redirect("~/SupervisorAndStaffOnlyPages/SupervisorReportsDisplayPage.aspx");
+            Response.Redirect("~/SupervisorAndStaffOnlyPages/ViewReports.aspx");
         }
 
         protected void Back_Click(object sender, EventArgs e)
