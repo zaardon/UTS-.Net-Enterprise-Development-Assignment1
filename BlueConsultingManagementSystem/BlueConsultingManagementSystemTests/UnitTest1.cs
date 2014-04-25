@@ -198,12 +198,12 @@ namespace BlueConsultingManagementSystemTests
                    i++;
                }
                Assert.AreEqual(true, resultDepsup);
-               DataSet dsExpenseSupervisor = dh.ReturnExpenseTable("SUPERVISORSUPERTEST");
+               DataSet dsExpenseSupervisor = dh.ReturnExpenseTable("SUPERVISORSUPERTEST","LogisticServices");
                Assert.AreEqual("Hugh", dsExpenseSupervisor.Tables[0].Rows[0]["Name"].ToString());
-               dh.ApproveReportForSupervisor("SuperSupervisor", "SUPERVISORSUPERTEST");
+               dh.ApproveReportForSupervisor("SuperSupervisor", "SUPERVISORSUPERTEST","LogisticServices");
                dh.UpdateDepartmentBudget("LogisticServices", 3001.00);
                DataSet dsStatus = dh.ReturnConsultantSubmittedReports("Hugh");
-               Assert.AreEqual("Approved", dsStatus.Tables[0].Rows[0]["Supvervisor Approval"].ToString());
+               Assert.AreEqual("Approved", dsStatus.Tables[0].Rows[0]["StatusReport"].ToString());
                 Assert.AreEqual(6999,dh.ReturnCurrentDepartmentMoney("LogisticServices"));
                 TestTransaction.Dispose();
             }
@@ -227,11 +227,11 @@ namespace BlueConsultingManagementSystemTests
                     i++;
                 }
                 Assert.AreEqual(true, resultDepsup);
-                DataSet dsExpenseSupervisor = dh.ReturnExpenseTable("SUPERVISORSUPERTEST");
+                DataSet dsExpenseSupervisor = dh.ReturnExpenseTable("SUPERVISORSUPERTEST","LogisticServices");
                 Assert.AreEqual("Hugh", dsExpenseSupervisor.Tables[0].Rows[0]["Name"].ToString());
-                dh.DenyReportForSupervisor("SuperSupervisor", "SUPERVISORSUPERTEST");
+                dh.DenyReportForSupervisor("SuperSupervisor", "SUPERVISORSUPERTEST","LogisticServices");
                 DataSet dsStatus = dh.ReturnConsultantSubmittedReports("Hugh");
-                Assert.AreEqual("Declined", dsStatus.Tables[0].Rows[0]["Supvervisor Approval"].ToString());
+                Assert.AreEqual("Declined", dsStatus.Tables[0].Rows[0]["StatusReport"].ToString());
                 TestTransaction.Dispose();
             }
         }
@@ -263,9 +263,96 @@ namespace BlueConsultingManagementSystemTests
             double expected;
             CurrencyConverter cc = new CurrencyConverter();
             expected = cc.ConvertCurrencyToAUD("fsd", 1);
-            Assert.AreEqual(-1.0, expected);
+            Assert.AreEqual(0, expected);
 
         }
+         [TestCategory("InputChecker")]
+         [TestMethod]
+         public void CheckString()
+         {
+             InputChecker ic = new InputChecker();
+             bool result = ic.HasNonAlphaNumCharacters("'''!@#$%^&*()");
+             Assert.AreEqual(true, result);
+             result = ic.HasNonAlphaNumCharacters("n0p3");
+             Assert.AreEqual(false, result);
+             
+         }
 
+         [TestCategory("Staff")]
+         [TestMethod]
+         public void StaffTest()
+         {
+             DatabaseHandler dh = new DatabaseHandler();
+             using (TransactionScope TestTransaction = new TransactionScope())
+             {
+
+                 dh.InsertConsultantExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 50.00, "AUD", "LogisticServices", DateTime.Today);
+                 dh.InsertConsultantExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 50.00, "AUD", "LogisticServices", DateTime.Today);
+                 DataSet dsDepartmentSupervisor = dh.LoadSubmittedReportsForDepartmentSupervisor("LogisticServices");
+                 int i = 0;
+                 bool resultDepsup = false;
+                 while (i < dsDepartmentSupervisor.Tables[0].Rows.Count)
+                 {
+                     if (dsDepartmentSupervisor.Tables[0].Rows[i]["ReportName"].ToString() == "SUPERVISORSUPERTEST" && dsDepartmentSupervisor.Tables[0].Rows[i]["ConsultantName"].ToString() == "Hugh")
+                     {
+                         resultDepsup = true;
+                         break;
+                     }
+                     i++;
+                 }
+                 Assert.AreEqual(true, resultDepsup);
+                 DataSet dsExpenseSupervisor = dh.ReturnExpenseTable("SUPERVISORSUPERTEST", "LogisticServices");
+                 Assert.AreEqual("Hugh", dsExpenseSupervisor.Tables[0].Rows[0]["Name"].ToString());
+                 dh.ApproveReportForSupervisor("SuperSupervisor", "SUPERVISORSUPERTEST", "LogisticServices");
+                 dh.UpdateDepartmentBudget("LogisticServices", 100.00);
+                 //DataSet dsStatus = dh.ReturnConsultantSubmittedReports("Hugh");
+                 //Assert.AreEqual("Approved", dsStatus.Tables[0].Rows[0]["StatusReport"].ToString());
+                 //Assert.AreEqual(9900, dh.ReturnCurrentDepartmentMoney("LogisticServices"));
+                 dh.ApproveReportForStaffMember("SUPERVISORSUPERTEST", "LogisticServices");
+                 var selectCommand = new SqlCommand("select ReportName,StaffApproved from [dbo].[ExpenseDB] where ReportName='SUPERVISORSUPERTEST';", dh.SQLConnection);
+                 var adapter = new SqlDataAdapter(selectCommand);
+                 var resultSet = new DataSet();
+                 adapter.Fill(resultSet);
+                 string testify = resultSet.Tables[0].Rows[0]["StaffApproved"].ToString();
+                 Assert.AreEqual("YES", testify);
+                 TestTransaction.Dispose();
+             }
+
+             using (TransactionScope TestTransaction = new TransactionScope())
+             {
+
+                 dh.InsertConsultantExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 50.00, "AUD", "LogisticServices", DateTime.Today);
+                 dh.InsertConsultantExpenseQuery("SUPERVISORSUPERTEST", "Hugh", "Home", "Doing testing peasants", 50.00, "AUD", "LogisticServices", DateTime.Today);
+                 DataSet dsDepartmentSupervisor = dh.LoadSubmittedReportsForDepartmentSupervisor("LogisticServices");
+                 int i = 0;
+                 bool resultDepsup = false;
+                 while (i < dsDepartmentSupervisor.Tables[0].Rows.Count)
+                 {
+                     if (dsDepartmentSupervisor.Tables[0].Rows[i]["ReportName"].ToString() == "SUPERVISORSUPERTEST" && dsDepartmentSupervisor.Tables[0].Rows[i]["ConsultantName"].ToString() == "Hugh")
+                     {
+                         resultDepsup = true;
+                         break;
+                     }
+                     i++;
+                 }
+                 Assert.AreEqual(true, resultDepsup);
+                 DataSet dsExpenseSupervisor = dh.ReturnExpenseTable("SUPERVISORSUPERTEST", "LogisticServices");
+                 Assert.AreEqual("Hugh", dsExpenseSupervisor.Tables[0].Rows[0]["Name"].ToString());
+                 dh.ApproveReportForSupervisor("SuperSupervisor", "SUPERVISORSUPERTEST", "LogisticServices");
+                 dh.UpdateDepartmentBudget("LogisticServices", 100.00);
+                 DataSet dsStatus = dh.ReturnConsultantSubmittedReports("Hugh");
+                 Assert.AreEqual("Approved", dsStatus.Tables[0].Rows[0]["StatusReport"].ToString());
+                 Assert.AreEqual(9900, dh.ReturnCurrentDepartmentMoney("LogisticServices"));
+                 dh.DenyReportForStaffMember("SUPERVISORSUPERTEST",100.00 ,"LogisticServices");
+                 var selectCommand = new SqlCommand("select ReportName,StaffApproved from [dbo].[ExpenseDB] where ReportName='SUPERVISORSUPERTEST';", dh.SQLConnection);
+                 var adapter = new SqlDataAdapter(selectCommand);
+                 var resultSet = new DataSet();
+                 adapter.Fill(resultSet);
+                 string testify = resultSet.Tables[0].Rows[0]["StaffApproved"].ToString();
+                 Assert.AreEqual("NO", testify);
+                 dh.ReturnSingleDepartmentBudgetRemaining("loLogisticServices");
+                 TestTransaction.Dispose();
+             }
+         }
     }
 }
