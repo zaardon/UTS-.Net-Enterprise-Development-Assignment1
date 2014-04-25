@@ -35,19 +35,19 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 
         public void loadSubmittedReports()
         {
-            ConsultantHistorySQLConnection.DataSource = new DatabaseHandler().ConsultantLoadSubmittedReports(User.Identity.Name);
+            ConsultantHistorySQLConnection.DataSource = new DatabaseHandler().ReturnConsultantSubmittedReports(User.Identity.Name);
             ConsultantHistorySQLConnection.DataBind();
         }
 
         public void loadApprovedReports()
         {
-            ConsultantHistorySQLConnection.DataSource = new DatabaseHandler().ConsultantLoadApprovedReports(User.Identity.Name);
+            ConsultantHistorySQLConnection.DataSource = new DatabaseHandler().ReturnConsultantApprovedReports(User.Identity.Name);
             ConsultantHistorySQLConnection.DataBind();
         }
 
         public void loadInProgressReports()
         {
-            ConsultantHistorySQLConnection.DataSource = new DatabaseHandler().ConsultantLoadInProgressReports(User.Identity.Name);
+            ConsultantHistorySQLConnection.DataSource = new DatabaseHandler().ReturnConsultantInProgressReports(User.Identity.Name);
             ConsultantHistorySQLConnection.DataBind();
         }
 

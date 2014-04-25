@@ -62,7 +62,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         {
 
 
-            AllDepartmentExpensesGridViewSQLConnection.DataSource = new DatabaseHandler().LoadStaffDataExpenses();
+            AllDepartmentExpensesGridViewSQLConnection.DataSource = new DatabaseHandler().ReturnStaffApprovedExpenses();
             AllDepartmentExpensesGridViewSQLConnection.DataBind();
         }
 
@@ -74,7 +74,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         public double totalExpensesApproved()
         {
-            return new DatabaseHandler().ReturnTotalExpensesApproved();
+            return new DatabaseHandler().ReturnTotalStaffExpensesApproved();
         }
     }
 }

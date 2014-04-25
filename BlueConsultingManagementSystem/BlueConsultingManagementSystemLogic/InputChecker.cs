@@ -13,7 +13,7 @@ namespace BlueConsultingManagementSystemLogic
         { }
 
 
-        public bool hasNonAlphaNumCharacters(string checkString)
+        public bool HasNonAlphaNumCharacters(string checkString)
         {
              if(!checkString.All(Char.IsLetterOrDigit))
                  return true;
