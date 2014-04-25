@@ -22,12 +22,6 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
         {
             string reportType = (string)Session["reportType"];
 
-            if (Session["reportName"] == null)
-                Session["reportName"] = reportName;
-
-            if (Session["deptName"] == null)
-                Session["deptName"] = deptName;
-            
             if (reportType == "AllSubmitted")
                 LoadSubmittedReports();
             else if (reportType == "AllApproved")
@@ -36,19 +30,19 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
                 LoadInProgressReports();            
         }
 
-        public void LoadSubmittedReports()
+        private void LoadSubmittedReports()
         {
             ConsultantHistorySQLConnection.DataSource = new DatabaseHandler().ReturnConsultantSubmittedReports(User.Identity.Name);
             ConsultantHistorySQLConnection.DataBind();
         }
 
-        public void LoadApprovedReports()
+        private void LoadApprovedReports()
         {
             ConsultantHistorySQLConnection.DataSource = new DatabaseHandler().ReturnConsultantApprovedReports(User.Identity.Name);
             ConsultantHistorySQLConnection.DataBind();
         }
 
-        public void LoadInProgressReports()
+        private void LoadInProgressReports()
         {
             ConsultantHistorySQLConnection.DataSource = new DatabaseHandler().ReturnConsultantInProgressReports(User.Identity.Name);
             ConsultantHistorySQLConnection.DataBind();

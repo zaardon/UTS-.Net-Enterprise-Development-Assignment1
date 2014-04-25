@@ -23,7 +23,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.Superviso
              LoadData();
          }
 
-         public void LoadData()
+         private void LoadData()
          {
              RejectedReportInfoSQLConnection.DataSource = new DatabaseHandler().ReturnRejectedReportExpensesForSupervisor(reportName, deptName);
              RejectedReportInfoSQLConnection.DataBind();

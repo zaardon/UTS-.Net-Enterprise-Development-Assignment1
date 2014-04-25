@@ -19,11 +19,6 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SuperViso
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["reportName"] == null)
-            {
-                Session["reportName"] = reportName;
-            }
-
             if (User.IsInRole("Higher Education Services"))
                 userGroupMember = "HigherEducation";
             else if (User.IsInRole("Logistic Services"))
@@ -33,7 +28,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SuperViso
             LoadResults();
         }
 
-        public void LoadResults()
+        private void LoadResults()
         {
             RejectedResultsGridViewSQLConnection.Visible = true;
             RejectedResultsGridViewSQLConnection.DataSource = new DatabaseHandler().ReturnRejectedReportNamesForSupervisor(userGroupMember, User.Identity.Name);

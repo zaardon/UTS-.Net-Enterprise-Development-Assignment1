@@ -21,45 +21,36 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["reportName"] == null)
-            {
-                Session["reportName"] = reportName;
-            }
-            if (Session["deptNameForStaff"] == null)
-            {
-                Session["deptNameForStaff"] = deptName;
-            }
-
             LoadStaffData();
         }
 
-        public void LoadStaffData()
+        private void LoadStaffData()
         {
             DataSet results = new DatabaseHandler().ReturnUnapprovedReportNamesForStaff();
             AllApprovedReportsGridViewSQLConnection.DataSource = results;
             AllApprovedReportsGridViewSQLConnection.DataBind();
             
-            int rNum = 0;
+            int rowNum = 0;
             string dept = "";
             string report = "";
             foreach (GridViewRow row in AllApprovedReportsGridViewSQLConnection.Rows)
             {
-                report = (results.Tables[0].Rows[rNum].ItemArray[REP_POS].ToString());
-                dept = results.Tables[0].Rows[rNum].ItemArray[DEPT_POS].ToString();
+                report = (results.Tables[0].Rows[rowNum].ItemArray[REP_POS].ToString());
+                dept = results.Tables[0].Rows[rowNum].ItemArray[DEPT_POS].ToString();
 
                 if (GetReportTotal(report, dept) > DepartmentBudgetRemaining(dept))
                     row.CssClass = "info";
 
-                rNum++;
+                rowNum++;
             }
         }
 
-        public double GetReportTotal(string name, string dept)
+        private double GetReportTotal(string name, string dept)
         {
             return new DatabaseHandler().ReturnReportTotalAmountForStaff(name, dept);
         }
 
-        public double DepartmentBudgetRemaining(string dept)
+        private double DepartmentBudgetRemaining(string dept)
         {
             return new DatabaseHandler().ReturnSingleDepartmentBudgetRemaining(dept);
         }

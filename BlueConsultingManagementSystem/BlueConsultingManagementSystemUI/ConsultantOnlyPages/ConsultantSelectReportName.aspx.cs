@@ -20,16 +20,11 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["reportName"] == null)
-            {
-                Session["reportName"] = reportName;
-            }
-
             WelcomeMessage.Text = "Welcome " + User.Identity.Name + "!";
             LoadCurrentReports();
         }
 
-        public void LoadCurrentReports()
+        private void LoadCurrentReports()
         {
             CurrentReportNamesSQLConnection.DataSource = new DatabaseHandler().ReturnConsultantInProgressReports(User.Identity.Name);
             CurrentReportNamesSQLConnection.DataBind();

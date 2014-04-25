@@ -80,7 +80,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                 return false;
         }
 
-        public double ReturnCurrentDeptMoney()
+        private double ReturnCurrentDeptMoney()
         {
             if (department == "DepartmentSupervisor")
                 return new DatabaseHandler().ReturnCurrentDepartmentMoney(userGroupMember);
@@ -91,7 +91,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             }
         }
 
-        public double GetTotalReportAmount()
+        private double GetTotalReportAmount()
         {
             double totalAmount = 0;
             string amount = "";
@@ -106,12 +106,12 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             return totalAmount;
         }
 
-        public void DeductBudget()
+        private void DeductBudget()
         {
             new DatabaseHandler().UpdateDepartmentBudget(userGroupMember, GetTotalReportAmount());
         }
 
-        public void ApproveReport()
+        private void ApproveReport()
         {
             if (department == "DepartmentSupervisor")
             {
@@ -122,7 +122,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                 ApproveReportStaff();
         }
 
-        public void DenyReport()
+        private void DenyReport()
         {
             if(department == "DepartmentSupervisor")
                 DenySupervisor();
@@ -130,22 +130,22 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                 DenyReportStaff();
         }
 
-        public void DenyReportStaff()
+        private void DenyReportStaff()
         {
             new DatabaseHandler().DenyReportForStaffMember(reportName, GetTotalReportAmount(), deptNameForStaff);
         }
 
-        public void ApproveReportStaff()
+        private void ApproveReportStaff()
         {
             new DatabaseHandler().ApproveReportForStaffMember(reportName, deptNameForStaff);
         }
 
-        public void DenySupervisor()
+        private void DenySupervisor()
         {
             new DatabaseHandler().DenyReportForSupervisor(User.Identity.Name, reportName, userGroupMember);
         }
 
-        public void ApproveSupervisor()
+        private void ApproveSupervisor()
         {
             new DatabaseHandler().ApproveReportForSupervisor(User.Identity.Name, reportName, userGroupMember);
         }
@@ -156,7 +156,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             Response.Redirect("SupervisorAndStaffMain.aspx");
         }
 
-        public void FillExpenseTable()
+        private void FillExpenseTable()
         {
             if (User.IsInRole("Department Supervisor"))
                 DisplayResultsGridSQLConnection.DataSource = new DatabaseHandler().ReturnNonRejectedOrApprovedExpensesForSupervisor(reportName,userGroupMember);

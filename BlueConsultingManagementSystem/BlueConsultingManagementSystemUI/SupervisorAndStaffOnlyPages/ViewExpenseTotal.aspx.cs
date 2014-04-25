@@ -26,7 +26,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             LoadData();
         }
 
-        public void LoadData()
+        private void LoadData()
         {
             if (User.IsInRole("Department Supervisor"))
             {
@@ -42,7 +42,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             }
         }
 
-        public double DepartmentBudgetRemaining()
+        private double DepartmentBudgetRemaining()
         {
             return new DatabaseHandler().ReturnCurrentDepartmentMoney(userGroupMember);
         }
@@ -52,19 +52,19 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             Response.Redirect("SupervisorAndStaffMain.aspx");
         }
 
-        public void LoadStaffData()
+        private void LoadStaffData()
         {
             AllDepartmentExpensesGridViewSQLConnection.DataSource = new DatabaseHandler().ReturnStaffApprovedExpenses();
             AllDepartmentExpensesGridViewSQLConnection.DataBind();
         }
 
-        public double RemainingTotalBudgetForStaff()
+        private double RemainingTotalBudgetForStaff()
         {
             //How is this working?
             return new DatabaseHandler().ReturnTotalBudgetRemaining();
         }
 
-        public double TotalExpensesApproved()
+        private double TotalExpensesApproved()
         {
             return new DatabaseHandler().ReturnTotalStaffExpensesApproved();
         }

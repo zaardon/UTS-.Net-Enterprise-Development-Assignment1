@@ -67,11 +67,11 @@
     <Content Include="Login.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\StaffOnlyPages\StaffViewAllReports.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorAndStaffMain.aspx" />
-    <Content Include="SupervisorAndStaffOnlyPages\SupervisorExpenseTotalPage.aspx" />
+    <Content Include="SupervisorAndStaffOnlyPages\ViewExpenseTotal.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorViewRejectedReports.aspx" />
     <Content Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorViewRejectedReportInfo.aspx" />
-    <Content Include="SupervisorAndStaffOnlyPages\SupervisorReportsDisplayPage.aspx" />
-    <Content Include="SupervisorAndStaffOnlyPages\SupervisorUnapprovedResults.aspx" />
+    <Content Include="SupervisorAndStaffOnlyPages\ViewReports.aspx" />
+    <Content Include="SupervisorAndStaffOnlyPages\ViewUnapprovedReports.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -144,12 +144,12 @@
     <Compile Include="SupervisorAndStaffOnlyPages\SupervisorAndStaffMain.aspx.designer.cs">
       <DependentUpon>SupervisorAndStaffMain.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorExpenseTotalPage.aspx.cs">
-      <DependentUpon>SupervisorExpenseTotalPage.aspx</DependentUpon>
+    <Compile Include="SupervisorAndStaffOnlyPages\ViewExpenseTotal.aspx.cs">
+      <DependentUpon>ViewExpenseTotal.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorExpenseTotalPage.aspx.designer.cs">
-      <DependentUpon>SupervisorExpenseTotalPage.aspx</DependentUpon>
+    <Compile Include="SupervisorAndStaffOnlyPages\ViewExpenseTotal.aspx.designer.cs">
+      <DependentUpon>ViewExpenseTotal.aspx</DependentUpon>
     </Compile>
     <Compile Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorViewRejectedReports.aspx.cs">
       <DependentUpon>SupervisorViewRejectedReports.aspx</DependentUpon>
@@ -165,19 +165,19 @@
     <Compile Include="SupervisorAndStaffOnlyPages\SupervisorOnlyPages\SupervisorViewRejectedReportInfo.aspx.designer.cs">
       <DependentUpon>SupervisorViewRejectedReportInfo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorReportsDisplayPage.aspx.cs">
-      <DependentUpon>SupervisorReportsDisplayPage.aspx</DependentUpon>
+    <Compile Include="SupervisorAndStaffOnlyPages\ViewReports.aspx.cs">
+      <DependentUpon>ViewReports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorReportsDisplayPage.aspx.designer.cs">
-      <DependentUpon>SupervisorReportsDisplayPage.aspx</DependentUpon>
+    <Compile Include="SupervisorAndStaffOnlyPages\ViewReports.aspx.designer.cs">
+      <DependentUpon>ViewReports.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorUnapprovedResults.aspx.cs">
-      <DependentUpon>SupervisorUnapprovedResults.aspx</DependentUpon>
+    <Compile Include="SupervisorAndStaffOnlyPages\ViewUnapprovedReports.aspx.cs">
+      <DependentUpon>ViewUnapprovedReports.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SupervisorAndStaffOnlyPages\SupervisorUnapprovedResults.aspx.designer.cs">
-      <DependentUpon>SupervisorUnapprovedResults.aspx</DependentUpon>
+    <Compile Include="SupervisorAndStaffOnlyPages\ViewUnapprovedReports.aspx.designer.cs">
+      <DependentUpon>ViewUnapprovedReports.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
