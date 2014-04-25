@@ -13,12 +13,14 @@ namespace BlueConsultingManagementSystemLogic
         { }
 
 
-        public bool HasNonAlphaNumCharacters(string checkString)
+        public bool HasPunctuationCharacters(string checkString)
         {
-             if(!checkString.All(Char.IsLetterOrDigit))
-                 return true;
-             else
-                 return false;
+            foreach (Char c in checkString)
+            {
+                if (Char.IsPunctuation(c))
+                    return true;
+            }
+            return false;
         }
     }
 

@@ -35,8 +35,8 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
         {
             try
             {
-                if (new InputChecker().HasNonAlphaNumCharacters(reportBox.Text) || new InputChecker().HasNonAlphaNumCharacters(LocationBox.Text) || new InputChecker().HasNonAlphaNumCharacters(DescriptionBox.Text))
-                    throw new Exception("This report uses non-alphanumeric characters.");
+                if (new InputChecker().HasPunctuationCharacters(reportBox.Text) || new InputChecker().HasPunctuationCharacters(LocationBox.Text) || new InputChecker().HasPunctuationCharacters(DescriptionBox.Text))
+                    throw new Exception("This report uses punctuation characters, please remove them.");
 
                 if (new DatabaseHandler().CheckReportNameInUse(reportBox.Text))
                     throw new Exception("This report name has currently been processed, and is awaiting approval or has been declined. \nPlease use another one.");
