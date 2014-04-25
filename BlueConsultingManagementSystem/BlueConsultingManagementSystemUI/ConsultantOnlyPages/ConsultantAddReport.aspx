@@ -44,7 +44,7 @@
             <tr>
   <td>currency</td>
   <td>
-      <asp:DropDownList ID="DropDownList1" runat="server" CssClass="form-control" >
+      <asp:DropDownList ID="CurrencyList" runat="server" CssClass="form-control" >
           <asp:ListItem>AUD</asp:ListItem>
           <asp:ListItem>CNY</asp:ListItem>
           <asp:ListItem>EUR</asp:ListItem>
@@ -53,11 +53,13 @@
 
             <tr>
                 <td> Department Type</td>
-                <td> <asp:DropDownList ID="DropDownList2" runat="server" CssClass="form-control" >
+                <td> <asp:DropDownList ID="DepartmentList" runat="server" CssClass="form-control" >
                     <asp:ListItem Value="HigherEducation">Higher Education Services</asp:ListItem>
                     <asp:ListItem Value="LogisticServices">Logistic Services</asp:ListItem>
                     <asp:ListItem Value="StateServices">State Services</asp:ListItem>
-                    </asp:DropDownList></td>
+                    </asp:DropDownList>
+                    <asp:Label ID="DeptLabel" runat="server" Text="" Visible ="false"></asp:Label>
+                </td>
 
             </tr>
             <tr>

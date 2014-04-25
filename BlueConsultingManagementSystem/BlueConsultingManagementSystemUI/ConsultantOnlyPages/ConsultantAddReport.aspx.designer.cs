@@ -58,22 +58,31 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages {
         protected global::System.Web.UI.WebControls.TextBox AmountBox;
         
         /// <summary>
-        /// DropDownList1 control.
+        /// CurrencyList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        protected global::System.Web.UI.WebControls.DropDownList CurrencyList;
         
         /// <summary>
-        /// DropDownList2 control.
+        /// DepartmentList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList2;
+        protected global::System.Web.UI.WebControls.DropDownList DepartmentList;
+        
+        /// <summary>
+        /// DeptLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label DeptLabel;
         
         /// <summary>
         /// Calendar1 control.

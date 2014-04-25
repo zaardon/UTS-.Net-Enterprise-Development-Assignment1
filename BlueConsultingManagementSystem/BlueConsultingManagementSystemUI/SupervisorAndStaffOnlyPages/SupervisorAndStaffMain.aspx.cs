@@ -39,7 +39,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         protected void ApprovedReportsButton_Click(object sender, EventArgs e)
         {
-            Response.Redirect("StaffOnlyPages/StaffViewAllReports.aspx");
+            Response.Redirect("StaffOnlyPages/StaffViewReports.aspx");
         }
 
         protected void BacktoSupervisor_Click(object sender, EventArgs e)

@@ -12,7 +12,7 @@ using BlueConsultingManagementSystemLogic;
 
 namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 {
-    public partial class StaffViewAllReports : System.Web.UI.Page
+    public partial class StaffViewReports : System.Web.UI.Page
     {
         private string reportName;
         private string deptName;

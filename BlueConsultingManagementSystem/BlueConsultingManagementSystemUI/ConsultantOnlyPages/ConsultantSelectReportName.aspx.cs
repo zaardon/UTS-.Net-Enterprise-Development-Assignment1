@@ -16,7 +16,9 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
     public partial class ConsultantSelectReportName : System.Web.UI.Page
     {
         private string reportName;
+        private string deptName;
         private int REP_POS = 1;
+        private int DEPT_POS = 2;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -36,7 +38,9 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             int index = Convert.ToInt32(e.CommandArgument);
             GridViewRow selectedRow = CurrentReportNamesSQLConnection.Rows[index];
             reportName = selectedRow.Cells[REP_POS].Text.ToString();
+            deptName = selectedRow.Cells[DEPT_POS].Text.ToString();
             Session["reportName"] = reportName;
+            Session["deptName"] = deptName;
             Response.Redirect("ConsultantAddReport.aspx");
         }
 

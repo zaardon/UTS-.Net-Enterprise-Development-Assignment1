@@ -10,7 +10,7 @@
 namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages {
     
     
-    public partial class StaffViewAllReports {
+    public partial class StaffViewReports {
         
         /// <summary>
         /// form1 control.

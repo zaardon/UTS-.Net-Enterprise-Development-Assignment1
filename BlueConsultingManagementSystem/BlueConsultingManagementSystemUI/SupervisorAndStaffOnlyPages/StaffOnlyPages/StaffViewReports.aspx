@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="StaffViewAllReports.aspx.cs" Inherits="BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.StaffViewAllReports" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="StaffViewReports.aspx.cs" Inherits="BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.StaffViewReports" %>
 
 <!DOCTYPE html>
 <link rel="stylesheet" href="../../css/css/bootstrap-theme.css" type="text/css">
