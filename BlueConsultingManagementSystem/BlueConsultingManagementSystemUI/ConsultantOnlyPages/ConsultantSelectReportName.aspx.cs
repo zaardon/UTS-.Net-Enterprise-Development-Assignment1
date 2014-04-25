@@ -47,6 +47,7 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
         protected void NewReportButton_Click(object sender, EventArgs e)
         {
             Session["reportName"] = "";
+            Session["deptName"] = "";
             Response.Redirect("ConsultantAddReport.aspx");
         }
 
