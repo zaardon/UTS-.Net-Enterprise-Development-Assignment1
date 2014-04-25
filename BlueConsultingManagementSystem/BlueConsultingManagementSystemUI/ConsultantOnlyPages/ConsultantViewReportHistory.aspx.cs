@@ -14,12 +14,16 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
     public partial class ConsultantViewReportHistory : System.Web.UI.Page
     {
         string reportName;
+        string deptName;
         protected void Page_Load(object sender, EventArgs e)
         {
             string reportType = (string)Session["reportType"];
 
             if (Session["reportName"] == null)
                 Session["reportName"] = reportName;
+
+            if (Session["deptName"] == null)
+                Session["deptName"] = deptName;
             
             if (reportType == "AllSubmitted")
                 loadSubmittedReports();
@@ -54,6 +58,8 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             GridViewRow selectedRow = ConsultantHistorySQLConnection.Rows[index];
             reportName = selectedRow.Cells[1].Text.ToString();
             Session["reportName"] = reportName;
+            deptName = selectedRow.Cells[2].Text.ToString();
+            Session["deptName"] = deptName;
             Response.Redirect("ConsultantViewReportHistoryExpenses.aspx");
             //fix that hardcode
         }

@@ -46,7 +46,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                 dept = results.Tables[0].Rows[temp].ItemArray[3].ToString();
                 report = (results.Tables[0].Rows[temp].ItemArray[0].ToString());
                 //if (Convert.ToDouble(resultSet.Tables[0].Rows[temp].ItemArray[3]) > departmentBudgetRemaining(dept))
-                if (getReportTotal(report) > departmentBudgetRemaining(dept))
+                if (getReportTotal(report, dept) > departmentBudgetRemaining(dept))
                 {
                     row.CssClass = "info";
                 }
@@ -55,9 +55,9 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         }
 
-        public double getReportTotal(string name)
+        public double getReportTotal(string name, string dept)
         {
-            return new DatabaseHandler().ReturnStaffReportTotalAmountForSupervisorReportName(name);
+            return new DatabaseHandler().ReturnStaffReportTotalAmountForSupervisorReportName(name, dept);
         }
 
         public double departmentBudgetRemaining(string dept)

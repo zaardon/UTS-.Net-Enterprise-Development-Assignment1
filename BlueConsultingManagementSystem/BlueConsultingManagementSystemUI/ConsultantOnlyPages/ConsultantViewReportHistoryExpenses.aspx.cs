@@ -14,10 +14,12 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
     public partial class ConsultantViewReportHistoryExpenses : System.Web.UI.Page
     {
         string reportName;
+        string deptName;
         protected void Page_Load(object sender, EventArgs e)
         {
            // reportName = (string) HttpUtility.HtmlDecode(Session["reportName"].ToString());
             reportName = (string)(Session["reportName"].ToString());
+            deptName = Session["deptName"].ToString();
             Label1.Text = reportName;
             loadData();
 
@@ -25,7 +27,7 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 
         public void loadData()
         {
-            ReportExpenseHistoryDetailsSQLConnection.DataSource = new DatabaseHandler().LoadExpenseTable(reportName);
+            ReportExpenseHistoryDetailsSQLConnection.DataSource = new DatabaseHandler().LoadExpenseTable(reportName, deptName);
             ReportExpenseHistoryDetailsSQLConnection.DataBind();
         }
 
