@@ -205,7 +205,7 @@ namespace BlueConsultingManagementSystemTests
                DataSet dsStatus = dh.ReturnConsultantSubmittedReports("Hugh");
                Assert.AreEqual("Approved", dsStatus.Tables[0].Rows[0]["Supervisor Approval"].ToString());
 
-               var selectCommand = new SqlCommand("select Budget from [dbo].[DepartmentDB] where Dept_Name='Logistic Services';", dh.SQLConnection);
+               var selectCommand = new SqlCommand("select Budget from [dbo].[DepartmentDB] where Dept_Name='Logistic Services';", dh.RetrieveSQLConnection());
                var adapter = new SqlDataAdapter(selectCommand);
                var resultSet = new DataSet();
                adapter.Fill(resultSet);
@@ -314,7 +314,7 @@ namespace BlueConsultingManagementSystemTests
                  //Assert.AreEqual("Approved", dsStatus.Tables[0].Rows[0]["StatusReport"].ToString());
                  //Assert.AreEqual(9900, dh.ReturnCurrentDepartmentMoney("Logistic Services"));
                  dh.ApproveReportForStaffMember("SUPERVISORSUPERTEST", "Logistic Services");
-                 var selectCommand = new SqlCommand("select ReportName,StaffApproved from [dbo].[ExpenseDB] where ReportName='SUPERVISORSUPERTEST';", dh.SQLConnection);
+                 var selectCommand = new SqlCommand("select ReportName,StaffApproved from [dbo].[ExpenseDB] where ReportName='SUPERVISORSUPERTEST';", dh.RetrieveSQLConnection());
                  var adapter = new SqlDataAdapter(selectCommand);
                  var resultSet = new DataSet();
                  adapter.Fill(resultSet);
@@ -349,7 +349,7 @@ namespace BlueConsultingManagementSystemTests
                  Assert.AreEqual("Approved", dsStatus.Tables[0].Rows[0]["Supervisor Approval"].ToString());
                  Assert.AreEqual(9900, dh.ReturnCurrentDepartmentMoney("Logistic Services"));
                  dh.DenyReportForStaffMember("SUPERVISORSUPERTEST", 100.00, "Logistic Services");
-                 var selectCommand = new SqlCommand("select ReportName,StaffApproved from [dbo].[ExpenseDB] where ReportName='SUPERVISORSUPERTEST';", dh.SQLConnection);
+                 var selectCommand = new SqlCommand("select ReportName,StaffApproved from [dbo].[ExpenseDB] where ReportName='SUPERVISORSUPERTEST';", dh.RetrieveSQLConnection());
                  var adapter = new SqlDataAdapter(selectCommand);
                  var resultSet = new DataSet();
                  adapter.Fill(resultSet);

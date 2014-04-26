@@ -13,7 +13,7 @@ namespace BlueConsultingManagementSystemLogic
 {
     public class DatabaseHandler
     {
-        public SqlConnection SQLConnection;
+        private SqlConnection SQLConnection;
         private DateTime START_OF_THIS_MONTH;
 
         public DatabaseHandler()
@@ -26,6 +26,11 @@ namespace BlueConsultingManagementSystemLogic
             START_OF_THIS_MONTH = today.AddDays(1 - today.Day);
 
             RoleBackOldMonthlyExpenses();
+        }
+
+        public SqlConnection RetrieveSQLConnection()
+        {
+            return this.SQLConnection;
         }
 
         private void RoleBackOldMonthlyExpenses()
