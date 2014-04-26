@@ -50,9 +50,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.Superviso
                    HttpContext.Current.Response.End();
              }
              else
-             {
-                  Response.Write("No PDF File for expense has been added");
-             }
+                 excLbl.Text = "No PDF File for expense has been added";
         }
 
         protected void BacktoSupervisor_Click(object sender, EventArgs e)
