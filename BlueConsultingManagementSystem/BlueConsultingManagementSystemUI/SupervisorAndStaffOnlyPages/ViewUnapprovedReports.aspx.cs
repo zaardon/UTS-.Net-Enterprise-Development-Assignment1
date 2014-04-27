@@ -16,7 +16,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
     {
         private string reportName;
         private string userGroupMember;
-        private int REP_POS = 1;
+        private readonly int REP_POS = 1;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -44,6 +44,9 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             UnapprovedReportsGridViewSQLConnection.DataBind();
         }
 
+        /*
+         * Allows the user to view a report through the gridview's row command button.
+         */
         protected void UnapprovedReportsGridViewSQLConnection_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
             string currentCommand = e.CommandName;

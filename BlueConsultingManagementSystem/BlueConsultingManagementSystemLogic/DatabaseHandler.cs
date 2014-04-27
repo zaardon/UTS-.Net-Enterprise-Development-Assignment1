@@ -28,6 +28,9 @@ namespace BlueConsultingManagementSystemLogic
             return this.SQLConnection;
         }
 
+        /*
+         * Sets the connection string that is used throughout all SQL DataSet commands.
+         */
         private void SetConnectionString()
         {
             var connectionString = ConfigurationManager.ConnectionStrings["BlueConsultingDBString"].ConnectionString;
@@ -35,11 +38,19 @@ namespace BlueConsultingManagementSystemLogic
             this.SQLConnection = con;
         }
 
+        /*
+         * Finds the start of the current days month
+         */
         private void SetStartOfCurrentMonth()
         {
             DateTime today = DateTime.Today;
             START_OF_THIS_MONTH = today.AddDays(1 - today.Day);
         }
+
+        /*
+         * If an expense has been approved in a previous month, it is considered 'rolled back' and its cost amount is
+         * given back to the department budget
+         */
         private void RoleBackOldMonthlyExpenses()
         {
             DataSet nonRolledBackReports = ReturnNonRolledBackReports();
@@ -63,6 +74,9 @@ namespace BlueConsultingManagementSystemLogic
             }
         }
 
+        /*
+         * This takes a SQLCommand that will be used in the updatable SQL queries.
+         */
         private void DataSetCommandStandard(SqlCommand command)
         {
             SQLConnection.Open();
@@ -73,6 +87,9 @@ namespace BlueConsultingManagementSystemLogic
             SQLConnection.Close();
         }
 
+        /*
+        * This takes a SQLCommand that will be used in the DataSet returning SQL queries.
+        */
         private DataSet DataSetCommandReturnDataSet(SqlCommand command)
         {
             var selectCommand = command;
@@ -83,6 +100,9 @@ namespace BlueConsultingManagementSystemLogic
             return resultSet;
         }
 
+        /*
+        * This takes a SQLCommand that will be used in the double returning SQL queries.
+        */
         private double DataSetCommandReturnDouble(SqlCommand command)
         {
             double amount = 0.0;
@@ -98,6 +118,9 @@ namespace BlueConsultingManagementSystemLogic
                 return amount = (double)(Convert.ToDouble(resultSet.Tables[0].Rows[0].ItemArray[0]));
         }
 
+        /*
+        * This takes a SQLCommand that will be used in the boolean returning SQL queries.
+        */
         private bool DataSetCommandReturnBool(SqlCommand command, string reportName)
         {
             SQLConnection.Open();
@@ -119,7 +142,6 @@ namespace BlueConsultingManagementSystemLogic
             }
             return false;
         }
-
 
         private void SetReportRolledBackStatus(string reportName)
         {
@@ -251,12 +273,12 @@ namespace BlueConsultingManagementSystemLogic
         {
             DataSetCommandStandard(new SqlCommand("UPDATE [dbo].[ExpenseDB] SET StatusReport = 'Approved', ProcessedBy ='" + name + "' WHERE ReportName = '" + reportName + "' AND DeptType = '" + dept + "'", SQLConnection));
         }
-        // not tested
+
         public DataSet ReturnExpenseTable(string reportName, string dept)
         {
             return DataSetCommandReturnDataSet(new SqlCommand("SELECT ConsultantName as 'Consultant Name', Location, Description, Amount, Currency, TotalAUD as 'Amount in AUD', DeptType as 'Department', DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND DeptType = '" + dept + "'", SQLConnection));
         }
-        // not tested
+
         public DataSet ReturnNonRejectedOrApprovedExpenses(string reportName, string dept)
         {
             return DataSetCommandReturnDataSet(new SqlCommand("SELECT ConsultantName as 'Consultant Name', Location, Description, Amount, Currency, TotalAUD as 'Amount in AUD', DeptType, DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND (StatusReport = 'Submitted' OR StaffApproved is NULL) AND DeptType = '" + dept + "'", SQLConnection));
@@ -281,7 +303,7 @@ namespace BlueConsultingManagementSystemLogic
         {
             return DataSetCommandReturnDouble(new SqlCommand("SELECT distinct SUM(TotalAUD) FROM ExpenseDB WHERE StatusReport = 'Approved' AND StaffApproved = 'Approved' AND RolledBack is null", SQLConnection));
         }
-        //not tested
+
         public DataSet ReturnRejectedReportExpensesForSupervisor(string reportName, string dept)
         {
             return DataSetCommandReturnDataSet(new SqlCommand("SELECT ConsultantName as 'Consultant Name', Location, Description, Amount, Currency, DateExpense as 'Date' FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND DeptType = '" + dept + "'", SQLConnection));
@@ -296,12 +318,12 @@ namespace BlueConsultingManagementSystemLogic
             return DataSetCommandReturnDataSet(new SqlCommand("SELECT distinct ReportName as 'Report Name', ConsultantName as 'Consultant Name', DeptType as 'Department' FROM ExpenseDB WHERE StatusReport = 'Approved' AND StaffApproved is NULL", SQLConnection));
         }
 
-        //not tested
+
         public double ReturnReportTotalAmountForStaff(string reportName, string dept)
         {
             return DataSetCommandReturnDouble(new SqlCommand("SELECT SUM(TotalAUD) FROM ExpenseDB WHERE ReportName = '" + reportName + "'  AND StaffApproved is NULL AND DeptType = '" + dept + "'", SQLConnection));
         }
-        //not tested
+
         public double ReturnSingleDepartmentBudgetRemaining(string dept)
         {
             return ReturnCurrentDepartmentMoney(dept) + ReturnNonStaffApprovedDepartmentTotal(dept);
@@ -311,7 +333,7 @@ namespace BlueConsultingManagementSystemLogic
         {
             return DataSetCommandReturnDouble(new SqlCommand("SELECT SUM(TotalAUD) FROM ExpenseDB WHERE DeptType = '" + dept + "' AND StatusReport = 'Approved' AND StaffApproved is null", SQLConnection));
         }
-        //not tested
+
         public DataSet ReturnConsultantSubmittedReports(string name)
         {
             return DataSetCommandReturnDataSet(new SqlCommand("SELECT distinct ReportName as 'Report Name', DeptType as 'Department', StatusReport as 'Supervisor Approval', StaffApproved as 'Staff Approval' FROM ExpenseDB WHERE ConsultantName = '" + name + "'", SQLConnection));
@@ -326,7 +348,10 @@ namespace BlueConsultingManagementSystemLogic
         {
             return DataSetCommandReturnDataSet(new SqlCommand("SELECT distinct ReportName as 'Report Name', DeptType as 'Department' FROM ExpenseDB WHERE ConsultantName = '" + name + "' AND StatusReport = 'Submitted'", SQLConnection));
         }
-        //not tested
+
+        /*
+        * This returns a PDF page from an individual expense. If it does not exist, it returns a null value.
+        */
         public byte[] RetrievePDFPage(string reportName, string consultantName, string location, string description, double amount, string currency)
         {
             byte[] pdfFile;
@@ -348,7 +373,7 @@ namespace BlueConsultingManagementSystemLogic
 
             return pdfFile;
         }
-        // not tested
+
         public double ReturnDepartmentBudgetForStaffExpenses(string dept)
         {
             return ReturnCurrentDepartmentMoney(dept) + ReturnDepartmentBudgetSpentUnapproved(dept);
@@ -358,7 +383,7 @@ namespace BlueConsultingManagementSystemLogic
         {
             return DataSetCommandReturnDouble(new SqlCommand("SELECT SUM(TotalAUD) FROM ExpenseDB WHERE (StaffApproved is NULL) AND StatusReport = 'Approved' AND DeptType ='" + dept + "'", SQLConnection));
         }
-        //not tested
+
         public bool CheckReportNameInUse(string reportName)
         {
             return DataSetCommandReturnBool(new SqlCommand("SELECT distinct ReportName FROM ExpenseDB WHERE ReportName = '" + reportName + "' AND (StatusReport = 'Approved' OR StatusReport = 'Rejected')", SQLConnection), reportName);

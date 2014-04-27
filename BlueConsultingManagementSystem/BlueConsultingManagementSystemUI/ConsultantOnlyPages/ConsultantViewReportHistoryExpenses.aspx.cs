@@ -15,17 +15,17 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
     {
         private string reportName;
         private string deptName;
-        private int NAME_POS = 1;
-        private int LOC_POS = 2;
-        private int DESC_POS = 3;
-        private int AMOUNT_POS = 4;
-        private int CURR_POS = 5;
+        private readonly int NAME_POS = 1;
+        private readonly int LOC_POS = 2;
+        private readonly int DESC_POS = 3;
+        private readonly int AMOUNT_POS = 4;
+        private readonly int CURR_POS = 5;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             reportName = (string)(Session["reportName"].ToString());
             deptName = Session["deptName"].ToString();
-            Label1.Text = reportName;
+            ReportLabel.Text = reportName;
             LoadData();
         }
 
@@ -35,6 +35,9 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             ReportExpenseHistoryDetailsSQLConnection.DataBind();
         }
 
+        /**
+         * If the user choses to view a receipt, the gridview's row command is used. 
+        **/
         protected void ReportExpenseHistoryDetailsSQLConnection_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
             string currentCommand = e.CommandName;
@@ -47,14 +50,16 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             double amount = Convert.ToDouble(selectedRow.Cells[AMOUNT_POS].Text.ToString());
             string currency = selectedRow.Cells[CURR_POS].Text.ToString();
 
+            //If a PDF file exists for an individual expense, it is loaded in it's PDF format to the page...
             byte[] pdfFile = new DatabaseHandler().RetrievePDFPage(reportName, name, location, description, amount, currency);
             if (pdfFile != null && pdfFile.Length != 0)
             {
                 HttpContext.Current.Response.ContentType = "application/pdf";
                 HttpContext.Current.Response.AddHeader("Content-Disposition", "inline;filename =test.pdf");
-                HttpContext.Current.Response.BinaryWrite((byte[])pdfFile);//get data in variable in binary format
+                HttpContext.Current.Response.BinaryWrite((byte[])pdfFile);
                 HttpContext.Current.Response.End();
             }
+            //...else it returns a message saying one cannot be found.
             else
             {
                 excLbl.Text = "No PDF File for expense has been added";

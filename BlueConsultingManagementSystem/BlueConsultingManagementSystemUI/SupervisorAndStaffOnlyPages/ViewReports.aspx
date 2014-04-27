@@ -12,8 +12,8 @@
       
         <div class ="panel panel-primary"  >  
             <div class="panel-heading">
-                <h1 class="panel-title"> Blue management Consultant expense -
-        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+                <h1 class="panel-title"> Blue Management Consultant Expense -
+        <asp:Label ID="ReportLabel" runat="server" Text="Label"></asp:Label>
 
                 </h1>
                 </div>

@@ -15,11 +15,14 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
 {
     public partial class ConsultantAddReport : System.Web.UI.Page
     {
-        DateTime TODAY = DateTime.Today;
+        private readonly DateTime TODAY = DateTime.Today;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             string reportName = HttpUtility.HtmlDecode(Session["reportName"].ToString());
             string deptName = HttpUtility.HtmlDecode(Session["deptName"].ToString());
+
+            //If this is a continued report, save the report and department names from the previous page and do not allow the use to change them
             if (reportName != "")
             {
                 reportBox.Text = reportName.ToString();
@@ -31,6 +34,9 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             }
         }
 
+        /*
+         * Prior to submitting the report, the fields of the page are checked. A specific error message is displayed if something is incorrect or missing.
+         */
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
             try

@@ -21,6 +21,9 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             Response.Redirect("ConsultantSelectReportName.aspx");
         }
 
+        /*
+         * Informs the gridview on the next page to load all reports
+         */
         protected void SubmittedReportsButton_Click(object sender, EventArgs e)
         {
             reportType = "AllSubmitted";
@@ -28,6 +31,9 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             Response.Redirect("ConsultantViewReportHistory.aspx");
         }
 
+        /*
+        * Informs the gridview on the next page to load only approved reports
+        */
         protected void ApprovedReportsButton_Click(object sender, EventArgs e)
         {
             reportType = "AllApproved";
@@ -35,6 +41,9 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             Response.Redirect("ConsultantViewReportHistory.aspx");
         }
 
+        /*
+        * Informs the gridview on the next page to load only submitted reports
+        */
         protected void UnapprovedReportsButton_Click(object sender, EventArgs e)
         {
             reportType = "InProgress";

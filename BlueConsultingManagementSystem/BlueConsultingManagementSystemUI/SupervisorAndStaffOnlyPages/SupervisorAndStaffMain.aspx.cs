@@ -14,6 +14,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //If the user is a Staff position, it will hide the buttons that is does not have access to and reveal the ones it does.
             if (User.IsInRole("Staff"))
             {
                 ApprovedReportsButton.Visible = true;

@@ -17,8 +17,8 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
     {
         private string reportName;
         private string deptName;
-        private int REP_POS = 1;
-        private int DEPT_POS = 2;
+        private readonly int REP_POS = 1;
+        private readonly int DEPT_POS = 2;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -32,6 +32,9 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             CurrentReportNamesSQLConnection.DataBind();
         }
     
+        /*
+         * If a user continues to work on a report, the report and department names are stored for use on the next page
+         */
         protected void CurrentReportNamesSQLConnection_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
             string currentCommand = e.CommandName;
@@ -44,6 +47,9 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             Response.Redirect("ConsultantAddReport.aspx");
         }
 
+        /*
+        * Indicates to the next page that this is a new report
+        */
         protected void NewReportButton_Click(object sender, EventArgs e)
         {
             Session["reportName"] = "";

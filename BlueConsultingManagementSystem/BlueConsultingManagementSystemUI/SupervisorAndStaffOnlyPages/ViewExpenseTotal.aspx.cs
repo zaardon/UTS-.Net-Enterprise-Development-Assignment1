@@ -28,11 +28,13 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         private void LoadData()
         {
+            //If a Supervisor role, it only displays the expense and budget values...
             if (User.IsInRole("Department Supervisor"))
             {
                 TotalExpenses.Text = "Total expenses for your department for this month, " + userGroupMember + ", are: $" + new DatabaseHandler().ReturnDepartmentExpensesMade(userGroupMember).ToString();
                 RemainingBudget.Text = "Remaining budget for your department for this month is: $" + DepartmentBudgetRemaining().ToString();
             }
+            //...If it is a Staff role, expense and budget values are displayed along with supervisor names and their expenses processed.
             else if(User.IsInRole("Staff"))
             {
                 LoadStaffData();
@@ -60,7 +62,6 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         private double RemainingTotalBudgetForStaff()
         {
-            //How is this working?
             return new DatabaseHandler().ReturnTotalBudgetRemaining();
         }
 
