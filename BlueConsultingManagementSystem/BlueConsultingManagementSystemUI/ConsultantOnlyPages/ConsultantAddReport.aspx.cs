@@ -66,8 +66,14 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
                     new DatabaseHandler().InsertConsultantExpenseQuery(reportBox.Text, User.Identity.Name, LocationBox.Text, DescriptionBox.Text, Convert.ToDouble(AmountBox.Text), CurrencyList.Text, DepartmentList.Text, ExpenseCalendar.SelectedDate.Date);
                 else
                 {
-                    byte[] file = PDFFileUpload.FileBytes;
-                    new DatabaseHandler().InsertConsultantExpenseQueryWithPDF(reportBox.Text, User.Identity.Name, LocationBox.Text, DescriptionBox.Text, Convert.ToDouble(AmountBox.Text), CurrencyList.Text, DepartmentList.Text, ExpenseCalendar.SelectedDate.Date, file);
+
+                    if (Path.GetExtension(PDFFileUpload.FileName) == ".pdf")
+                    {
+                        byte[] file = PDFFileUpload.FileBytes;
+                        new DatabaseHandler().InsertConsultantExpenseQueryWithPDF(reportBox.Text, User.Identity.Name, LocationBox.Text, DescriptionBox.Text, Convert.ToDouble(AmountBox.Text), CurrencyList.Text, DepartmentList.Text, ExpenseCalendar.SelectedDate.Date, file);
+                    }
+                    else
+                        throw new Exception("Sorry this File upload only accepts PDF's");
                 }
 
                 Response.Redirect("ConsultantMain.aspx");
