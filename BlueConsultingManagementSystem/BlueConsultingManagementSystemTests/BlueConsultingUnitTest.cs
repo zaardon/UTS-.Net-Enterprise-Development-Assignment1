@@ -46,7 +46,7 @@ namespace BlueConsultingManagementSystemTests
         // adding an expense then checking the expensereports status etc
         [TestCategory("Consultant")]
         [TestMethod]
-        public void ConsultantTest1()
+        public void ConsultantTest()
         {
             StaffSetupDepartment();
             using (TransactionScope TestTransaction = new TransactionScope())
