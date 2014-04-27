@@ -15,7 +15,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SuperViso
     {
         private string reportName;
         private string userGroupMember;
-        private int REP_POS = 1;
+        private readonly int REP_POS = 1;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -35,6 +35,9 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages.SuperViso
             RejectedResultsGridViewSQLConnection.DataBind();
         }
 
+        /*
+         * Allows the user to view a rejected report through the gridview's row command
+         */
         protected void RejectedResultsGridViewSQLConnection_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
             string currentCommand = e.CommandName;

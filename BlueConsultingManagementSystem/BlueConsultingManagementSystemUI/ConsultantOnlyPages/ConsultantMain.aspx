@@ -11,7 +11,7 @@
      <div class="modal-header">
         <div class ="panel panel-primary"  >  
             <div class="panel-heading">
-                <h1 class="panel-title"> Blue management Consultant expense</h1>
+                <h1 class="panel-title"> Blue management Consultant Expense</h1>
                 </div>
              <div id="padSpacer" align="center">
     <form id="form1" runat="server">

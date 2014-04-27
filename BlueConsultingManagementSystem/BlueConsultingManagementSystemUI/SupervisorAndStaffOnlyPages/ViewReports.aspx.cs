@@ -19,16 +19,16 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         private string deptNameForStaff;
         private string userGroupMember = "";
         private string department = "";
-        private int NAME_POS = 1;
-        private int LOC_POS = 2;
-        private int DESC_POS = 3;
-        private int AMOUNT_POS = 4;
-        private int CURR_POS = 5;
+        private readonly int NAME_POS = 1;
+        private readonly int LOC_POS = 2;
+        private readonly int DESC_POS = 3;
+        private readonly int AMOUNT_POS = 4;
+        private readonly int CURR_POS = 5;
         
         protected void Page_Load(object sender, EventArgs e)
         {
             reportName = Session["reportName"].ToString();
-            Label1.Text = reportName;
+            ReportLabel.Text = reportName;
 
             if (User.IsInRole("Higher Education Services"))
                 userGroupMember = "Higher Education";
@@ -55,11 +55,13 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         {
             if (IsUnderBudget())
             {
+                //Approves the report, no questions asked.
                 ApproveReport();                
                 Response.Redirect("SupervisorAndStaffMain.aspx");
             }
             else
             {
+                //Provides a confirmation to approve the report...
                 ConfirmLabel.Text = "Are you sure you want to proceed? The current department budget is: $" + ReturnCurrentDeptMoney()+" AUD";
                 ConfirmLabel.Visible = true;
                 ConfirmButton.Visible = true;
@@ -74,17 +76,19 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         protected bool IsUnderBudget()
         {
-            if (GetTotalReportAmount() <= ReturnCurrentDeptMoney())                        
+            if (GetTotalReportAmount() <= ReturnCurrentDeptMoney()) 
                 return true;
-            else
-                return false;
+            else 
+                return false;               
         }
 
         private double ReturnCurrentDeptMoney()
         {
+            //If a Department Supervisor, returns the current department money from the P.O.V. of their user account
             if (department == "DepartmentSupervisor")
                 return new DatabaseHandler().ReturnCurrentDepartmentMoney(userGroupMember);
             else
+            //If a Staff member, returns the current department money from the P.O.V. of their user account, according to the supervisor's department name
             {
                 string deptName = DisplayResultsGridSQLConnection.Rows[0].Cells[7].Text.ToString();
                 return new DatabaseHandler().ReturnDepartmentBudgetForStaffExpenses(deptName);
@@ -97,6 +101,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             string amount = "";
             string currency = "";
 
+            //Returns the current amount of money (in AUD) of the report
             foreach (GridViewRow row in DisplayResultsGridSQLConnection.Rows)
             {
                 amount = row.Cells[AMOUNT_POS].Text.ToString();
@@ -115,37 +120,38 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
         {
             if (department == "DepartmentSupervisor")
             {
-                ApproveSupervisor();
+                ApproveReportForSupervisor();
+                //Deducts the budget from the supervisor's department
                 DeductBudget();
             }
             else if (department == "Staff")
-                ApproveReportStaff();
+                ApproveReportForStaffMember();
         }
 
         private void DenyReport()
         {
             if(department == "DepartmentSupervisor")
-                DenySupervisor();
+                DenyReportForSupervisor();
             else if (department == "Staff")
-                DenyReportStaff();
+                DenyReportForStaffMember();
         }
 
-        private void DenyReportStaff()
+        private void DenyReportForStaffMember()
         {
             new DatabaseHandler().DenyReportForStaffMember(reportName, GetTotalReportAmount(), deptNameForStaff);
         }
 
-        private void ApproveReportStaff()
+        private void ApproveReportForStaffMember()
         {
             new DatabaseHandler().ApproveReportForStaffMember(reportName, deptNameForStaff);
         }
 
-        private void DenySupervisor()
+        private void DenyReportForSupervisor()
         {
             new DatabaseHandler().DenyReportForSupervisor(User.Identity.Name, reportName, userGroupMember);
         }
 
-        private void ApproveSupervisor()
+        private void ApproveReportForSupervisor()
         {
             new DatabaseHandler().ApproveReportForSupervisor(User.Identity.Name, reportName, userGroupMember);
         }
@@ -158,6 +164,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
 
         private void FillExpenseTable()
         {
+            //Loads the gridview according to what account the user belongs to.
             if (User.IsInRole("Department Supervisor"))
                 DisplayResultsGridSQLConnection.DataSource = new DatabaseHandler().ReturnNonRejectedOrApprovedExpenses(reportName,userGroupMember);
             else if (department == "Staff")
@@ -166,6 +173,9 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             DisplayResultsGridSQLConnection.DataBind();
         }
 
+        /*
+        * Allows the user to view the PDF file of an expense, if available
+        */
         protected void DisplayResultsGridSQLConnection_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
             string currentCommand = e.CommandName;
@@ -178,6 +188,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
             double amount = Convert.ToDouble(selectedRow.Cells[AMOUNT_POS].Text.ToString());
             string currency = selectedRow.Cells[CURR_POS].Text.ToString();
 
+            //If a PDF file exists for an individual expense, it is loaded in it's PDF format to the page...
             byte[] pdfFile = new DatabaseHandler().RetrievePDFPage(reportName, name, location, description, amount, currency);
             if(pdfFile != null && pdfFile.Length !=0)
             {
@@ -186,6 +197,7 @@ namespace BlueConsultingManagementSystemUI.SupervisorAndStaffOnlyPages
                   HttpContext.Current.Response.BinaryWrite((byte[])pdfFile);//get data in variable in binary format
                   HttpContext.Current.Response.End();
             }
+            //...else it returns a message saying one cannot be found.
             else
                 excLbl.Text = "No PDF File for expense has been added";
         }

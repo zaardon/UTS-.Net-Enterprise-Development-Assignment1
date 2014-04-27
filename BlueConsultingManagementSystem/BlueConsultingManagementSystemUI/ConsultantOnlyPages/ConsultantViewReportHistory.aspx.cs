@@ -15,12 +15,12 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
     {
         private string reportName;
         private string deptName;
-        private int REP_POS = 1;
-        private int DEPT_POS = 2;
+        private readonly int REP_POS = 1;
+        private readonly int DEPT_POS = 2;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string reportType = (string)Session["reportType"];
+            string reportType = (string)Session["reportType"]; //Retrieves the type of report selected on the previous page...
 
             if (reportType == "AllSubmitted")
                 LoadSubmittedReports();
@@ -48,6 +48,9 @@ namespace BlueConsultingManagementSystemUI.ConsultantOnlyPages
             ConsultantHistorySQLConnection.DataBind();
         }
 
+        /*
+         * Allows the user to view a selected report through the gridview's row command
+         */
         protected void ConsultantHistorySQLConnection_RowCommand(object sender, System.Web.UI.WebControls.GridViewCommandEventArgs e)
         {
             string currentCommand = e.CommandName;

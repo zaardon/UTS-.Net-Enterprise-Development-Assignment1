@@ -14,7 +14,7 @@
         <div class ="panel panel-primary" style="align-content:center">
             <div class="panel-heading">
              <h1 class="panel-title"> Blue management system - Report Name :
-                 <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
+                 <asp:Label ID="ReportLabel" runat="server" Text="Label"></asp:Label>
                 </h1>
                 </div>
           <div id="padSpacer" align="center">

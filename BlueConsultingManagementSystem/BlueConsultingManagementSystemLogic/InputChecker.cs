@@ -12,6 +12,9 @@ namespace BlueConsultingManagementSystemLogic
         public InputChecker()
         { }
 
+        /*
+         * Checks to see if an input field contains any characters that are of punctuation
+         */
         public bool HasPunctuationCharacters(string checkString)
         {
             foreach (Char c in checkString)
