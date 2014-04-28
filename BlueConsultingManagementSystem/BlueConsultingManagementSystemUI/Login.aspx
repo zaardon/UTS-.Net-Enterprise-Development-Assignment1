@@ -24,10 +24,6 @@
        </div>
     <div class="modal-footer">
        <div class="well-sm">
-        Student numbers and UTS AND WHATE EVER ELSE
-            </br>
-            Also working on centring the elements in aspx.css is a pain
-        
     </div>
         </div>
 </body>
