@@ -10,14 +10,20 @@ The start web page to this program is 'Login.aspx'. Running this will prompt the
 (see below for accounts). The user will be then prompted to select the Consultant or Supervisor/Staff
 aspects of the program.
 
-------NOTE-------
+------RUNNING THE CODE NOTE-------
 The App.config file located in 'BlueConsultingManagementSystemTests' and the Web.config file located in
 'BlueConsultingManagementSystemUI' requires a hardcoded connectionString to the local database used for authentication.
 The database is called DATABASE.MDF and it is located within the App_Data folder inside 'BlueConsultingManagementSystemLogic'.
 
 Commented out examples have been left as an example of how it has been done in both *.config files
 
-------------------
+----------------------------------
+
+
+---------TESTING NOTE-------------
+It is assumed that the tests will be run prior to any data being added, adopting a test-first practice.
+While some aspect will work with the data being changed, others in particular (staff) will not.
+----------------------------------
 
 *******************************************************************************************************
 
