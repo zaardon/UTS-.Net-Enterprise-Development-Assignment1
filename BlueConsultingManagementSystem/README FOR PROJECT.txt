@@ -22,7 +22,7 @@ Commented out examples have been left as an example of how it has been done in b
 
 ---------TESTING NOTE-------------
 It is assumed that the tests will be run prior to any data being added, adopting a test-first practice.
-While some aspect will work with the data being changed, others in particular (staff) will not.
+While some aspects will work with the data being changed, others in particular (staff) will not.
 ----------------------------------
 
 *******************************************************************************************************
