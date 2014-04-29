@@ -48,9 +48,10 @@ namespace BlueConsultingManagementSystemTests
         [TestMethod]
         public void ConsultantTest()
         {
-            StaffSetupDepartment();
+           
             using (TransactionScope TestTransaction = new TransactionScope())
             {
+                StaffSetupDepartment();
                 bool inUse = dh.CheckReportNameInUse("ApprovedReport");
                 Assert.IsFalse(inUse);
 
@@ -88,7 +89,6 @@ namespace BlueConsultingManagementSystemTests
 
                 TestTransaction.Dispose();
             }
-            StaffDeleteDepartment();
         }
 
         // this is the Supervisor test which tests all methods involved with Supervisor 
@@ -101,9 +101,9 @@ namespace BlueConsultingManagementSystemTests
         public void SupervisorTest()
         {
             // un approved scope
-            StaffSetupDepartment();
             using (TransactionScope TestTransaction = new TransactionScope())
             {
+                StaffSetupDepartment();
                 dh.InsertConsultantExpenseQuery("StateServicesReport1", "User", "Location", "Description", 100.00, "AUD", "TestDBState", DateTime.Today);
                 dh.InsertConsultantExpenseQuery("StateServicesReport2", "User", "Location", "Description", 100.00, "AUD", "TestDBState", DateTime.Today);
                 dh.InsertConsultantExpenseQuery("LogisticServicesReport1", "User", "Location", "Description", 100.00, "AUD", "TestDBLogistic", DateTime.Today);
@@ -121,6 +121,7 @@ namespace BlueConsultingManagementSystemTests
             // checking supervisor approval
             using (TransactionScope TestTransaction = new TransactionScope())
             {
+                StaffSetupDepartment();
                 dh.InsertConsultantExpenseQuery("ApprovedTest1", "User", "Location", "Description", 100.00, "AUD", "TestDBState", DateTime.Today);
                 dh.ApproveReportForSupervisor("Supervisor", "ApprovedTest1", "TestDBState");
 
@@ -136,6 +137,7 @@ namespace BlueConsultingManagementSystemTests
             // viewing rejected reports
             using (TransactionScope TestTransaction = new TransactionScope())
             {
+                StaffSetupDepartment();
                 dh.InsertConsultantExpenseQuery("UnapprovedTest1", "User", "Location", "Description", 100.00, "AUD", "TestDBState", DateTime.Today);
                 dh.DenyReportForSupervisor("Supervisor", "UnapprovedTest1", "TestDBState");
 
@@ -152,6 +154,7 @@ namespace BlueConsultingManagementSystemTests
             // adding to the budget
             using (TransactionScope TestTransaction = new TransactionScope())
             {
+                StaffSetupDepartment();
                 dh.InsertConsultantExpenseQuery("ApprovedTest1", "User", "Location", "Description", 100.00, "AUD", "TestDBState", DateTime.Today);
                 dh.InsertConsultantExpenseQuery("ApprovedTest2", "User", "Location", "Description", 100.00, "AUD", "TestDBState", DateTime.Today);
                 dh.ApproveReportForSupervisor("Supervisor", "ApprovedTest1", "TestDBState");
@@ -164,6 +167,7 @@ namespace BlueConsultingManagementSystemTests
             // checking your department budget
             using (TransactionScope TestTransaction = new TransactionScope())
             {
+                StaffSetupDepartment();
                 dh.InsertConsultantExpenseQuery("ApprovedTest1", "User", "Location", "Description", 100.00, "AUD", "TestDBState", DateTime.Today);
                 dh.InsertConsultantExpenseQuery("ApprovedTest2", "User", "Location", "Description", 100.00, "AUD", "TestDBState", DateTime.Today);
                 dh.ApproveReportForStaffMember("ApprovedTest1", "TestDBState");
@@ -182,6 +186,7 @@ namespace BlueConsultingManagementSystemTests
             // complex functionality test
             using (TransactionScope TestTransaction = new TransactionScope())
             {
+                StaffSetupDepartment();
                 dh.InsertConsultantExpenseQuery("RejectedTest1", "User", "Location", "Description", 200.00, "AUD", "TestDBHigher", DateTime.Today);
                 dh.ApproveReportForSupervisor("Supervisor", "RejectedTest1", "TestDBHigher");
                 dh.DenyReportForStaffMember("RejectedTest1", 100.00, "TestDBHigher");
@@ -199,22 +204,22 @@ namespace BlueConsultingManagementSystemTests
 
                 TestTransaction.Dispose();
             }
-            StaffDeleteDepartment();
         }
         // this is the Staff test which tests all methods involved with Staff 
         // 8 methods have been tested.
         // it follows the functionality of Staff and the output to the ui 
         // approving reports submited by the Supervisors 
         // approving budgets subtractions or deny Supervisors, viewing  reports, total budgets etc 
+
         [TestCategory("Staff")]
         [TestMethod]
         public void StaffTest()
         {
-            StaffSetupDepartment();
+            
             // approval
             using (TransactionScope TestTransaction = new TransactionScope())
             {
-
+                StaffSetupDepartment();
                 dh.InsertConsultantExpenseQuery("ApprovedTest1", "User", "Location", "Description", 100.00, "AUD", "TestDBLogistic", DateTime.Today);
                 dh.InsertConsultantExpenseQuery("ApprovedTest2", "User", "Location", "Description", 200.00, "AUD", "TestDBHigher", DateTime.Today);
 
@@ -234,7 +239,7 @@ namespace BlueConsultingManagementSystemTests
             using (TransactionScope TestTransaction = new TransactionScope())
             {
 
-
+                StaffSetupDepartment();
                 dh.InsertConsultantExpenseQuery("ApprovedTest1", "User", "Location", "Description", 100.00, "AUD", "TestDBLogistic", DateTime.Today);
                 dh.ApproveReportForSupervisor("Supervisor1", "ApprovedTest1", "TestDBLogistic");
                 dh.UpdateDepartmentBudget("TestDBLogistic", 100.00);
@@ -283,7 +288,7 @@ namespace BlueConsultingManagementSystemTests
             // all budgets checking total ammounts and multiple approvals
             using (TransactionScope TestTransaction = new TransactionScope())
             {
-
+                StaffSetupDepartment();
                 var dsStaffExpenses = dh.ReturnStaffApprovedExpenses();
                 double AmountMissing = 0.0;
                 for (int i = 0; i < dsStaffExpenses.Tables[0].Rows.Count; i++)
@@ -325,14 +330,14 @@ namespace BlueConsultingManagementSystemTests
                     var totalAUD = dsStaffExpenses.Tables[0].Rows[i]["Total in AUD"];
                     AmountMissing = AmountMissing + Convert.ToDouble(totalAUD);
                 }
-                Assert.AreEqual((59800.00 - (AmountMissing - 200)), budget);
+                Assert.AreEqual((59800 - (AmountMissing - 200)), budget);
 
                 double approved = dh.ReturnTotalStaffExpensesApproved();
                 Assert.AreEqual(Convert.ToDouble(approved), SetSigFigs(AmountMissing, 5));
 
                 TestTransaction.Dispose();
             }
-            StaffDeleteDepartment();
+            
 
         }
         // setup for testing methods.
@@ -350,22 +355,6 @@ namespace BlueConsultingManagementSystemTests
             sqlcmd.ExecuteNonQuery();
             dh.RetrieveSQLConnection().Close();
         }
-
-        public void StaffDeleteDepartment()
-        {
-            dh.RetrieveSQLConnection().Open();
-            string cmd = "DELETE FROM [dbo].[DepartmentDB] WHERE Dept_Name = 'TestDBLogistic'";
-            string cmd2 = "DELETE FROM [dbo].[DepartmentDB] WHERE Dept_Name = 'TestDBHigher'";
-            string cmd3 = "DELETE FROM [dbo].[DepartmentDB] WHERE Dept_Name = 'TestDBState'";
-            SqlCommand sqlcmd = new SqlCommand(cmd, dh.RetrieveSQLConnection());
-            sqlcmd.ExecuteNonQuery();
-            sqlcmd = new SqlCommand(cmd2, dh.RetrieveSQLConnection());
-            sqlcmd.ExecuteNonQuery();
-            sqlcmd = new SqlCommand(cmd3, dh.RetrieveSQLConnection());
-            sqlcmd.ExecuteNonQuery();
-            dh.RetrieveSQLConnection().Close();
-        }
-
 
         // when testing money amounts it won't assert true is equal unless you round properly
         public static double SetSigFigs(double d, int digits)
