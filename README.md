@@ -5,8 +5,8 @@ Authors: Alexander Smith & James Chahwan
 
 ### Technology/Technique Used ###
 * TTD 
-* Asp.net
-* bootstrap 
+* ASP.Net
+* Bootstrap 
 
  
-Similar to [Assignment2 .net](https://github.com/zaardon/UTS-.Net-Enterprise-Development-Assignment2) with mvc.net instead of asp.net
+Similar to [Assignment2 .net](https://github.com/zaardon/UTS-.Net-Enterprise-Development-Assignment2) with MVC.Net instead of ASP.Net
