@@ -9,4 +9,4 @@ Authors: Alexander Smith & James Chahwan
 * Bootstrap 
 
  
-Similar to [Assignment2 .net](https://github.com/zaardon/UTS-.Net-Enterprise-Development-Assignment2) with MVC.Net instead of ASP.Net
+Similar to [Assignment2 .net](https://github.com/zaardon/UTS-.Net-Enterprise-Development-Assignment2), however, this website uses ASP.Net rather than MVC.Net
